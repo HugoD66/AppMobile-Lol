@@ -1,12 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View} from 'react-native';
 import FirstSlide from './app/pages/intro/FirstSlide';
+import ThirdSlide from "./app/pages/intro/ThirdSlide";
 
 export default function App() {
   return (
     <View style={styles.container}>
-        <FirstSlide  />
-      <StatusBar style="auto" />
+        <ThirdSlide/>
     </View>
   );
 }
@@ -18,4 +17,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+  }
 });
