@@ -5,8 +5,7 @@ import SecondSlide from "./app/pages/intro/SecondSlide";
 export default function App() {
   return (
     <View style={styles.container}>
-        <SecondSlide />
-      <StatusBar style="auto" />
+        <FirstSlide />
     </View>
   );
 }
