@@ -1,42 +1,47 @@
-import React, { useRef } from 'react';
-import {Alert, Animated, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {Alert, Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {StackNavigationProps} from "../../../App";
 
-export default function FirstSlide() {
-    // Créez une nouvelle valeur d'animation
+export function FirstSlide() {
     const rotateAnim = useRef(new Animated.Value(0)).current;
+    const navigation = useNavigation<StackNavigationProps>(); // Hook pour utiliser la navigation
 
-    // Démarrez l'animation de rotation
-    const startRotation = () => {
+    const animateAndNavigate = () => {
         // Remettre à zéro l'animation
         rotateAnim.setValue(0);
-        // Lancez une animation qui tourne l'image de manière continue
-        Animated.loop(
-            Animated.timing(rotateAnim, {
-                toValue: 1, // L'animation se termine à la valeur 1 après un cycle complet
-                duration: 3000, // Durée de 3000ms pour chaque cycle
-                useNativeDriver: true, // Utilise le driver natif pour de meilleures performances
-            })
-        ).start();
+
+        // Lancez une animation qui tourne l'image une fois
+        Animated.timing(rotateAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+        }).start(() => {
+            console.log({navigation: navigation.getState()})
+            navigation.navigate('SecondSlide');
+        }); // Après l'animation, naviguez vers SecondSlide
     };
 
-    // Mappez la valeur d'animation interpolée à une propriété de rotation
+    useEffect(() => {
+        animateAndNavigate()
+    }, [])
+
     const rotation = rotateAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg'], // Rotation de 0 à 360 degrés
+        outputRange: ['0deg', '360deg'],
     });
 
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {
                 Alert.alert('Coucou');
-                startRotation(); // Démarrez l'animation lorsque l'utilisateur appuie sur l'image
+                animateAndNavigate(); // Démarrez l'animation et la navigation
             }}>
-                <Animated.Image // Utilisez Animated.Image au lieu de Image
-                    style={[styles.image, { transform: [{ rotate: rotation }] }]} // Appliquez la rotation
+                <Animated.Image
+                    style={[styles.image, { transform: [{ rotate: rotation }] }]}
                     source={require('../../../assets/intro/introLogo.png')}
                 />
             </TouchableOpacity>
-            <StatusBar/>
         </View>
     );
 }
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 100, // Spécifiez une largeur
-        height: 100, // et une hauteur pour l'image
+        width: 100,
+        height: 100,
     },
 });
