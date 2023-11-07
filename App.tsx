@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View} from 'react-native';
-import FirstSlide from './app/pages/intro/FirstSlide';
-import SecondSlide from "./app/pages/intro/SecondSlide";
-export default function App() {
-  return (
-    <View style={styles.container}>
-        <FirstSlide />
-    </View>
-  );
+import {FirstSlide} from './app/pages/intro/FirstSlide';
+import {SecondSlide} from "./app/pages/intro/SecondSlide";
+
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
+
+type StackParamList = {
+  FirstSlide?: undefined;
+  SecondSlide?: undefined;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'orange',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
+
+const Stack = createNativeStackNavigator<StackParamList>();
+
+export default function App() {
+  return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={'FirstSlide'} component={FirstSlide} />
+          <Stack.Screen name={'SecondSlide'} component={SecondSlide} />
+        </Stack.Navigator>
+      </NavigationContainer>
+  );
+}
