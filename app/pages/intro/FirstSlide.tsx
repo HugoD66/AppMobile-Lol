@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+
 export default function FirstSlide() {
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => Alert.alert('Coucou')}>
+            <TouchableOpacity >
                 <Image source={require('../../../assets/intro/introLogo.png')} />
             </TouchableOpacity>
             <StatusBar style="auto" />

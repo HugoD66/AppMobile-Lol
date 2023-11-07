@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View} from 'react-native';
 import FirstSlide from './app/pages/intro/FirstSlide';
-import SecondSlide from "./app/pages/intro/SecondSlide";
+
 export default function App() {
   return (
     <View style={styles.container}>
-        <SecondSlide />
+        <FirstSlide  />
       <StatusBar style="auto" />
     </View>
   );
