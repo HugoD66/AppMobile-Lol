@@ -4,7 +4,7 @@ export default function SecondSlide() {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => Alert.alert('Coucou')}>
-                <Image source={require('../../../assets/intro/introLogo.png')} />
+                <Image source={require('../../../assets/intro/intro-secondSlide.png')} />
             </TouchableOpacity>
             <StatusBar style="auto" />
         </View>

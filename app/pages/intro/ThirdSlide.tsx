@@ -4,7 +4,7 @@ export default function ThirdSlide() {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => Alert.alert('Coucou')}>
-                <Image source={require('../../../assets/intro/introLogo.png')} />
+                <Image source={require('../../../assets/intro/intro-thirthSlide.png')} />
             </TouchableOpacity>
             <StatusBar style="auto" />
         </View>
