@@ -1,17 +1,14 @@
 import React, {useEffect, useRef} from 'react';
-import {Alert, Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {StackNavigationProps} from "../../../App";
 
 export function FirstSlide() {
     const rotateAnim = useRef(new Animated.Value(0)).current;
-    const navigation = useNavigation<StackNavigationProps>(); // Hook pour utiliser la navigation
+    const navigation = useNavigation<StackNavigationProps>();
 
     const animateAndNavigate = () => {
-        // Remettre à zéro l'animation
         rotateAnim.setValue(0);
-
-        // Lancez une animation qui tourne l'image une fois
         Animated.timing(rotateAnim, {
             toValue: 1,
             duration: 1000,
@@ -19,7 +16,7 @@ export function FirstSlide() {
         }).start(() => {
             console.log({navigation: navigation.getState()})
             navigation.navigate('SecondSlide');
-        }); // Après l'animation, naviguez vers SecondSlide
+        });
     };
 
     useEffect(() => {
@@ -34,8 +31,7 @@ export function FirstSlide() {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {
-                Alert.alert('Coucou');
-                animateAndNavigate(); // Démarrez l'animation et la navigation
+                animateAndNavigate();
             }}>
                 <Animated.Image
                     style={[styles.image, { transform: [{ rotate: rotation }] }]}
