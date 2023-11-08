@@ -1,11 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../App";
+import {useEffect} from "react";
 
 export default function ThirdSlide() {
+    const navigation = useNavigation<StackNavigationProps>();
+    const navigate = () => {
+        console.log({navigation: navigation.getState()})
+        navigation.navigate('FourthSlide');
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigate();
+        }, 3000); // Ajoute un délai d'une seconde avant de naviguer
+
+        return () => clearTimeout(timer); // Nettoyez le timer lorsque le composant est démonté ou avant que l'effet s'exécute à nouveau
+    }, [])
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => Alert.alert('Coucou')}>
+            <TouchableOpacity onPress={() => {
+                navigate();
+            }}>
                 <LinearGradient
                     // Les couleurs du dégradé
                     colors={['rgba(0,0,0,0.8)', 'transparent']}
