@@ -6,19 +6,14 @@ import {StackNavigationProps} from "../../../App";
 import {useEffect} from "react";
 
 export default function ThirdSlide() {
+
     const navigation = useNavigation<StackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
         navigation.navigate('FourthSlide');
     };
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            navigate();
-        }, 3000); // Ajoute un délai d'une seconde avant de naviguer
 
-        return () => clearTimeout(timer); // Nettoyez le timer lorsque le composant est démonté ou avant que l'effet s'exécute à nouveau
-    }, [])
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {
@@ -34,10 +29,10 @@ export default function ThirdSlide() {
                     // Style du dégradé
                     // ===>   style={styles.gradient}
                 >
-                <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
+                    <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
                 </LinearGradient >
             </TouchableOpacity>
-            <StatusBar style="auto" />
+
         </View>
     );
 }
