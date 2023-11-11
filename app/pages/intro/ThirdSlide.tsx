@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, {useEffect} from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
-import React, {useEffect} from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ThirdSlide() {
 
@@ -15,23 +14,21 @@ export default function ThirdSlide() {
 
 
     return (
-        <View style={styles.container}>
-            <LinearGradient style={styles.linearGradient}
-                            colors={[
-                                'rgba(52,43,43,0)',
-                                'rgb(0,0,0)'
-                            ]}
-            />
+      <View style={styles.container}>
+          <LinearGradient style={styles.linearGradient}
+                          colors={[
+                              'rgba(52,43,43,0)',
+                              'rgb(0,0,0)'
+                          ]}
+          />
 
-                <Text style={styles.title}>Élevez votre elo rapidement </Text>
-
-                <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
-            <TouchableOpacity onPress={() => {
-                navigate();
-            }}>
-                <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-            </TouchableOpacity>
-        </View>
+          <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
+          <Text style={styles.title}>Élevez votre elo rapidement </Text>
+          <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
+          <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
+              <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+          </TouchableOpacity>
+      </View>
     );
 }
 
@@ -46,8 +43,9 @@ const styles = StyleSheet.create({
     },
     image: {
         margin: 0,
-        top: -250,
-        height: 700,
+        top: -50,
+        height: '60%',
+        width: '100%',
         resizeMode: 'cover',
         zIndex: 1,
         position: 'absolute'
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 2,
+        zIndex: 3,
         position:'absolute',
         height: 530,
         top: -80,
@@ -82,15 +80,14 @@ const styles = StyleSheet.create({
     },
     button: {
         zIndex: 6,
-        bottom: -280,
-        width: '25%',
-        height: '18%',
+        bottom: '-33%',
+        width: '15%',
         backgroundColor: 'rgb(72,0,255)',
         margin: 'auto',
-
     },
     pictureButton: {
         margin: 'auto',
+        width: '100%',
 
     }
 });
