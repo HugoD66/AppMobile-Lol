@@ -38,6 +38,7 @@ export function FirstSlide() {
                     source={require('../../../assets/intro/introLogo.png')}
                 />
             </TouchableOpacity>
+
         </View>
     );
 }
