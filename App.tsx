@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
 import ThirdSlide from "./app/pages/intro/ThirdSlide";
 import FourthSlide from "./app/pages/intro/FourthSlide";
+import {Accueil} from "./app/pages/accueil/Accueil";
 
 
 type StackParamList = {
@@ -20,6 +21,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
+    <Accueil />
+      /*
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name={'FirstSlide'} component={FirstSlide} />
@@ -28,5 +31,6 @@ export default function App() {
           <Stack.Screen name={'FourthSlide'} component={FourthSlide} />
         </Stack.Navigator>
       </NavigationContainer>
+       */
   );
 }

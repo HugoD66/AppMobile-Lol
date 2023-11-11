@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Animated, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
 import {LinearGradient} from "expo-linear-gradient";
@@ -19,14 +19,12 @@ export function SecondSlide() {
                                 'rgb(0,0,0)'
                             ]}
             />
-
-                <Image  style={styles.image} source={require('../../../assets/intro/intro-secondSlide.png')} />
-                <Text style={styles.title}>Élevez votre elo rapidement </Text>
-                <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
-                <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
-                    <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-
-                </TouchableOpacity>
+            <Image  style={styles.image} source={require('../../../assets/intro/intro-secondSlide.png')} />
+            <Text style={styles.title}>Choisissez les meilleurs champions </Text>
+            <Text style={styles.desc}> "Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu. </Text>
+            <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
+                <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+            </TouchableOpacity>
         </View>
     );
 }
@@ -58,11 +56,11 @@ const styles = StyleSheet.create({
         top: -80,
     },
     title: {
-        width: '60%',
+        width: '100%',
         zIndex: 3,
         color: 'white',
         textAlign: 'center',
-        bottom: -125,
+        bottom: '-20%',
         //fontFamily: 'DM Sans',
         fontSize: 32,
     },
@@ -71,20 +69,21 @@ const styles = StyleSheet.create({
         color: '#B3B0B8',
         fontWeight: "light",
         letterSpacing: 2,
-        bottom: -150,
+        bottom: '-25%',
         width: '70%',
         fontSize: 16,
         //fontFamily: 'Calibri'
     },
     button: {
         zIndex: 6,
-        bottom: -280,
-        width: '25%',
-        height: '18%',
+        bottom: '-31%',
+        width: '15%',
         backgroundColor: 'rgb(72,0,255)',
         margin: 'auto',
     },
     pictureButton: {
         margin: 'auto',
+        width: '100%',
+
     }
 })
