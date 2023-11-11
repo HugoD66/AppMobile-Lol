@@ -6,6 +6,7 @@ import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navi
 import ThirdSlide from "./app/pages/intro/ThirdSlide";
 import FourthSlide from "./app/pages/intro/FourthSlide";
 
+
 type StackParamList = {
   FirstSlide?: undefined;
   SecondSlide?: undefined;

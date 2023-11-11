@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
 export default function ThirdSlide() {
 
@@ -16,23 +16,21 @@ export default function ThirdSlide() {
 
     return (
         <View style={styles.container}>
+            <LinearGradient style={styles.linearGradient}
+                            colors={[
+                                'rgba(52,43,43,0)',
+                                'rgb(0,0,0)'
+                            ]}
+            />
+
+                <Text style={styles.title}>Élevez votre elo rapidement </Text>
+
+                <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
             <TouchableOpacity onPress={() => {
                 navigate();
             }}>
-                <LinearGradient
-                    // Les couleurs du dégradé
-                    colors={['rgba(0,0,0,0.8)', 'transparent']}
-                    // Début du dégradé à gauche
-                    start={{ x: 0, y: 0 }}
-                    // Fin du dégradé à droite
-                    end={{ x: 1, y: 0 }}
-                    // Style du dégradé
-                    // ===>   style={styles.gradient}
-                >
-                    <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
-                </LinearGradient >
+                <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
             </TouchableOpacity>
-
         </View>
     );
 }
@@ -44,24 +42,55 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-        border: '3px solid orange',
-        top: 0
+        height: '100%'
     },
     image: {
         margin: 0,
-        left: -60,
-        top: -200,
-        height: 500,
-        resizeMode: 'cover', // Assurez-vous que l'image couvre l'espace nécessaire sans être déformée
-        //: 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(124,247,179,0) 29%)'
+        top: -250,
+        height: 700,
+        resizeMode: 'cover',
+        zIndex: 1,
+        position: 'absolute'
     },
-   /*
-    gradient: {
-        width: '100%', // Le dégradé doit avoir la même largeur que l'image
-        height: 500, // Et la même hauteur que l'image
-        position: 'absolute', // Positionnement absolu pour superposer le dégradé à l'image
-        left: -60,
-        top: -200,
+    linearGradient: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 2,
+        position:'absolute',
+        height: 530,
+        top: -80,
+    },
+    title: {
+        width: '60%',
+        zIndex: 3,
+        color: 'white',
+        textAlign: 'center',
+        bottom: -125,
+        //fontFamily: 'DM Sans',
+        fontSize: 32,
+    },
+    desc: {
+        textAlign: 'center',
+        color: '#B3B0B8',
+        fontWeight: "light",
+        letterSpacing: 2,
+        bottom: -150,
+        width: '70%',
+        fontSize: 16,
+        //fontFamily: 'Calibri'
+    },
+    button: {
+        zIndex: 6,
+        bottom: -280,
+        width: '25%',
+        height: '18%',
+        backgroundColor: 'rgb(72,0,255)',
+        margin: 'auto',
+
+    },
+    pictureButton: {
+        margin: 'auto',
+
     }
-    */
 });
