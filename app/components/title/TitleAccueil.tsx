@@ -1,5 +1,6 @@
 import {StyleSheet, View, Text} from "react-native";
 
+// @ts-ignore
 export function TitleAccueil({ title, subtitle }) {
   return (
     <View style={styles.container}>
