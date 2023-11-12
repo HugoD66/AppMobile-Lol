@@ -1,30 +1,32 @@
-import {StyleSheet, View, Image, Text} from "react-native";
+import {StyleSheet, ScrollView} from "react-native";
 import {SumNav} from "../../components/accueil/SumNav";
 import {TitleAccueil} from "../../components/title/TitleAccueil";
-import {Carousel} from "../../components/carousel/Carousel";
+import {CarouselChamp} from "../../components/carousel/CarouselChamp";
+import {CarouselRecommend} from "../../components/accueil/CarouselRecommend/CarouselRecommend";
+import {CarouselRuneterra} from "../../components/carousel/CarouselRuneterra";
+import {ContentPlayerList} from "../../components/accueil/PlayerList/ContentPlayerList";
 
 export function Accueil() {
   return (
-        <View style={styles.container}>
-          <SumNav />
-          <TitleAccueil  title="Mes champions" subtitle="Voir tous"/>
-          <Carousel />
-          <TitleAccueil  title="Recommandés pour vous" subtitle=""/>
-          <TitleAccueil  title="Runeterra" subtitle=""/>
-          <TitleAccueil  title="Builds de pro-players" subtitle="Voir tous"/>
-
-        </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <SumNav />
+      <TitleAccueil  title="Mes champions" subtitle="Voir tous"/>
+      <CarouselChamp />
+      <TitleAccueil  title="Recommandés pour vous" subtitle=""/>
+      <CarouselRecommend />
+      <TitleAccueil  title="Runeterra" subtitle=""/>
+      <CarouselRuneterra />
+      <TitleAccueil  title="Builds de pro-players" subtitle="Voir tous"/>
+      <ContentPlayerList />
+    </ScrollView>
     );
 }
+//      <View style={{height: 800, backgroundColor: 'red', width: '100%'}}></View>
 
 const styles = StyleSheet.create({
   container: {
-      width: '100%',
-      flex: 1,
-      backgroundColor: 'black',
-      alignItems: 'center',
-      justifyContent: 'center',
-      display: 'flex',
-      flexDirection: 'column',
+    width: '100%',
+    backgroundColor: '#070707',
+    //paddingVertical: 100
   },
 });

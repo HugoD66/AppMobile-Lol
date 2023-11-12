@@ -22,6 +22,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <Accueil />
+
+
       /*
       <NavigationContainer>
         <Stack.Navigator>
@@ -31,6 +33,8 @@ export default function App() {
           <Stack.Screen name={'FourthSlide'} component={FourthSlide} />
         </Stack.Navigator>
       </NavigationContainer>
+
+
        */
   );
 }
