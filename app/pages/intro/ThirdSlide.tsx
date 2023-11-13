@@ -22,7 +22,7 @@ export default function ThirdSlide() {
                           ]}
           />
 
-          <Image  style={styles.image} source={require('../../../assets/intro/intro-thirthSlide.png')} />
+          <Image  style={styles.backgroundImage} source={require('../../../assets/intro/intro-thirthSlide.png')} />
           <Text style={styles.title}>Élevez votre elo rapidement </Text>
           <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
           <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: '100%'
     },
-    image: {
+    backgroundImage: {
         margin: 0,
         top: -50,
         height: '60%',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     desc: {
         textAlign: 'center',
         color: '#B3B0B8',
-        fontWeight: "light",
+        //fontWeight: "light",
         letterSpacing: 2,
         bottom: -150,
         width: '70%',

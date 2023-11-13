@@ -19,7 +19,7 @@ export function SecondSlide() {
                                 'rgb(0,0,0)'
                             ]}
             />
-            <Image  style={styles.image} source={require('../../../assets/intro/intro-secondSlide.png')} />
+            <Image  style={styles.backgroundImage} source={require('../../../assets/intro/intro-secondSlide.png')} />
             <Text style={styles.title}>Choisissez les meilleurs champions </Text>
             <Text style={styles.desc}> "Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu. </Text>
             <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: '100%'
     },
-    image: {
+    backgroundImage: {
         margin: 0,
         top: -50,
         height: 480,

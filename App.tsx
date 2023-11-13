@@ -6,6 +6,7 @@ import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navi
 import ThirdSlide from "./app/pages/intro/ThirdSlide";
 import FourthSlide from "./app/pages/intro/FourthSlide";
 import {Accueil} from "./app/pages/accueil/Accueil";
+import {Champion} from "./app/pages/champ/Champion";
 
 
 type StackParamList = {
@@ -21,7 +22,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-    <Accueil />
+    <Champion />
+      //<Accueil />
 
 
       /*

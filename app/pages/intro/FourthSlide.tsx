@@ -9,7 +9,7 @@ export default function FourthSlide() {
                                 'rgb(0,0,0)'
                             ]}
            />
-            <Image style={styles.image} source={require('../../../assets/intro/intro-fourthSlide.png')} />
+            <Image style={styles.backgroundImage} source={require('../../../assets/intro/intro-fourthSlide.png')} />
             <Text style={styles.title}>Élevez votre elo rapidement </Text>
             <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
             <TouchableOpacity style={styles.button} onPress={() => { /* handle press */ }}>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: '100%'
     },
-    image: {
+    backgroundImage: {
         margin: 0,
         top: -250,
         height: 700,
