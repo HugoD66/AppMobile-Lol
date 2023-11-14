@@ -1,9 +1,6 @@
 import {StyleSheet, View, Image, Text, TouchableOpacity, ScrollView} from "react-native";
-import {CardChamp} from "./CardChamp";
+import {CardChamp} from "../CarouselChamp/CardChamp";
 import {CardRunterra} from "./CardRunterra";
-
-
-
 
 export function CarouselRuneterra() {
   return (
@@ -12,47 +9,47 @@ export function CarouselRuneterra() {
           <CardRunterra
             subTitleCard={''}
             titleCard={'Demacia'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/1-Demacia.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/1-Demacia.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Noxus'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/2-Noxus.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/2-Noxus.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Shurima'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/3-Shurima.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/3-Shurima.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Shadow Isles'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/4-ShadowIsles.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/4-ShadowIsles.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Bilgewater'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/5-Bildewater.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/5-Bildewater.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Targon'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/6-Targon.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/6-Targon.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Ionia'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/7-Ionia.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/7-Ionia.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Freljord'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/8-Freljord.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/8-Freljord.png')}
           />
           <CardRunterra
             subTitleCard={''}
             titleCard={'Zaun'}
-            imageCard={require('../../../assets/accueil/4-carousel-runeterra/9-Zaun.png')}
+            imageCard={require('../../../../assets/accueil/4-carousel-runeterra/9-Zaun.png')}
           />
         </View>
       </ScrollView>
