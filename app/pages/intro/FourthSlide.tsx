@@ -1,6 +1,13 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../App";
+import {ButtonOne} from "../../components/button/ButtonOne";
 export default function FourthSlide() {
+
+
+
+
     return (
         <View style={styles.container}>
             <LinearGradient style={styles.linearGradient}
@@ -12,9 +19,7 @@ export default function FourthSlide() {
             <Image style={styles.backgroundImage} source={require('../../../assets/intro/intro-fourthSlide.png')} />
             <Text style={styles.title}>Élevez votre elo rapidement </Text>
             <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
-            <TouchableOpacity style={styles.button} onPress={() => { /* handle press */ }}>
-                <Text>azefa aa faf</Text>
-            </TouchableOpacity>
+            <ButtonOne />
         </View>
     );
 }
@@ -64,12 +69,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         //fontFamily: 'Calibri'
     },
-    button: {
-        zIndex: 6,
-        bottom: -280,
-        width: '90%',
-        height: '18%',
-        backgroundColor: 'rgb(72,0,255)',
-    }
 
 });

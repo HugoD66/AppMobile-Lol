@@ -1,10 +1,18 @@
 import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../App";
 
 
 
 export function CardChamp({titleCard, subTitleCard, imageCard}) {
+  const navigation = useNavigation<StackNavigationProps>();
+  const navigate = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Champion');
+  };
+
   return (
-    <TouchableOpacity onPress={() => console.log('pressed')}>
+    <TouchableOpacity onPress={() => navigate()}>
       <Image style={styles.card} source={imageCard} />
       <Text style={styles.titleCard}>{titleCard}</Text>
       <Text style={styles.subtitleCard}>{subTitleCard}</Text>

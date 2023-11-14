@@ -14,6 +14,8 @@ type StackParamList = {
   SecondSlide?: undefined;
   ThirdSlide?: undefined;
   FourthSlide?: undefined;
+  Accueil?: undefined;
+  Champion?: undefined;
 }
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
@@ -22,7 +24,18 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-    <Champion />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={'FirstSlide'} component={FirstSlide} />
+          <Stack.Screen name={'SecondSlide'} component={SecondSlide} />
+          <Stack.Screen name={'ThirdSlide'} component={ThirdSlide} />
+          <Stack.Screen name={'FourthSlide'} component={FourthSlide} />
+          <Stack.Screen name={'Accueil'} component={Accueil} />
+            <Stack.Screen name={'Champion'} component={Champion} />
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    //<Champion />
      //<Accueil />
 
 

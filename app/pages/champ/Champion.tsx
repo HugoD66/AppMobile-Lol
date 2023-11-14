@@ -1,6 +1,7 @@
 import {Image, View, StyleSheet, Text} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import React from "react";
+import {ButtonOne} from "../../components/button/ButtonOne";
 
 export function Champion() {
     return (
@@ -11,7 +12,10 @@ export function Champion() {
                                'rgb(0,0,0)'
                            ]}
            />
-           <Image  style={styles.backgroundImage} source={require('../../../assets/tempEzChamp/ez-champ-selected.png')} />
+           <Image
+               style={styles.backgroundImage}
+               source={{ uri: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg' }}
+           />
            <View style={styles.flexObligatoire}></View>
            <View style={styles.titleSubTitleIcone}>
                <View style={styles.titleSubTitle}>
@@ -40,7 +44,7 @@ export function Champion() {
                 </Text>
            </View>
            <View style={styles.generalInformations}>
-               <Image style={styles.pictureRole}/>
+               <Image source={require('../../../assets/tempEzChamp/Atirador (1).png')} style={styles.pictureRole}/>
                 <View style={styles.textInformations}>
                     <Text>AZEAZEaze</Text>
                     <Text>Attirator</Text>
@@ -48,9 +52,10 @@ export function Champion() {
                <View style={styles.difficultInformations}>
                    <Text style={styles.textDifficult}>AZEAZEaze</Text>
                    <Text style={styles.niveauDifficult}>Attirator</Text>
-                    <Image />
+                    <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/Nível (1).png')}/>
                </View>
            </View>
+           <ButtonOne />
        </View>
     );
 }
@@ -143,6 +148,15 @@ const styles = StyleSheet.create({
 
     },
     generalInformations: {
+        backgroundColor: 'white',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+
+    },
+    pictureRole: {
 
     },
     textInformations: {
@@ -156,6 +170,9 @@ const styles = StyleSheet.create({
     },
     niveauDifficult: {
 
-    }
+    },
+    pictureDifficult: {
+        backgroundColor: 'red',
+    },
 
 });
