@@ -5,9 +5,6 @@ import {CarouselChamp} from "../../components/carousel/CarouselChamp";
 import {CarouselRecommend} from "../../components/accueil/CarouselRecommend/CarouselRecommend";
 import {CarouselRuneterra} from "../../components/carousel/CarouselRuneterra";
 import {ContentPlayerList} from "../../components/accueil/PlayerList/ContentPlayerList";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
-
 export function Accueil() {
 
   return (

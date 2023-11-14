@@ -3,11 +3,7 @@ import {CardChamp} from "./CardChamp";
 import {CardRunterra} from "./CardRunterra";
 
 
-interface CardRunterraProps {
-  subTitleCard: string,
-  titleCard: string,
-  imageCard: any,
-}
+
 
 export function CarouselRuneterra() {
   return (
@@ -62,21 +58,12 @@ export function CarouselRuneterra() {
       </ScrollView>
   )
 }
-//styleInterpolator={} closing={} transitionSpec={} onClose={} onGestureEnd={} current={} onOpen={} gestureDirection={} headerDarkContent={} pageOverflowEnabled={} insets={} interpolationIndex={} onTransition={} overlayEnabled={} onGestureBegin={} gesture={} onGestureCanceled={} layout={}
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
     paddingVertical: 10,
-    /*
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-     */
   },
   cards: {
-    //width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

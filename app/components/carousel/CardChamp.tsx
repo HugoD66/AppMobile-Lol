@@ -2,9 +2,13 @@ import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
 
+interface CardChampProps {
+  titleCard: string,
+  subTitleCard: string,
+  imageCard: any,
+}
 
-
-export function CardChamp({titleCard, subTitleCard, imageCard}) {
+export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) {
   const navigation = useNavigation<StackNavigationProps>();
   const navigate = () => {
     console.log({navigation: navigation.getState()})

@@ -1,9 +1,13 @@
 import {StyleSheet, Image, Text, View, TouchableOpacity} from "react-native";
 
 
-// A REVOIR
+interface CardRunterraProps {
+  subTitleCard: string,
+  titleCard: string,
+  imageCard: any,
+}
 
-export function CardRunterra({titleCard, subTitleCard, imageCard}) {
+export function CardRunterra({titleCard, subTitleCard, imageCard}: CardRunterraProps) {
   return (
     <TouchableOpacity onPress={() => console.log('pressed')}>
        <Image style={styles.card} source={imageCard} />
