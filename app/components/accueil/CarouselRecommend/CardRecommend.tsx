@@ -1,18 +1,20 @@
 import {StyleSheet, View, Image, TouchableOpacity, Text} from "react-native";
 import React from "react";
+import {ButtonTwo} from "../../button/ButtonTwo";
 
 export function CardRecommend() {
   return (
-    <View style={styles.container}>
+    <View style={styles.card}>
+      <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/3-carousel-recomm/recomm-Vi.png')}></Image>
+
       <Image style={styles.backPicture} source={require('../../../../assets/accueil/3-carousel-recomm/backOne-recomm.png')}></Image>
         <View style={styles.contentCardRecom}>
           <View style={styles.contentText}>
-            <Text style={styles.titleRecomCard}>Ezreal</Text>
-            <Text style={styles.subtitleRecomCard}>AZEARa arARAea arara</Text>
+            <Text style={styles.titleRecomCard}>Vi</Text>
+            <Text style={styles.subtitleRecomCard}>Au défenseur de
+              Piltover</Text>
+            <ButtonTwo />
           </View>
-          <Image style={styles.backPicture} source={require('../../../../assets/accueil/3-carousel-recomm/recomm-Vi.png')}></Image>
-
-
         </View>
 
     </View>
@@ -20,14 +22,13 @@ export function CardRecommend() {
   )
 }
 const styles = StyleSheet.create({
-  container: {
+  card: {
     width: '100%',
-    backgroundColor: 'blue',
     height: 200,
   },
   backPicture: {
     width: '100%',
-    height: '100%',
+    height: 250,
     resizeMode: 'cover',
     position: 'absolute',
   },
@@ -40,11 +41,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   contentText: {
-
+    bottom: 10,
   },
   titleRecomCard: {
-    fontSize: 18,
+    fontSize: 26,
     fontWeight: 'bold',
+    color: 'white'
   },
   subtitleRecomCard: {
     color: 'white',
@@ -62,5 +64,14 @@ const styles = StyleSheet.create({
     margin: 'auto',
     width: '10%',
 
+  },
+  pictureChamp: {
+    width: 380,
+    height: 280,
+    top: -40,
+    resizeMode: 'contain',
+    position: 'absolute',
+    zIndex: 10,
+    left: 100,
   }
 });
