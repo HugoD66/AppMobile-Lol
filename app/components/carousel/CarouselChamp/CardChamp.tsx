@@ -1,18 +1,17 @@
 import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {StackParamList} from "../../../pages/accueil/Accueil";
+import { CardChampProps } from "../../../types/CardChampProps"
 
-interface CardChampProps {
-  titleCard: string,
-  subTitleCard: string,
-  imageCard: any,
-}
+export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
 
 export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) {
   const navigation = useNavigation<StackNavigationProps>();
   const navigate = () => {
-    console.log({navigation: navigation.getState()})
-    navigation.navigate('Champion');
+    navigation.navigate('Champion', {
+      nom: titleCard,
+    });
   };
 
   return (
@@ -25,10 +24,6 @@ export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) 
 }
 const styles = StyleSheet.create({
   card: {
-    /*
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-     */
   },
   titleCard: {
     color: 'white',
@@ -42,7 +37,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
     width: '70%',
-    //textAlign: 'start',
-
   },
 });

@@ -1,11 +1,7 @@
-import {StyleSheet, Image, Text, View, TouchableOpacity} from "react-native";
+import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
+import {CardRunterraProps} from "../../../types/CardRunterraProps";
 
 
-interface CardRunterraProps {
-  subTitleCard: string,
-  titleCard: string,
-  imageCard: any,
-}
 
 export function CardRunterra({titleCard, subTitleCard, imageCard}: CardRunterraProps) {
   return (

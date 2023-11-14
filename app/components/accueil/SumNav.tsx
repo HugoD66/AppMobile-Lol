@@ -1,6 +1,16 @@
-import {StyleSheet, View, Image, Text} from "react-native";
+import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../carousel/CarouselChamp/CardChamp";
+
+
+//export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
 
 export function SumNav() {
+  const navigation = useNavigation<StackNavigationProps>();
+  const navigate = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Search');
+  };
   return (
     <View style={styles.sumNav}>
       <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
@@ -8,7 +18,9 @@ export function SumNav() {
         <Text style={styles.title}>Summoner</Text>
         <Text style={styles.subtitle}>Super lolaifiaieorae</Text>
       </View>
-      <Image style={styles.loopSearch} source={require('../../../assets/accueil/1-nav/loopSumNav.png')} />
+      <TouchableOpacity onPress={() => navigate()}>
+        <Image  style={styles.loopSearch} source={require('../../../assets/accueil/1-nav/loopSumNav.png')} />
+      </TouchableOpacity>
       <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/RankPicture.png')} />
     </View>
 
