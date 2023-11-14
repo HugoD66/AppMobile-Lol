@@ -1,5 +1,8 @@
 import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
-export function Card({titleCard, subTitleCard, imageCard}) {
+
+
+
+export function CardChamp({titleCard, subTitleCard, imageCard}) {
   return (
     <TouchableOpacity onPress={() => console.log('pressed')}>
       <Image style={styles.card} source={imageCard} />
@@ -10,21 +13,24 @@ export function Card({titleCard, subTitleCard, imageCard}) {
 }
 const styles = StyleSheet.create({
   card: {
+    /*
     paddingHorizontal: 10,
     paddingVertical: 10,
+     */
   },
   titleCard: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    width: '100%',
 
   },
   subtitleCard: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'normal',
     width: '70%',
-    textAlign: 'justify',
+    //textAlign: 'start',
 
   },
 });

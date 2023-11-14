@@ -13,9 +13,9 @@ export function Player() {
           </View>
           <Image style={styles.role} source={require('../../../../assets/accueil/5-player-list/roles/1-role.png')} />
           <View style={styles.champs}>
-              <Image source={require('../../../../assets/accueil/5-player-list/champs/11-champ.png')} />
-              <Image source={require('../../../../assets/accueil/5-player-list/champs/12-champ.png')} />
-              <Image source={require('../../../../assets/accueil/5-player-list/champs/13-champ.png')} />
+              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/11-champ.png')} />
+              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/12-champ.png')} />
+              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/13-champ.png')} />
           </View>
           <TouchableOpacity>
               <Image source={require('../../../../assets/buttons/buttom-list-champ.png')} />
@@ -26,41 +26,47 @@ export function Player() {
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
     },
     picturePlayer: {
-
-        borderRadius: 50,
         backgroundColor: 'red',
-        margin: 10
+        margin: 10,
     },
     titlePictureDesc: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexDirection: 'column',
     },
     pictureTeam: {
 
     },
     playerName: {
-        color: 'white'
-
+        color: 'white',
+        fontSize: 22,
     },
     teamDesc: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
+
     },
     desc: {
         color: 'white'
     },
     role: {
-
+        height: 25,
+        width: 25,
     },
     champs: {
         flexDirection: 'row',
         justifyContent: 'center',
+    },
+    pictureChamp: {
+        height: 35,
+        width: 35,
+        margin: -5,
     },
 });

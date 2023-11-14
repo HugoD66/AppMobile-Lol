@@ -23,7 +23,7 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export default function App() {
   return (
     <Champion />
-      //<Accueil />
+     //<Accueil />
 
 
       /*
