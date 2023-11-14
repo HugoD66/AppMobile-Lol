@@ -5,9 +5,10 @@ import {ButtonTwo} from "../../button/ButtonTwo";
 export function CardRecommend() {
   return (
     <View style={styles.card}>
+      <Image style={styles.backPicture} source={require('../../../../assets/accueil/3-carousel-recomm/backOne-recomm.png')}></Image>
+
       <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/3-carousel-recomm/recomm-Vi.png')}></Image>
 
-      <Image style={styles.backPicture} source={require('../../../../assets/accueil/3-carousel-recomm/backOne-recomm.png')}></Image>
         <View style={styles.contentCardRecom}>
           <View style={styles.contentText}>
             <Text style={styles.titleRecomCard}>Vi</Text>
@@ -27,9 +28,9 @@ const styles = StyleSheet.create({
     height: 200,
   },
   backPicture: {
-    width: '100%',
+    //width: '100%',
     height: 250,
-    resizeMode: 'cover',
+    resizeMode: 'center',
     position: 'absolute',
   },
   contentCardRecom: {
