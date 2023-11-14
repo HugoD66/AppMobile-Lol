@@ -1,10 +1,19 @@
-import {Image, View, StyleSheet, Text, ScrollView} from "react-native";
+import {Image, View, StyleSheet, Text, ScrollView, Dimensions} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import React from "react";
 import {ButtonOne} from "../../components/button/ButtonOne";
 import {CardChamp} from "../../components/carousel/CardChamp";
+import {useRoute} from "@react-navigation/native";
+
+const SCREEN_WIDTH = Dimensions.get('screen').width;
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
 
 export function Champion() {
+    const route = useRoute();
+    const nom = route?.params?.nom;
+
+    console.log({params: route?.params})
+
     return (
     <ScrollView contentContainerStyle={styles.container}>
             <LinearGradient style={styles.linearGradient}
@@ -17,7 +26,7 @@ export function Champion() {
 
            <Image
                style={styles.backgroundImage}
-               source={{ uri: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${CardChamp.titleCard}_0.jpg' }}
+               source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${nom}_0.jpg` }}
            />
            <View style={styles.flexObligatoire}></View>
            <View style={styles.titleSubTitleIcone}>

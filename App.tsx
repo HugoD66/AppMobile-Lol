@@ -9,13 +9,15 @@ import {Accueil} from "./app/pages/accueil/Accueil";
 import {Champion} from "./app/pages/champ/Champion";
 
 
-type StackParamList = {
+export type StackParamList = {
   FirstSlide?: undefined;
   SecondSlide?: undefined;
   ThirdSlide?: undefined;
   FourthSlide?: undefined;
   Accueil?: undefined;
-  Champion?: undefined;
+  Champion?: {
+    nom: string
+  };
 }
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
