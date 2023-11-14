@@ -1,20 +1,23 @@
-import {Image, View, StyleSheet, Text} from "react-native";
+import {Image, View, StyleSheet, Text, ScrollView} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import React from "react";
 import {ButtonOne} from "../../components/button/ButtonOne";
+import {CardChamp} from "../../components/carousel/CardChamp";
 
 export function Champion() {
     return (
-       <View style={styles.container}>
-           <LinearGradient style={styles.linearGradient}
+    <ScrollView contentContainerStyle={styles.container}>
+            <LinearGradient style={styles.linearGradient}
                            colors={[
                                'rgba(52,43,43,0)',
                                'rgb(0,0,0)'
                            ]}
            />
+            <Text>{CardChamp.arguments}</Text>
+
            <Image
                style={styles.backgroundImage}
-               source={{ uri: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg' }}
+               source={{ uri: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${CardChamp.titleCard}_0.jpg' }}
            />
            <View style={styles.flexObligatoire}></View>
            <View style={styles.titleSubTitleIcone}>
@@ -56,7 +59,7 @@ export function Champion() {
                </View>
            </View>
            <ButtonOne />
-       </View>
+       </ScrollView>
     );
 }
 
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
         top: -80,
     },
     flexObligatoire: {
-
+        minHeight: 300,
     },
     titleSubTitleIcone: {
         width: '100%',
@@ -133,22 +136,24 @@ const styles = StyleSheet.create({
         zIndex: 4,
     },
     descLetterNameSpell: {
-        backgroundColor: 'white',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
     },
     descSpell: {
+        width: '100%',
+        color: 'white',
 
     },
     letterSpell: {
-
+        color: '#8B00FF',
+        fontSize: 40,
     },
     nameSpell: {
-
+        color: 'white',
+        fontSize: 22,
     },
     generalInformations: {
-        backgroundColor: 'white',
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
