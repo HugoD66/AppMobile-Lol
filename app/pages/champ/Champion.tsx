@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {Image, View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity} from "react-native";
 import React from "react";
 import {useRoute} from "@react-navigation/native";
@@ -66,6 +67,79 @@ export function Champion() {
         <View style={styles.endScreen}></View>
 
       </ScrollView>
+=======
+import {Image, View, StyleSheet, Text, ScrollView, Dimensions} from "react-native";
+import {LinearGradient} from "expo-linear-gradient";
+import React from "react";
+import {ButtonOne} from "../../components/button/ButtonOne";
+import {CardChamp} from "../../components/carousel/CardChamp";
+import {useRoute} from "@react-navigation/native";
+
+const SCREEN_WIDTH = Dimensions.get('screen').width;
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
+
+export function Champion() {
+    const route = useRoute();
+    const nom = route?.params?.nom;
+
+    console.log({params: route?.params})
+
+    return (
+    <ScrollView contentContainerStyle={styles.container}>
+            <LinearGradient style={styles.linearGradient}
+                           colors={[
+                               'rgba(52,43,43,0)',
+                               'rgb(0,0,0)'
+                           ]}
+           />
+            <Text>{CardChamp.arguments}</Text>
+
+           <Image
+               style={styles.backgroundImage}
+               source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${nom}_0.jpg` }}
+           />
+           <View style={styles.flexObligatoire}></View>
+           <View style={styles.titleSubTitleIcone}>
+               <View style={styles.titleSubTitle}>
+                   <Text style={styles.titleChamp}>Ezreal</Text>
+                   <Text style={styles.subTitle}>L'explorateur prodigieux</Text>
+               </View>
+                <Image source={require('../../../assets/buttons/hearth.png')} />
+           </View>
+           <Text style={styles.description}>
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
+           </Text>
+           <View style={styles.skillsContent}>
+               <Image source={require('../../../assets/tempEzChamp/Passiva.png')} />
+               <Image source={require('../../../assets/tempEzChamp/Rectangle 19.png')} />
+               <Image source={require('../../../assets/tempEzChamp/Rectangle 19.png')} />
+               <Image source={require('../../../assets/tempEzChamp/Rectangle 19.png')} />
+               <Image source={require('../../../assets/tempEzChamp/Rectangle 19.png')} />
+           </View>
+           <View style={styles.descLetterNameSpell}>
+                <Text style={styles.letterSpell}>Q</Text>
+                <Text style={styles.nameSpell}>DISPARO MACHIN </Text>
+                <Text style={styles.descSpell}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
+                </Text>
+           </View>
+           <View style={styles.generalInformations}>
+               <Image source={require('../../../assets/tempEzChamp/Atirador (1).png')} style={styles.pictureRole}/>
+                <View style={styles.textInformations}>
+                    <Text>AZEAZEaze</Text>
+                    <Text>Attirator</Text>
+                </View>
+               <View style={styles.difficultInformations}>
+                   <Text style={styles.textDifficult}>AZEAZEaze</Text>
+                   <Text style={styles.niveauDifficult}>Attirator</Text>
+                    <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/Nível (1).png')}/>
+               </View>
+           </View>
+           <ButtonOne />
+       </ScrollView>
+>>>>>>> 913e399bedbb350a3f9042496f09048078ae7ea4
     );
 }
 
