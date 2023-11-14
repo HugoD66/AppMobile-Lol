@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     //position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'black',
     zIndex: 2,
@@ -27,8 +27,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   imageIconeSumNav: {
-    width: 100,
-    height: 100,
+    marginTop: 10,
+    width: 70,
+    height: 70,
     resizeMode: 'contain',
   },
   sumNavTitleDesc: {
@@ -37,11 +38,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   title: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: 'bold',
 
   },
@@ -55,6 +56,8 @@ const styles = StyleSheet.create({
 
   },
   rank: {
-
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
   }
 })

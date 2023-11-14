@@ -1,10 +1,17 @@
 import {StyleSheet, View, Image, Text, TouchableOpacity, ScrollView} from "react-native";
-import {Card} from "./Card";
+import {CardChamp} from "./CardChamp";
 import {CardRunterra} from "./CardRunterra";
+
+
+interface CardRunterraProps {
+  subTitleCard: string,
+  titleCard: string,
+  imageCard: any,
+}
+
 export function CarouselRuneterra() {
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView horizontal contentContainerStyle={styles.container}>
         <View style={styles.cards}>
           <CardRunterra
             subTitleCard={''}
@@ -28,7 +35,7 @@ export function CarouselRuneterra() {
           />
           <CardRunterra
             subTitleCard={''}
-            titleCard={'Bildewater'}
+            titleCard={'Bilgewater'}
             imageCard={require('../../../assets/accueil/4-carousel-runeterra/5-Bildewater.png')}
           />
           <CardRunterra
@@ -43,7 +50,7 @@ export function CarouselRuneterra() {
           />
           <CardRunterra
             subTitleCard={''}
-            titleCard={'Frejlord'}
+            titleCard={'Freljord'}
             imageCard={require('../../../assets/accueil/4-carousel-runeterra/8-Freljord.png')}
           />
           <CardRunterra
@@ -53,28 +60,28 @@ export function CarouselRuneterra() {
           />
         </View>
       </ScrollView>
-
-    </View>
-
   )
 }
 //styleInterpolator={} closing={} transitionSpec={} onClose={} onGestureEnd={} current={} onOpen={} gestureDirection={} headerDarkContent={} pageOverflowEnabled={} insets={} interpolationIndex={} onTransition={} overlayEnabled={} onGestureBegin={} gesture={} onGestureCanceled={} layout={}
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     backgroundColor: 'black',
+    paddingVertical: 10,
+    /*
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'row',
+     */
   },
   cards: {
-    width: '100%',
+    //width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     overflow: 'scroll',
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
 });

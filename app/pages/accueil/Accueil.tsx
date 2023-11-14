@@ -21,7 +21,7 @@ export function Accueil() {
     </ScrollView>
     );
 }
-//      <View style={{height: 800, backgroundColor: 'red', width: '100%'}}></View>
+//<View style={{height: 800, backgroundColor: 'red', width: '100%'}}></View>
 
 const styles = StyleSheet.create({
   container: {
