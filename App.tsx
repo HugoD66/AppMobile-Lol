@@ -18,7 +18,7 @@ export type StackParamList = {
   Search?: undefined;
   Accueil?: undefined;
   Champion?: {
-    nom: string
+    nom: string,
   };
 }
 
@@ -39,6 +39,5 @@ export default function App() {
           <Stack.Screen name={'Search'} component={Search} />
         </Stack.Navigator>
       </NavigationContainer>
-
   );
 }

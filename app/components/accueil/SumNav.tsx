@@ -19,7 +19,7 @@ export function SumNav() {
         <Text style={styles.subtitle}>Super lolaifiaieorae</Text>
       </View>
       <TouchableOpacity onPress={() => navigate()}>
-        <Image  style={styles.loopSearch} source={require('../../../assets/accueil/1-nav/loopSumNav.png')} />
+        <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>
       <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/RankPicture.png')} />
     </View>
