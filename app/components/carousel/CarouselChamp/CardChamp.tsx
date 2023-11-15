@@ -1,15 +1,9 @@
 import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
-<<<<<<< HEAD:app/components/carousel/CarouselChamp/CardChamp.tsx
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {StackParamList} from "../../../pages/accueil/Accueil";
 import { CardChampProps } from "../../../types/CardChampProps"
-=======
-import {StackParamList} from "../../../App";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
->>>>>>> 913e399bedbb350a3f9042496f09048078ae7ea4:app/components/carousel/CardChamp.tsx
 
-export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
 
@@ -18,10 +12,6 @@ export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) 
 
   console.log({titleCard})
   const navigate = () => {
-<<<<<<< HEAD:app/components/carousel/CarouselChamp/CardChamp.tsx
-=======
-    console.log({navigation: navigation.getState()})
->>>>>>> 913e399bedbb350a3f9042496f09048078ae7ea4:app/components/carousel/CardChamp.tsx
     navigation.navigate('Champion', {
       nom: titleCard,
     });
