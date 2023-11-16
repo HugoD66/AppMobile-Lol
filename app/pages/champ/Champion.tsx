@@ -2,6 +2,7 @@ import {Image, View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity}
 import React from "react";
 import {useRoute} from "@react-navigation/native";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
+import {LinearGradient} from "expo-linear-gradient";
 
 
 
@@ -18,7 +19,16 @@ export function Champion() {
           style={styles.pictureChamp}
           source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${nom}_0.jpg` }}
         />
-        <View style={styles.flexOblig}></View>
+        <View style={styles.linear}>
+          <LinearGradient style={styles.linearGradient}
+                          colors={[
+                            'rgba(52,43,43,0)',
+                            'rgb(0,0,0)'
+                          ]}
+          />
+        </View>
+        <View style={styles.flexOblig}>
+        </View>
         <View style={styles.titleSubTitleIcon}>
             <View style={styles.titleSubTitle}>
                 <Text style={styles.titleChamp}>{nom}</Text>
@@ -82,6 +92,21 @@ const styles = StyleSheet.create({
       zIndex: 1,
       position: "absolute"
       //resizeMode: 'cover',
+    },
+    linear: {
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position:'absolute',
+      top: SCREEN_HEIGHT * .2,
+
+    },
+    linearGradient: {
+      zIndex: 2,
+      width: '100%',
+
+      height: SCREEN_HEIGHT * .2,
+
     },
     flexOblig: {
       height: SCREEN_HEIGHT * .35,
