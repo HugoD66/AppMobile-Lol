@@ -1,33 +1,69 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-import {LinearGradient} from "expo-linear-gradient";
 import {BeforeSearch} from "./BeforeSearch";
-import {SearchBar} from "react-native-screens";
+import { SearchBar } from 'react-native-elements';
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../App";
 
 
 export function Search() {
+  const [search, setSearch] = useState('');
+
+  const handleSearchChange = (text: string) => {
+    setSearch(text);
+  };
+
+
+  const navigation = useNavigation<StackNavigationProps>();
+  const navigate = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Accueil');
+  };
+
 
   return (
     <View style={styles.container}>
       <BeforeSearch />
       <View style={styles.contentSearch} >
-        <TouchableOpacity>
-          <Image style={styles.arrowBack} source={require('../../../assets/search/arrow-back.png')} />
+        <TouchableOpacity
+          onPress={() => { navigate() }}
+          style={styles.arrowBackButton}
+        >
+          <Image style={styles.arrowBack}
+                 source={require('../../../assets/search/arrow-back.png')}
+          />
         </TouchableOpacity>
         <View style={styles.searchbarContent}>
-          <View style={styles.searchbar}>
-            <TouchableOpacity>
-              <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />
-            </TouchableOpacity>
-          </View>
+
         </View>
 
       </View>
     </View>
   );
 }
+/*
 
+<SearchBar
+  placeholder="Recherchez..."
+  value={search}
+  onChangeText={(text) => setSearch(text)}
+  containerStyle={styles.searchbar}
+  inputContainerStyle={{backgroundColor: 'white'}}
+  cancelButtonProps={{}}
+  cancelButtonTitle="Annuler"
+  lightTheme
+  showCancel
+  platform="default"
+  round
+/>
+
+<View style={styles.searchbar}>
+  <TouchableOpacity>
+    <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />
+  </TouchableOpacity>
+</View>
+*/
 const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
@@ -40,6 +76,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: SCREEN_HEIGHT * 0.33 ,
+  },
+  arrowBackButton: {
+    width: 100,
+    height: 100,
   },
   arrowBack: {
 
