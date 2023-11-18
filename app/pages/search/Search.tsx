@@ -5,7 +5,7 @@ import {BeforeSearch} from "./BeforeSearch";
 import { SearchBar } from 'react-native-elements';
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
-import { Animated } from 'react-native';
+import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {AfterSearch} from "./AfterSearch";
 
 
@@ -35,6 +35,9 @@ export function Search() {
     }
   };
 
+  const dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
 
   const navigation = useNavigation<StackNavigationProps>();
   const navigate = () => {
@@ -42,6 +45,8 @@ export function Search() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+
     <View style={styles.container}>
       <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
         <BeforeSearch />
@@ -102,6 +107,8 @@ export function Search() {
         <View style={styles.divider} />
       </View>
     </View>
+    </TouchableWithoutFeedback>
+
   );
 }
 

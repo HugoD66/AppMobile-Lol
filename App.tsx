@@ -10,6 +10,7 @@ import {Champion} from "./app/pages/champ/Champion";
 import {Search} from "./app/pages/search/Search";
 import {SkinScreen} from "./app/pages/champ/SkinScreen";
 import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
+import {Login} from "./app/pages/login/login";
 
 export type StackParamList = {
   FirstSlide?: undefined;
@@ -19,6 +20,7 @@ export type StackParamList = {
   Search?: undefined;
   Accueil?: undefined;
   PlayerScreen?: undefined;
+  Login?: undefined;
   SkinScreen?: {
     nom: string,
   };
@@ -44,6 +46,7 @@ export default function App() {
           <Stack.Screen name={'Search'} component={Search} />
           <Stack.Screen name={'SkinScreen'} component={SkinScreen} />
           <Stack.Screen name={'PlayerScreen'} component={PlayerScreen} />
+          <Stack.Screen name={'Login'} component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
   );

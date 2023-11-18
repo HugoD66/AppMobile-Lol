@@ -12,14 +12,21 @@ export function SumNav() {
     console.log({navigation: navigation.getState()})
     navigation.navigate('Search');
   };
+  const navigateLogin = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Login');
+  };
   return (
     <View style={styles.sumNav}>
-      <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
+      <TouchableOpacity onPress={navigateLogin}>
+        <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
+      </TouchableOpacity>
+
       <View style={styles.sumNavTitleDesc}>
         <Text style={styles.title}>Summoner</Text>
         <Text style={styles.subtitle}>Super lolaifiaieorae</Text>
       </View>
-      <TouchableOpacity onPress={() => navigate()}>
+      <TouchableOpacity onPress={navigate}>
         <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>
       <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/rankPicture.png')} />
