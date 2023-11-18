@@ -1,7 +1,5 @@
-import {StyleSheet, View, Image, Text, TouchableOpacity, ScrollView} from "react-native";
+import {StyleSheet, View, ScrollView} from "react-native";
 import {CardChamp} from "./CardChamp";
-import {useNavigation} from "@react-navigation/native";
-import {StackParamList} from "../../../types/StackParamList";
 export function CarouselChamp() {
 
   return (
@@ -31,7 +29,6 @@ export function CarouselChamp() {
            />
          </View>
       </ScrollView>
-
     </View>
 
   )

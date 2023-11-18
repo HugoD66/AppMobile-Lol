@@ -16,43 +16,22 @@ export function ButtonOne() {
         </TouchableOpacity>
     )
 }
-/*
-button: {
-    zIndex: 6,
-    bottom: -280,
-    width: '90%',
-    height: '18%',
-    backgroundColor: '#8B00FF',
-    margin: 'auto',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-},
-buttonText: {
-    textAlign: 'center',
-    color: 'white',
-    width: '100%',
-    height: '100%',
-    //margin: 'auto',
-},
-*/
+
 const styles = StyleSheet.create({
     button: {
         width: SCREEN_WIDTH * .92,
         height: 76,
         backgroundColor: '#8B00FF',
-        margin: 20,
-        marginBottom: 20,
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        bottom: -270,
+
     },
     buttonText: {
         textAlign: 'center',
         color: 'white',
-        marginBottom: 6,
+        marginBottom: 4,
         fontWeight: 'bold',
         fontSize: 16,
     },

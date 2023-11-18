@@ -14,6 +14,9 @@ export type StackParamList = {
   FourthSlide?: undefined;
   Accueil?: undefined;
   Search?: undefined;
+  SkinScreen?: {
+    nom: string,
+  };
   Champion?: {
     nom: string
   };

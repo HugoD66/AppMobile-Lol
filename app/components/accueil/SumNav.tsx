@@ -1,6 +1,7 @@
 import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../carousel/CarouselChamp/CardChamp";
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 
 
 //export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
@@ -36,12 +37,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     zIndex: 2,
     height: 120,
-    width: '100%',
+    width: SCREEN_WIDTH,
   },
   imageIconeSumNav: {
     marginTop: 10,
-    width: 70,
-    height: 70,
+    width: 65,
+    height: 65,
     resizeMode: 'contain',
   },
   sumNavTitleDesc: {
@@ -60,16 +61,17 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-
+    fontSize: 16,
+    fontWeight: '200',
   },
   loopSearch: {
-
+    width: 30,
+    height: 30,
+    marginLeft: 35,
   },
   rank: {
-    width: 80,
-    height: 80,
+    width: 75,
+    height: 75,
     resizeMode: 'contain',
   }
 })

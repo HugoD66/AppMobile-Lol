@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {StackNavigationProps} from "../../../App";
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 
 export function FirstSlide() {
     const rotateAnim = useRef(new Animated.Value(0)).current;

@@ -1,8 +1,9 @@
 import {Image, View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity} from "react-native";
 import React from "react";
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {LinearGradient} from "expo-linear-gradient";
+import {StackNavigationProps} from "../../../App";
 
 
 
@@ -12,6 +13,13 @@ export function Champion() {
     // @ts-ignore
     const nom = route?.params?.nom;
     console.log({params: route?.params})
+
+
+    const navigation = useNavigation<StackNavigationProps>();
+    const navigate = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('SkinScreen');
+    };
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -68,7 +76,10 @@ export function Champion() {
                 <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')}/>
             </View>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => { navigate() }}
+        >
           <Text style={styles.buttonText}> Skins </Text>
         </TouchableOpacity>
         <View style={styles.endScreen}></View>

@@ -3,7 +3,9 @@ import {View, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
 export function Player() {
     return (
       <View style={styles.container}>
-          <Image style={styles.picturePlayer} source={require('../../../../assets/accueil/5-player-list/players/1-player.png')} />
+          <View style={styles.picturePlayerBorder}>
+            <Image style={styles.picturePlayer} source={require('../../../../assets/accueil/5-player-list/players/1-player.png')} />
+          </View>
           <View style={styles.titlePictureDesc}>
             <Text style={styles.playerName}>Player</Text>
               <View style={styles.teamDesc}>
@@ -20,6 +22,7 @@ export function Player() {
           <TouchableOpacity>
               <Image source={require('../../../../assets/buttons/buttom-list-champ.png')} />
           </TouchableOpacity>
+          <View style={styles.divider} />
     </View>
     );
 }
@@ -29,19 +32,32 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
+        margin: '3%',
+    },
+    picturePlayerBorder: {
+        backgroundColor: '#6500BA',
+        width: 52,
+        height: 52,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '1%',
+        borderRadius: 6,
     },
     picturePlayer: {
-        backgroundColor: 'red',
         margin: 10,
+        width: 50,
+        height: 50,
+        borderRadius: 6,
     },
     titlePictureDesc: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
         flexDirection: 'column',
+        borderRadius: 30,
     },
     pictureTeam: {
-
     },
     playerName: {
         color: 'white',
@@ -51,22 +67,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     desc: {
-        color: 'white'
+        color: 'white',
+        marginLeft: 8,
+        fontWeight: '200',
     },
     role: {
-        height: 25,
-        width: 25,
+        height: 22,
+        width: 22,
+        marginLeft: 20,
     },
     champs: {
         flexDirection: 'row',
         justifyContent: 'center',
     },
     pictureChamp: {
-        height: 35,
-        width: 35,
+        height: 30,
+        width: 30,
         margin: -5,
     },
+    divider: {
+        width: '100%',
+        position: 'absolute',
+        bottom: -10,
+        left: 100,
+        height: 1,
+        backgroundColor: 'rgb(43, 44, 51)',
+    }
 });
