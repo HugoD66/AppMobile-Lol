@@ -22,14 +22,13 @@ export function SumNav() {
       <TouchableOpacity onPress={() => navigate()}>
         <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>
-      <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/RankPicture.png')} />
+      <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/rankPicture.png')} />
     </View>
 
   )
 }
 const styles = StyleSheet.create({
   sumNav: {
-    //position: 'relative',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',

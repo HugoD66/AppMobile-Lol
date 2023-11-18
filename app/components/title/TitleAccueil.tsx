@@ -1,13 +1,23 @@
-import {StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import {SCREEN_WIDTH} from "../../types/screenDim";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../App";
 
 // @ts-ignore
 export function TitleAccueil({ title, subtitle }) {
+  const navigation = useNavigation<StackNavigationProps>();
+  const navigate = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Search');
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <TouchableOpacity
+        onPress={() => { navigate() }}>
 
+      <Text style={styles.subtitle}>{subtitle}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

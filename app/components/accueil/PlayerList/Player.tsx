@@ -1,29 +1,37 @@
 import {View, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProps} from "../../../../App";
 
 export function Player() {
+
+    const navigation = useNavigation<StackNavigationProps>();
+    const navigate = () => {
+        console.log({navigation: navigation.getState()})
+        navigation.navigate('PlayerScreen');
+    };
+
     return (
-      <View style={styles.container}>
-          <View style={styles.picturePlayerBorder}>
-            <Image style={styles.picturePlayer} source={require('../../../../assets/accueil/5-player-list/players/1-player.png')} />
-          </View>
-          <View style={styles.titlePictureDesc}>
-            <Text style={styles.playerName}>Player</Text>
-              <View style={styles.teamDesc}>
-                  <Image style={styles.pictureTeam} source={require('../../../../assets/accueil/5-player-list/teams/1-team.png')} />
-                  <Text style={styles.desc}>NomTeam</Text>
+          <TouchableOpacity style={styles.container}
+            onPress={() => { navigate() }}>
+              <View style={styles.picturePlayerBorder}>
+                <Image style={styles.picturePlayer} source={require('../../../../assets/accueil/5-player-list/players/1-player.png')} />
               </View>
-          </View>
-          <Image style={styles.role} source={require('../../../../assets/accueil/5-player-list/roles/1-role.png')} />
-          <View style={styles.champs}>
-              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/11-champ.png')} />
-              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/12-champ.png')} />
-              <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/13-champ.png')} />
-          </View>
-          <TouchableOpacity>
+              <View style={styles.titlePictureDesc}>
+                <Text style={styles.playerName}>Player</Text>
+                  <View style={styles.teamDesc}>
+                      <Image style={styles.pictureTeam} source={require('../../../../assets/accueil/5-player-list/teams/1-team.png')} />
+                      <Text style={styles.desc}>NomTeam</Text>
+                  </View>
+              </View>
+              <Image style={styles.role} source={require('../../../../assets/accueil/5-player-list/roles/1-role.png')} />
+              <View style={styles.champs}>
+                  <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/11-champ.png')} />
+                  <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/12-champ.png')} />
+                  <Image style={styles.pictureChamp} source={require('../../../../assets/accueil/5-player-list/champs/13-champ.png')} />
+              </View>
               <Image source={require('../../../../assets/buttons/buttom-list-champ.png')} />
+              <View style={styles.divider} />
           </TouchableOpacity>
-          <View style={styles.divider} />
-    </View>
     );
 }
 const styles = StyleSheet.create({

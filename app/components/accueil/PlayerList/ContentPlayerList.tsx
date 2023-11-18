@@ -1,8 +1,8 @@
-import {View, StyleSheet} from "react-native";
+import {View} from "react-native";
 import {Player} from "./Player";
 export function ContentPlayerList() {
     return (
-        <View style={styles.container}>
+        <View>
             <Player />
             <Player />
             <Player />
@@ -10,8 +10,3 @@ export function ContentPlayerList() {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-
-    },
-});
