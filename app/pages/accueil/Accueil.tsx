@@ -7,22 +7,7 @@ import {CarouselRuneterra} from "../../components/carousel/CarouselRunterra/Caro
 import {ContentPlayerList} from "../../components/accueil/PlayerList/ContentPlayerList";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
-export type StackParamList = {
-  FirstSlide?: undefined;
-  SecondSlide?: undefined;
-  ThirdSlide?: undefined;
-  FourthSlide?: undefined;
-  Accueil?: undefined;
-  Search?: undefined;
-  Login?: undefined;
-  SkinScreen?: {
-    nom: string,
-  };
-  Champion?: {
-    nom: string
-  };
-}
-export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
+
 
 export function Accueil() {
 

@@ -29,15 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#050505',
     alignItems: 'center',
   },
-  container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
-    position: 'absolute',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-
-  },
   pictureback: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
@@ -50,6 +41,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     zIndex: 3,
   },
+  container: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    position: 'absolute',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
   textInput: {
     backgroundColor: 'black',
     fontWeight: 'bold',
@@ -58,6 +57,8 @@ const styles = StyleSheet.create({
 
   },
   buttonLogin: {
-
+    height: 80,
+    backgroundColor: 'black',
+    zIndex: 4,
   },
 });

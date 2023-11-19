@@ -46,67 +46,68 @@ export function Search() {
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-
-    <View style={styles.container}>
-      <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
-        <BeforeSearch />
-      </Animated.View>
-      <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-        <AfterSearch />
-      </Animated.View>
-      <View style={styles.contentSearch}>
-        <TouchableOpacity onPress={() => navigate()} style={styles.arrowBackButton}>
-          <Image style={styles.arrowBack} source={require('../../../assets/search/arrow-back.png')} />
-        </TouchableOpacity>
-        <
-        // @ts-ignore
-        SearchBar
-        placeholder="Recherchez..."
-        value={search}
-        // @ts-ignore
-        onChangeText={handleSearchChange}
-        style={styles.searchbar}
-        inputContainerStyle={{
-          width: SCREEN_WIDTH * 0.9,
-          height: SCREEN_HEIGHT * 0.07,
-          borderRadius: 14,
-          backgroundColor: 'transparent',
-          margin: 3,
-          padding: 0,
-          zIndex: 3,
-        }}
-        cancelButtonProps={{}}
-        cancelButtonTitle="Annuler"
-        showCancel
-        platform="default"
-        />
-        <ScrollView horizontal >
-          <View style={styles.selectionSearchList}>
-            <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
-                Champions
+      <View style={styles.container}>
+        <View style={styles.contentSearch}>
+          <TouchableOpacity onPress={() => navigate()} style={styles.arrowBackButton}>
+            <Image style={styles.arrowBack} source={require('../../../assets/search/arrow-back.png')} />
+          </TouchableOpacity>
+          <
+          // @ts-ignore
+          SearchBar
+          placeholder="Recherchez..."
+          value={search}
+          // @ts-ignore
+          onChangeText={handleSearchChange}
+          style={styles.searchbar}
+          inputContainerStyle={{
+            width: SCREEN_WIDTH * 0.9,
+            height: SCREEN_HEIGHT * 0.07,
+            borderRadius: 14,
+            backgroundColor: 'transparent',
+            margin: 3,
+            padding: 0,
+            zIndex: 3,
+          }}
+          cancelButtonProps={{}}
+          cancelButtonTitle="Annuler"
+          showCancel
+          platform="default"
+          />
+          <ScrollView horizontal >
+            <View style={styles.selectionSearchList}>
+              <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
+                  Champions
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
+                  Pros
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Runetarra')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Runetarra' ? '500' : '200' }]}>
+                Players
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
-                Pros
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Skins')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Skins' ? '500' : '200' }]}>
+                Teams
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleOptionChange('Runetarra')}>
-            <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Runetarra' ? '500' : '200' }]}>
-              Players
-            </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleOptionChange('Skins')}>
-            <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Skins' ? '500' : '200' }]}>
-              Teams
-            </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-        <View style={styles.divider} />
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+          <View style={styles.divider} />
+        </View>
+        <View style={styles.contentBeforeAfter}>
+          <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+            <BeforeSearch />
+          </Animated.View>
+          <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
+            <AfterSearch />
+          </Animated.View>
+        </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
 
   );
@@ -165,6 +166,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#545662',
 
     //marginBottom: 20,
+  },
+  contentBeforeAfter: {
+    marginTop: 20,
   },
   afterSearchContainer: {
 

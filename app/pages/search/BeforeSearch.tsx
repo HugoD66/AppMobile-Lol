@@ -22,8 +22,6 @@ const styles= StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: SCREEN_HEIGHT * .85 ,
-    top: SCREEN_HEIGHT * .05,
     width: SCREEN_WIDTH,
   },
 

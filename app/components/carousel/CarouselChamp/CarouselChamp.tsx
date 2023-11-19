@@ -1,11 +1,26 @@
 import {StyleSheet, View, ScrollView} from "react-native";
 import {CardChamp} from "./CardChamp";
 export function CarouselChamp() {
-
+  const req = fetch('https://jsonplaceholder.typicode.com/todos?_limit=5', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      json: 'json',
+    }),
+  });
+  console.log(req);
   return (
     <View style={styles.container}>
         <ScrollView horizontal contentContainerStyle={styles.container}>
         <View style={styles.cards}>
+            <CardChamp
+              subTitleCard={'Ou Prodige Explorateur'}
+              titleCard={'Ezreal'}
+              imageCard={require('../../../../assets/accueil/2-carousel-champ/1-Ez.png')}
+            />
             <CardChamp
              subTitleCard={'Ou Prodige Explorateur'}
              titleCard={'Ezreal'}
@@ -35,23 +50,12 @@ export function CarouselChamp() {
 }
 //styleInterpolator={} closing={} transitionSpec={} onClose={} onGestureEnd={} current={} onOpen={} gestureDirection={} headerDarkContent={} pageOverflowEnabled={} insets={} interpolationIndex={} onTransition={} overlayEnabled={} onGestureBegin={} gesture={} onGestureCanceled={} layout={}
 const styles = StyleSheet.create({
-  container: {
-    /*
-    width: '100%',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-     */
-  },
+  container: {},
   cards: {
-    //width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    overflow: 'scroll',
-    paddingHorizontal: 5,
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
 });
