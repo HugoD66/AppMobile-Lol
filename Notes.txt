@@ -4,6 +4,8 @@ Problemes rencontrés :
         Enlever le any dans Search  =>      const handleSearchChange = (text: any)
         Probleme pour enlever le pad aprés le clic sur la navbar Search
 
+
+        Régler hauteur du screen en fonction du clavier
 Proposition:
     Liste Searchbar, joueur pro players (y a une api pour ca ? Photo + nom + role + team) ?
     Liste de joueurs banals
