@@ -6,7 +6,12 @@ export function CarouselChamp() {
     <View style={styles.container}>
         <ScrollView horizontal contentContainerStyle={styles.container}>
         <View style={styles.cards}>
-          <CardChamp
+            <CardChamp
+              subTitleCard={'Ou Prodige Explorateur'}
+              titleCard={'Ezreal'}
+              imageCard={require('../../../../assets/accueil/2-carousel-champ/1-Ez.png')}
+            />
+            <CardChamp
              subTitleCard={'Ou Prodige Explorateur'}
              titleCard={'Ezreal'}
              imageCard={require('../../../../assets/accueil/2-carousel-champ/1-Ez.png')}
