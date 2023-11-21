@@ -1,5 +1,5 @@
 import {Image, View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity} from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {LinearGradient} from "expo-linear-gradient";
@@ -9,6 +9,23 @@ import {StackNavigationProps} from "../../../App";
 
 
 export function Champion() {
+
+    const [showDivider, setShowDivider] = useState(false); // État pour le séparateur
+    const [selectedSkill, setSelectedSkill] = useState(null);
+
+    const selectSkill = (skillId) => {
+        setShowDivider(true);
+        setSelectedSkill(skillId);
+    };
+
+    // Fonction pour basculer l'affichage du séparateur
+    const toggleDivider = () => {
+        if(!showDivider) {
+            setShowDivider(true);
+        }
+    };
+
+
     const route = useRoute();
     // @ts-ignore
     const nom = route?.params?.nom;
@@ -50,12 +67,23 @@ export function Champion() {
         </Text>
       <Text style={styles.skills}>Skills</Text>
         <View style={styles.skillsContent}>
-            <Image style={styles.skillsPicture} source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            <Image style={styles.skillsPicture} source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            <Image style={styles.skillsPicture} source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            <Image style={styles.skillsPicture} source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            <Image style={styles.skillsPicture} source={require('../../../assets/tempEzChamp/Passiva.png')} />
+            {['Passiva', 'Habilidade1', 'Habilidade2', 'Habilidade3', 'Habilidade4'].map((skillId, index) => (
+                <TouchableOpacity key={index} onPress={() => selectSkill(skillId)}>
+                    <Image
+                        style={styles.skillsPicture}
+                        source={require(`../../../assets/tempEzChamp/${skillId}.png`)}
+                    />
+                    {selectedSkill === skillId && (
+                        <Image
+                            style={styles.overlayImage}
+                            source={require('../../../assets/champ/spell-selected.png')}
+                        />
+                    )}
+                </TouchableOpacity>
+            ))}
+
         </View>
+          {showDivider && <View style={styles.divider} />}
         <View style={styles.descLetterNameSpell}>
             <Text style={styles.letterSpell}>Q</Text>
             <Text style={styles.nameSpell}>DISPARO MACHIN </Text>
@@ -87,7 +115,43 @@ export function Champion() {
     );
 }
 
+
+/*
+ <TouchableOpacity onPress={toggleDivider}>
+                <Image
+                    style={styles.skillsPicture}
+                   source={require('../../../assets/tempEzChamp/Passiva.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleDivider}>
+                <Image
+                    style={styles.skillsPicture}
+                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleDivider}>
+                <Image
+                    style={styles.skillsPicture}
+                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={toggleDivider}>
+                <Image
+                    style={styles.skillsPicture}
+                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
+            </TouchableOpacity>
+ */
 const styles = StyleSheet.create({
+    overlayImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        // autres styles pour l'image superposée
+    },
+    divider: {
+        width: '100%',
+        height: 2,
+        backgroundColor: '#8B00FF', // Couleur de votre choix
+    },
     container: {
       width: SCREEN_WIDTH,
       backgroundColor: '#070707',
@@ -126,7 +190,6 @@ const styles = StyleSheet.create({
       width: SCREEN_WIDTH * .92,
       display: 'flex',
       height: 100,
-      //top: 350,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',

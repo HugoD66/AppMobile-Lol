@@ -1,8 +1,6 @@
 Problemes rencontrés :
     Search :
-        Erreur sur la Searchbar border
-        Enlever le any dans Search  =>      const handleSearchChange = (text: any)
-        Probleme pour enlever le pad aprés le clic sur la navbar Search
+        Animation ne s'effectue qu'une fois
 
 Proposition:
     Liste Searchbar, joueur pro players (y a une api pour ca ? Photo + nom + role + team) ?

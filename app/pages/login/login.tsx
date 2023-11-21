@@ -37,25 +37,27 @@ export function Login() {
           <Image style={styles.pictureback} source={require('../../../assets/login/pictureback-login.png')} />
         </View>
         <View style={styles.contentLogin}>
-          <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
           <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={styles.keyboardAvoidingView}
           >
+            <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
 
-            <View style={styles.contentSearch}>
-            <Text>Email</Text>
-            <TextInput
-                value={search}
-                style={styles.searchbar}
-            />
-            </View>
-            <View style={styles.contentSearch}>
-            <Text>Password</Text>
-            <TextInput
-                value={search}
-                style={styles.searchbar}
-            />
+            <View style={styles.contentForm}>
+              <View style={styles.contentSearch}>
+                <Text style={styles.searchLabel}>Email</Text>
+                <TextInput
+                    value={search}
+                    style={styles.searchbar}
+                />
+              </View>
+              <View style={styles.contentSearch}>
+                <Text style={styles.searchLabel}>Password</Text>
+                <TextInput
+                    value={search}
+                    style={styles.searchbar}
+                />
+              </View>
             </View>
             <ButtonOne style={styles.customButtonComponent} />
           </KeyboardAvoidingView>
@@ -85,14 +87,16 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
   },
-
   keyboardAvoidingView: {
     flex: 1,
-    height: SCREEN_HEIGHT,
+    height: SCREEN_HEIGHT * .9,
     width: SCREEN_WIDTH,
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  pictureLogo: {
+    top: '8%',
   },
   contentLogin: {
     position: 'absolute',
@@ -100,10 +104,20 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     display: 'flex',
     margin: 'auto',
-    backgroundColor: 'rgba(182,128,128,0.27)',
     justifyContent: 'center',
     alignItems: 'center',
     top: 0,
+  },
+  contentForm: {
+    height: SCREEN_HEIGHT * .3,
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  contentSearch: {
+  },
+  searchLabel: {
+    color: 'white',
   },
   searchbar: {
     color: 'white',
@@ -111,25 +125,9 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * 0.90,
     backgroundColor: '#1E1724',
   },
-  pictureLogo: {
-    //top: '16%',
-  },
   customButtonComponent: {
-    bottom: 60,
   },
-  contentSearch: {
 
-  },
-  textInput: {
-    fontWeight: 'bold',
-    fontSize: 20,
 
-    backgroundColor: 'white',
-    zIndex: 4,
 
-  },
-  buttonLogin: {
-    height: 80,
-
-  },
 });

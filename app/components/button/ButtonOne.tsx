@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: 'white',
-        marginBottom: 4,
+        //marginBottom: 4,
         fontWeight: 'bold',
         fontSize: 16,
     },

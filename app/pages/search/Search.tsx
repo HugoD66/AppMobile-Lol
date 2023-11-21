@@ -22,19 +22,19 @@ export function Search() {
   };
 
   const handleSearchChange = (text: string) => {
-    if (text != null) {
+
       setShowLoop(text.length === 0)
       Animated.timing(opacityAnimBefore, {
         toValue: text.length === 0 ? 1 : 0,
-        duration: 400,
+        duration: 800,
         useNativeDriver: true,
       }).start();
       Animated.timing(opacityAnimAfter, {
         toValue: text.length === 0 ? 0 : 1,
-        duration: 400,
+        duration: 800,
         useNativeDriver: true,
       }).start();
-    }
+
     return setSearch(text);
   }
 
