@@ -1,5 +1,5 @@
-import {View, StyleSheet, Text, ScrollView} from "react-native";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../types/screenDim";
+import {View, StyleSheet, ScrollView} from "react-native";
+import { SCREEN_WIDTH } from "../../types/screenDim";
 import {CardChamp} from "../../components/carousel/CarouselChamp/CardChamp";
 export function AfterSearch() {
   return (
@@ -59,11 +59,6 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        /*
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-         */
     },
 }
 );

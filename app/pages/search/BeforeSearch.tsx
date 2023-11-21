@@ -5,11 +5,10 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 export function BeforeSearch() {
   return (
     <View style={styles.contentPoro} >
-        <View style={styles.poroContent}>
+        <View>
           <Image style={styles.radialGradient} source={require('../../../assets/search/radial-gradient.png')} />
           <Image style={styles.picturePoro} source={require('../../../assets/search/poro.png')} />
         </View>
-
         <Text style={styles.title}>Faites une recherche.</Text>
         <Text style={styles.subtitle}>Que souhaitez-vous trouver aujourd'hui ?</Text>
     </View>
@@ -23,10 +22,6 @@ const styles= StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: SCREEN_WIDTH,
-  },
-
-  poroContent: {
-
   },
   picturePoro: {
     position: "absolute",
@@ -44,7 +39,6 @@ const styles= StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    //marginBottom: SCREEN_HEIGHT * 0.02,
     marginBottom: SCREEN_HEIGHT * 0.02,
   },
   subtitle: {
@@ -54,8 +48,6 @@ const styles= StyleSheet.create({
     textAlign: 'center',
     width: SCREEN_WIDTH * 0.7,
     color: 'white',
-
     marginBottom: SCREEN_HEIGHT * 0.02,
   },
-
 });

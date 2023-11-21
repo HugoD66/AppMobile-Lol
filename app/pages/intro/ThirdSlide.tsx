@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
+import {IntroStackNavigationProps} from "../../../App";
 import { LinearGradient } from 'expo-linear-gradient';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 
 export default function ThirdSlide() {
 
-    const navigation = useNavigation<StackNavigationProps>();
+    const navigation = useNavigation<IntroStackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
         navigation.navigate('FourthSlide');

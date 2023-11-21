@@ -2,13 +2,11 @@ import React, {useRef, useState} from 'react';
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {BeforeSearch} from "./BeforeSearch";
-import { SearchBar } from 'react-native-elements';
 import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
+import {RootStackNavigationProps} from "../../../App";
 import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {AfterSearch} from "./AfterSearch";
 import {BackArrow} from "../../components/button/BackArrow";
-
 
 export function Search() {
   const [search, setSearch] = useState('');
@@ -22,7 +20,6 @@ export function Search() {
   };
 
   const handleSearchChange = (text: string) => {
-
       setShowLoop(text.length === 0)
       Animated.timing(opacityAnimBefore, {
         toValue: text.length === 0 ? 1 : 0,
@@ -34,7 +31,6 @@ export function Search() {
         duration: 800,
         useNativeDriver: true,
       }).start();
-
     return setSearch(text);
   }
 
@@ -42,7 +38,7 @@ export function Search() {
     Keyboard.dismiss();
   };
 
-  const navigation = useNavigation<StackNavigationProps>();
+  const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
     navigation.navigate('Accueil');
   };
@@ -118,7 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: SCREEN_HEIGHT * 0.28,
-
   },
   searchbar: {
     color: 'white',
@@ -126,9 +121,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * 0.90,
     backgroundColor: '#1E1724',
   },
-
   selectionSearchList: {
-
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'nowrap',
@@ -142,7 +135,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontWeight: 'bold',
     color: 'white',
-
   },
   divider: {
     width: SCREEN_WIDTH,
@@ -152,14 +144,10 @@ const styles = StyleSheet.create({
   contentBeforeAfter: {
     marginTop: 20,
   },
-  afterSearchContainer: {
-
-  },
   afterSearchBlock: {
-
+    width: '100%',
   },
   beforeSearchContainer: {
     width: '100%',
-
   },
 });

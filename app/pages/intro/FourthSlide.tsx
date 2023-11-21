@@ -1,7 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-import {StackNavigationProps} from "../../../App";
 import {ButtonOne} from "../../components/button/ButtonOne";
 import React from "react";
 export default function FourthSlide() {

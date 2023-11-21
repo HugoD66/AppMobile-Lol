@@ -13,20 +13,18 @@ import React, {useState} from 'react';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {BackArrow} from "../../components/button/BackArrow";
 import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
+import {RootStackNavigationProps} from "../../../App";
 import {ButtonOne} from "../../components/button/ButtonOne";
 
 export function Login() {
   const [search, setSearch] = useState('');
-
-  const navigation = useNavigation<StackNavigationProps>();
+  const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
     navigation.navigate('Accueil');
   };
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
-
 
   return(
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
@@ -127,7 +125,4 @@ const styles = StyleSheet.create({
   },
   customButtonComponent: {
   },
-
-
-
 });

@@ -1,156 +1,115 @@
-import {Image, View, StyleSheet, Text, ScrollView, Dimensions, TouchableOpacity} from "react-native";
-import React, {useState} from "react";
-import {useNavigation, useRoute} from "@react-navigation/native";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-import {LinearGradient} from "expo-linear-gradient";
-import {StackNavigationProps} from "../../../App";
+import { Image, View, StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../types/screenDim";
+import { LinearGradient } from "expo-linear-gradient";
+import { RootStackNavigationProps } from "../../../App";
 
-
-
+import { GetDataChampion } from "../../logic/logic";
+import { useQuery } from "react-query";
+import { RouteParams } from "../../types/RouteParams";
 
 export function Champion() {
-
-    const [showDivider, setShowDivider] = useState(false); // État pour le séparateur
-    const [selectedSkill, setSelectedSkill] = useState(null);
-
-    const selectSkill = (skillId) => {
-        setShowDivider(true);
-        setSelectedSkill(skillId);
-    };
-
-    // Fonction pour basculer l'affichage du séparateur
-    const toggleDivider = () => {
-        if(!showDivider) {
-            setShowDivider(true);
-        }
-    };
-
+    const [showDivider, setShowDivider] = useState(false);
+    const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+    const [selectedSpellName, setSelectedSpellName] = useState('');
+    const [selectedSpellLetter, setSelectedSpellLetter] = useState('');
+    const [spellDescription, setSpellDescription] = useState('');
+    const navigation = useNavigation<RootStackNavigationProps>();
 
     const route = useRoute();
-    // @ts-ignore
-    const nom = route?.params?.nom;
-    console.log({params: route?.params})
+    const params = route.params as RouteParams;
+    const name = params.nom;
 
+    const { data: championData, isLoading, error } = useQuery(['champion', name], () => GetDataChampion({ ChampionNameWithoutSpace: name }), {
+        enabled: !!name
+    });
 
-    const navigation = useNavigation<StackNavigationProps>();
-    const navigate = () => {
-    console.log({navigation: navigation.getState()})
-    navigation.navigate('SkinScreen');
+    if (isLoading) {
+        return <Text>Chargement...</Text>;
+    }
+    if (error) {
+        return <Text>Erreur lors du chargement des données.</Text>;
+    }
+    if (!championData) {
+        return <Text>Données du champion introuvables.</Text>;
+    }
+    if(!championData.spells) {
+        return <Text>Erreur spell</Text>
+    }
+
+    const selectSkill = (skillId: string | null) => {
+        const selectedSpell = championData.spells.find((spell: { id: string; }) => spell.id === skillId);
+        if (selectedSpell) {
+            setShowDivider(true);
+            setSelectedSkill(skillId);
+            setSelectedSpellLetter(selectedSpell.id.charAt(0));
+            setSelectedSpellName(selectedSpell.name);
+            setSpellDescription(selectedSpell.description);
+        }
     };
-
+    const navigate = () => {
+        navigation.navigate('SkinScreen', { nom: `${name}` });
+    };
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <Image
-          style={styles.pictureChamp}
-          source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${nom}_0.jpg` }}
-        />
-        <View style={styles.linear}>
-          <LinearGradient style={styles.linearGradient}
-                          colors={[
-                            'rgba(52,43,43,0)',
-                            'rgb(0,0,0)'
-                          ]}
-          />
-        </View>
-        <View style={styles.flexOblig}>
-        </View>
-        <View style={styles.titleSubTitleIcon}>
-            <View style={styles.titleSubTitle}>
-                <Text style={styles.titleChamp}>{nom}</Text>
-                <Text style={styles.subTitle}>L'explorateur prodigieux</Text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Image style={styles.pictureChamp} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg` }} />
+            <View style={styles.linear}>
+                <LinearGradient style={styles.linearGradient} colors={['rgba(52,43,43,0)', 'rgb(0,0,0)']} />
             </View>
-            <Image style={styles.likeChampIcon} source={require('../../../assets/buttons/hearth.png')} />
-        </View>
-        <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-        </Text>
-      <Text style={styles.skills}>Skills</Text>
-        <View style={styles.skillsContent}>
-            {['Passiva', 'Habilidade1', 'Habilidade2', 'Habilidade3', 'Habilidade4'].map((skillId, index) => (
-                <TouchableOpacity key={index} onPress={() => selectSkill(skillId)}>
-                    <Image
-                        style={styles.skillsPicture}
-                        source={require(`../../../assets/tempEzChamp/${skillId}.png`)}
-                    />
-                    {selectedSkill === skillId && (
-                        <Image
-                            style={styles.overlayImage}
-                            source={require('../../../assets/champ/spell-selected.png')}
-                        />
-                    )}
-                </TouchableOpacity>
-            ))}
-
-        </View>
-          {showDivider && <View style={styles.divider} />}
-        <View style={styles.descLetterNameSpell}>
-            <Text style={styles.letterSpell}>Q</Text>
-            <Text style={styles.nameSpell}>DISPARO MACHIN </Text>
-            <Text style={styles.descSpell}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-            </Text>
-        </View>
-        <View style={styles.generalInformations}>
-            <Image style={styles.pictureRole} source={require('../../../assets/tempEzChamp/Atirador.png')}/>
-            <View style={styles.textRoleRoleImport}>
-                <Text style={styles.role}>Rôle</Text>
-                <Text style={styles.roleImport}>Tireur</Text>
+            <View style={styles.flexOblig} />
+            <View style={styles.titleSubTitleIcon}>
+                <View style={styles.titleSubTitle}>
+                    <Text style={styles.titleChamp}>{name}</Text>
+                    <Text style={styles.subTitle}>{championData.title}</Text>
+                </View>
+                <Image style={styles.likeChampIcon} source={require('../../../assets/buttons/hearth.png')} />
             </View>
-            <View style={styles.difficultInformations}>
-                <Text style={styles.textDifficult}>Difficulté</Text>
-                <Text style={styles.niveauDifficult}>Facile</Text>
-                <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')}/>
+            <Text style={styles.description}>{championData.lore}</Text>
+            <Text style={styles.skills}>Skills</Text>
+            <View style={styles.skillsContent}>
+                {championData.spells.map((spell: { id: string | null; image: { full: any; }; }, index: React.Key | null | undefined) => (
+                    <TouchableOpacity key={index} onPress={() => selectSkill(spell.id)}>
+                        <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
+                        {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
+                    </TouchableOpacity>
+                ))}
             </View>
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => { navigate() }}
-        >
-          <Text style={styles.buttonText}> Skins </Text>
-        </TouchableOpacity>
-        <View style={styles.endScreen}></View>
-      </ScrollView>
+            {showDivider && <View style={styles.divider} />}
+            <View style={styles.descLetterNameSpell}>
+                <Text style={styles.letterSpell}>{selectedSpellLetter}</Text>
+                <Text style={styles.nameSpell}>{selectedSpellName}</Text>
+                <Text style={styles.descSpell}>{spellDescription}</Text>
+            </View>
+            <View style={styles.generalInformations}>
+                <Image style={styles.pictureRole} source={require('../../../assets/tempEzChamp/Atirador.png')} />
+                <View style={styles.textRoleRoleImport}>
+                    <Text style={styles.role}>Rôle</Text>
+                    <Text style={styles.roleImport}>Tireur</Text>
+                </View>
+                <View style={styles.difficultInformations}>
+                    <Text style={styles.textDifficult}>Difficulté</Text>
+                    <Text style={styles.niveauDifficult}>Facile</Text>
+                    <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')} />
+                </View>
+            </View>
+            <TouchableOpacity style={styles.button} onPress={navigate}>
+                <Text style={styles.buttonText}>Skins</Text>
+            </TouchableOpacity>
+            <View style={styles.endScreen}></View>
+        </ScrollView>
     );
 }
-
-
-/*
- <TouchableOpacity onPress={toggleDivider}>
-                <Image
-                    style={styles.skillsPicture}
-                   source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleDivider}>
-                <Image
-                    style={styles.skillsPicture}
-                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleDivider}>
-                <Image
-                    style={styles.skillsPicture}
-                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleDivider}>
-                <Image
-                    style={styles.skillsPicture}
-                    source={require('../../../assets/tempEzChamp/Passiva.png')} />
-            </TouchableOpacity>
- */
 const styles = StyleSheet.create({
     overlayImage: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        // autres styles pour l'image superposée
+        width: SCREEN_WIDTH * .18,
+        height: SCREEN_WIDTH * .18,
     },
     divider: {
         width: '100%',
         height: 2,
-        backgroundColor: '#8B00FF', // Couleur de votre choix
+        backgroundColor: '#8B00FF',
     },
     container: {
       width: SCREEN_WIDTH,
@@ -166,7 +125,6 @@ const styles = StyleSheet.create({
       width: SCREEN_WIDTH,
       zIndex: 1,
       position: "absolute"
-      //resizeMode: 'cover',
     },
     linear: {
       width: '100%',
@@ -174,7 +132,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       position:'absolute',
       top: SCREEN_HEIGHT * .2,
-
     },
     linearGradient: {
       zIndex: 2,

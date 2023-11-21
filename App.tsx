@@ -10,7 +10,9 @@ import {Champion} from "./app/pages/champ/Champion";
 import {Search} from "./app/pages/search/Search";
 import {SkinScreen} from "./app/pages/champ/SkinScreen";
 import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
-import {Login} from "./app/pages/login/login";
+import {Login} from "./app/pages/login/Login";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import {FunctionComponent} from "react";
 
 export type IntroParamList = {
@@ -34,9 +36,11 @@ export type StackParamList = {
   };
 }
 
-export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
 
+export type IntroStackNavigationProps = NativeStackNavigationProp<IntroParamList>
 const IntroStackNavigator = createNativeStackNavigator<IntroParamList>();
+const queryClient = new QueryClient();
+
 const IntroStack = () => {
   return (
       <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
@@ -48,20 +52,23 @@ const IntroStack = () => {
   )
 }
 
-const Stack = createNativeStackNavigator<StackParamList>();
+export type RootStackNavigationProps = NativeStackNavigationProp<StackParamList>
+const RootStack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name={'Intro'} component={IntroStack} />
-          <Stack.Screen name={'Accueil'} component={Accueil} />
-          <Stack.Screen name={'Champion'} component={Champion} />
-          <Stack.Screen name={'Search'} component={Search} />
-          <Stack.Screen name={'SkinScreen'} component={SkinScreen} />
-          <Stack.Screen name={'PlayerScreen'} component={PlayerScreen} />
-          <Stack.Screen name={'Login'} component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+          <NavigationContainer>
+            <RootStack.Navigator screenOptions={{ headerShown: false }}>
+              <RootStack.Screen name={'Intro'} component={IntroStack} />
+              <RootStack.Screen name={'Accueil'} component={Accueil} />
+              <RootStack.Screen name={'Champion'} component={Champion} />
+              <RootStack.Screen name={'Search'} component={Search} />
+              <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />
+              <RootStack.Screen name={'PlayerScreen'} component={PlayerScreen} />
+              <RootStack.Screen name={'Login'} component={Login} />
+            </RootStack.Navigator>
+          </NavigationContainer>
+      </QueryClientProvider>
   );
 }
