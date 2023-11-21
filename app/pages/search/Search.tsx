@@ -147,6 +147,9 @@ const styles = StyleSheet.create({
   afterSearchBlock: {
     width: '100%',
   },
+  afterSearchContainer: {
+    width: '100%',
+  },
   beforeSearchContainer: {
     width: '100%',
   },
