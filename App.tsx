@@ -11,12 +11,17 @@ import {Search} from "./app/pages/search/Search";
 import {SkinScreen} from "./app/pages/champ/SkinScreen";
 import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
 import {Login} from "./app/pages/login/login";
+import {FunctionComponent} from "react";
+
+export type IntroParamList = {
+    FirstSlide?: undefined;
+    SecondSlide?: undefined;
+    ThirdSlide?: undefined;
+    FourthSlide?: undefined;
+}
 
 export type StackParamList = {
-  FirstSlide?: undefined;
-  SecondSlide?: undefined;
-  ThirdSlide?: undefined;
-  FourthSlide?: undefined;
+  Intro?: IntroParamList;
   Search?: undefined;
   Accueil?: undefined;
   PlayerScreen?: undefined;
@@ -31,16 +36,25 @@ export type StackParamList = {
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
 
+const IntroStackNavigator = createNativeStackNavigator<IntroParamList>();
+const IntroStack = () => {
+  return (
+      <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
+        <IntroStackNavigator.Screen name={"FirstSlide"} component={FirstSlide} />
+        <IntroStackNavigator.Screen name={"SecondSlide"} component={SecondSlide} />
+        <IntroStackNavigator.Screen name={"ThirdSlide"} component={ThirdSlide} />
+        <IntroStackNavigator.Screen name={"FourthSlide"} component={FourthSlide} />
+      </IntroStackNavigator.Navigator>
+  )
+}
+
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name={'FirstSlide'} component={FirstSlide} />
-          <Stack.Screen name={'SecondSlide'} component={SecondSlide} />
-          <Stack.Screen name={'ThirdSlide'} component={ThirdSlide} />
-          <Stack.Screen name={'FourthSlide'} component={FourthSlide} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name={'Intro'} component={IntroStack} />
           <Stack.Screen name={'Accueil'} component={Accueil} />
           <Stack.Screen name={'Champion'} component={Champion} />
           <Stack.Screen name={'Search'} component={Search} />

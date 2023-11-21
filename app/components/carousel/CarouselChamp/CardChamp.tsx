@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   subtitleCard: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: 'normal',
     width: '80%',
     marginBottom: 15,

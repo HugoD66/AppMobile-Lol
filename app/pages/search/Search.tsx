@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {BeforeSearch} from "./BeforeSearch";
 import { SearchBar } from 'react-native-elements';
@@ -7,6 +7,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
 import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {AfterSearch} from "./AfterSearch";
+import {BackArrow} from "../../components/button/BackArrow";
 
 
 export function Search() {
@@ -14,14 +15,15 @@ export function Search() {
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
   const [activeOption, setActiveOption] = useState('Champions');
+  const [showLoop, setShowLoop] = useState(true);
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
   };
 
-  const handleSearchChange = (text: any): void | string | null | undefined => {
-    if (text !== null && text !== undefined) {
-      setSearch(text);
+  const handleSearchChange = (text: string) => {
+    if (text != null) {
+      setShowLoop(text.length === 0)
       Animated.timing(opacityAnimBefore, {
         toValue: text.length === 0 ? 1 : 0,
         duration: 400,
@@ -33,7 +35,8 @@ export function Search() {
         useNativeDriver: true,
       }).start();
     }
-  };
+    return setSearch(text);
+  }
 
   const dismissKeyboard = () => {
     Keyboard.dismiss();
@@ -48,31 +51,14 @@ export function Search() {
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <View style={styles.container}>
         <View style={styles.contentSearch}>
-          <TouchableOpacity onPress={() => navigate()} style={styles.arrowBackButton}>
-            <Image style={styles.arrowBack} source={require('../../../assets/search/arrow-back.png')} />
-          </TouchableOpacity>
-          <
-          // @ts-ignore
-          SearchBar
+          <BackArrow navigate={navigate} />
+          <TextInput
           placeholder="Recherchez..."
           value={search}
-          // @ts-ignore
           onChangeText={handleSearchChange}
           style={styles.searchbar}
-          inputContainerStyle={{
-            width: SCREEN_WIDTH * 0.9,
-            height: SCREEN_HEIGHT * 0.07,
-            borderRadius: 14,
-            backgroundColor: 'transparent',
-            margin: 3,
-            padding: 0,
-            zIndex: 3,
-          }}
-          cancelButtonProps={{}}
-          cancelButtonTitle="Annuler"
-          showCancel
-          platform="default"
           />
+            {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
           <ScrollView horizontal >
             <View style={styles.selectionSearchList}>
               <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
@@ -100,12 +86,15 @@ export function Search() {
           <View style={styles.divider} />
         </View>
         <View style={styles.contentBeforeAfter}>
-          <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
-            <BeforeSearch />
-          </Animated.View>
+          {search.length === 0 ? (
+              <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+              <BeforeSearch />
+            </Animated.View>
+              ) : (
           <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
             <AfterSearch />
           </Animated.View>
+                )}
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -119,43 +108,38 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT,
     backgroundColor: 'black',
   },
-
+  loop: {
+    top: -40,
+    marginLeft: SCREEN_WIDTH * 0.75,
+  },
   contentSearch: {
-    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    height: SCREEN_HEIGHT * 0.23,
+    height: SCREEN_HEIGHT * 0.28,
 
-  },
-  arrowBackButton: {
-    margin: 20,
-    width: 20,
-    height: 20,
-    right: SCREEN_WIDTH * 0.38,
-  },
-  arrowBack: {
-    width: 20,
-    height: 20,
   },
   searchbar: {
-    opacity: 1,
-
+    color: 'white',
+    height: 60,
+    width: SCREEN_WIDTH * 0.90,
+    backgroundColor: '#1E1724',
   },
-  beforeSearchContainer: {
-    width: '100%',
 
-  },
   selectionSearchList: {
+
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    height: SCREEN_HEIGHT * 0.05,
+    height: SCREEN_HEIGHT * 0.08,
   },
   selectionSearch: {
     fontSize: 20,
-    padding: 8,
-    margin: 'auto',
+    padding: 6,
+    margin: 5,
     fontWeight: 'bold',
     color: 'white',
 
@@ -164,8 +148,6 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: 1,
     backgroundColor: '#545662',
-
-    //marginBottom: 20,
   },
   contentBeforeAfter: {
     marginTop: 20,
@@ -175,5 +157,9 @@ const styles = StyleSheet.create({
   },
   afterSearchBlock: {
 
-  }
+  },
+  beforeSearchContainer: {
+    width: '100%',
+
+  },
 });

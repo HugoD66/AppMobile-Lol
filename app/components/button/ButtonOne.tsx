@@ -1,9 +1,10 @@
-import {Text, TouchableOpacity, StyleSheet} from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProps} from "../../../App";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
+import {ButtonOneProps} from "../../types/ButtonOneProps";
 
-export function ButtonOne() {
+export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
     const navigation = useNavigation<StackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
@@ -11,7 +12,7 @@ export function ButtonOne() {
     };
 
     return (
-        <TouchableOpacity style={styles.button}     onPress={() => { navigate() }}>
+        <TouchableOpacity style={StyleSheet.flatten([styles.button, style])}     onPress={() => { navigate() }}>
             <Text style={styles.buttonText}>C'est parti ! </Text>
         </TouchableOpacity>
     )
