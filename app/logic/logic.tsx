@@ -24,7 +24,8 @@ export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuer
             E:championInfo.spells[2].image.full,
             R:championInfo.spells[3].image.full,
             Skins: championInfo.skins,
-            spells: championInfo.spells
+            spells: championInfo.spells,
+            passive: championInfo.passive,
         };
         return Champion;
 

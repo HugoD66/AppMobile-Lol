@@ -8,7 +8,8 @@ import { RootStackNavigationProps } from "../../../App";
 import { GetDataChampion } from "../../logic/logic";
 import { useQuery } from "react-query";
 import { RouteParams } from "../../types/RouteParams";
-
+import {Loader} from "../../components/loader/Loader";
+import {Error} from "../../components/loader/Error";
 export function Champion() {
     const [showDivider, setShowDivider] = useState(false);
     const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
@@ -26,13 +27,13 @@ export function Champion() {
     });
 
     if (isLoading) {
-        return <Text>Chargement...</Text>;
+        return <Loader />;
     }
     if (error) {
-        return <Text>Erreur lors du chargement des données.</Text>;
+        return <Error />;
     }
     if (!championData) {
-        return <Text>Données du champion introuvables.</Text>;
+        return <Error />;
     }
     if(!championData.spells) {
         return <Text>Erreur spell</Text>

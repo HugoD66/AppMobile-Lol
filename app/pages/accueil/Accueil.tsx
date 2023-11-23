@@ -5,7 +5,6 @@ import {CarouselChamp} from "../../components/carousel/CarouselChamp/CarouselCha
 import {CarouselRecommend} from "../../components/carousel/CarouselRecommend/CarouselRecommend";
 import {CarouselRuneterra} from "../../components/carousel/CarouselRunterra/CarouselRuneterra";
 import {ContentPlayerList} from "../../components/accueil/PlayerList/ContentPlayerList";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 
 

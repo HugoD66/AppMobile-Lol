@@ -12,7 +12,7 @@ export function CarouselRecommend() {
             backPicture={require('../../../../assets/accueil/3-carousel-recomm/backOne-recomm.png')}
             />
           <CardRecommend
-            titleCard={'Lee sin'}
+            titleCard={'LeeSin'}
             subTitleCard={'Le moine aveugle'}
             pictureChamp={require('../../../../assets/accueil/3-carousel-recomm/recomm-Lee.png')}
             backPicture={require('../../../../assets/accueil/3-carousel-recomm/backTwo-recomm.png')}

@@ -2,7 +2,7 @@ import {StyleSheet, View, Image, TouchableOpacity, Text} from "react-native";
 import React from "react";
 import {CardChampProps} from "../../../types/CardRecommendProps";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {StackParamList} from "../../../pages/accueil/Accueil";
+import {StackParamList} from "../../../../App";
 import {useNavigation} from "@react-navigation/native";
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>

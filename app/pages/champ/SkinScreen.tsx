@@ -6,6 +6,8 @@ import {RootStackNavigationProps} from "../../../App";
 import { RouteParams } from "../../types/RouteParams";
 import {GetDataChampion} from "../../logic/logic"
 import {useQuery} from "react-query";
+import {Loader} from "../../components/loader/Loader";
+import {Error} from "../../components/loader/Error";
 
 interface Skin {
     id: string;
@@ -24,13 +26,13 @@ export function SkinScreen() {
     });
 
     if (isLoading) {
-        return <Text>Chargement...</Text>;
+      return <Loader />;
     }
     if (error) {
-        return <Text>Erreur lors du chargement des données.</Text>;
+      return <Error />;
     }
     if (!championData) {
-        return <Text>Données du champion introuvables.</Text>;
+      return <Error />;
     }
 
 
