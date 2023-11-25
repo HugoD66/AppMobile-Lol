@@ -28,22 +28,25 @@ export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) 
 }
 const styles = StyleSheet.create({
   touchableContent : {
-    width: SCREEN_WIDTH * .3,
+    width: SCREEN_WIDTH * .30,
   },
   card: {
     marginBottom: 5,
+    width: SCREEN_WIDTH * .27,
   },
   titleCard: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     width: '100%',
+    marginTop: 5,
   },
   subtitleCard: {
     color: 'white',
     fontSize: 13,
-    fontWeight: 'normal',
-    width: '80%',
+    fontWeight: '300',
+    width: '90%',
+    marginTop: 4,
     marginBottom: 15,
   },
 });

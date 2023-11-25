@@ -17,13 +17,28 @@ import {RootStackNavigationProps} from "../../../App";
 import {ButtonOne} from "../../components/button/ButtonOne";
 
 export function Login() {
-  const [search, setSearch] = useState('');
+  const [email, setEmail] = useState(''); // Utilisez 'email' pour le champ d'e-mail
+  const [password, setPassword] = useState(''); // Utilisez 'password' pour le champ du mot de passe
+
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
     navigation.navigate('Accueil');
   };
   const dismissKeyboard = () => {
     Keyboard.dismiss();
+  };
+
+  const onSubmit = () => {
+    const emailValue: string = email;
+    const passwordValue: string = password;
+
+    if (emailValue.trim() === '' || passwordValue.trim() === '') {
+      console.log('Veuillez remplir tous les champs.');
+    } else {
+      console.log('email : ' + emailValue);
+      console.log('password : ' + passwordValue);
+      navigation.navigate('Accueil');
+    }
   };
 
   return(
@@ -45,19 +60,24 @@ export function Login() {
               <View style={styles.contentSearch}>
                 <Text style={styles.searchLabel}>Email</Text>
                 <TextInput
-                    value={search}
-                    style={styles.searchbar}
+                  style={styles.searchbar}
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
                 />
               </View>
               <View style={styles.contentSearch}>
                 <Text style={styles.searchLabel}>Password</Text>
                 <TextInput
-                    value={search}
-                    style={styles.searchbar}
+                  style={styles.searchbar}
+                  value={password}
+                  secureTextEntry={true}
+                  onChangeText={(text) => setPassword(text)}
                 />
               </View>
             </View>
-            <ButtonOne style={styles.customButtonComponent} />
+            <TouchableOpacity style={styles.button} onPress={() => { onSubmit() }}>
+              <Text style={styles.buttonText}>C'est parti ! </Text>
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </View>
       </View>
@@ -124,5 +144,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1724',
   },
   customButtonComponent: {
+    marginTop: '10%',
+  },
+  button: {
+    width: SCREEN_WIDTH * .92,
+    height: 70,
+    backgroundColor: '#8B00FF',
+    borderRadius: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

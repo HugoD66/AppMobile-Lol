@@ -27,17 +27,15 @@ export function SecondSlide() {
             />
         </View>
         <View style={styles.section}>
-                <View style={styles.flexOblig}></View>
-                <Text style={styles.title}>Choisissez les meilleurs champions </Text>
-                <Text style={styles.desc}> "Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu. </Text>
-                <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
-                    <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-                </TouchableOpacity>
+            <View style={styles.flexOblig}></View>
+            <Text style={styles.title}>Choisissez les meilleurs champions </Text>
+            <Text style={styles.desc}> Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu. </Text>
+            <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
+                <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+            </TouchableOpacity>
         </View>
     </View>
-
-
-          );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -60,7 +58,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position:'absolute',
         top: SCREEN_HEIGHT * .3,
-
     },
     linearGradient: {
         zIndex: 2,
@@ -76,33 +73,27 @@ const styles = StyleSheet.create({
         zIndex: 3,
     },
     flexOblig: {
-        height: SCREEN_HEIGHT * .18,
+        height: SCREEN_HEIGHT * .40,
     },
     title: {
         margin: '5%',
         width: '80%',
-
         zIndex: 13,
         color: 'white',
         textAlign: 'center',
-        //bottom: '-10%',
-        //fontFamily: 'DM Sans',
         fontSize: 32,
+        //fontFamily: 'DM Sans'
     },
     desc: {
         textAlign: 'center',
         color: '#B3B0B8',
-        //fontWeight: "light",
         letterSpacing: 2,
         margin: '5%',
         fontWeight: "100",
-
         width: '70%',
         fontSize: 16,
-        //fontFamily: 'Calibri'
     },
     button: {
-
         zIndex: 6,
         width: '15%',
         backgroundColor: 'rgb(72,0,255)',
@@ -111,6 +102,5 @@ const styles = StyleSheet.create({
     pictureButton: {
         margin: 'auto',
         width: '100%',
-
     }
 })

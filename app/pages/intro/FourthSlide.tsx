@@ -26,7 +26,7 @@ export default function FourthSlide() {
             <View style={styles.flexOblig}></View>
             <Text style={styles.title}>Élevez votre elo rapidement </Text>
             <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
-            <ButtonOne />
+            <ButtonOne style={styles.buttonOneCustom} />
         </View>
     </View>
     );
@@ -68,29 +68,26 @@ const styles = StyleSheet.create({
         zIndex: 3,
     },
     flexOblig: {
-        height: SCREEN_HEIGHT * .18,
+        height: SCREEN_HEIGHT * .40,
     },
     title: {
         margin: '5%',
         width: '80%',
-
         zIndex: 13,
         color: 'white',
         textAlign: 'center',
-        //bottom: '-10%',
-        //fontFamily: 'DM Sans',
         fontSize: 32,
     },
     desc: {
         textAlign: 'center',
         color: '#B3B0B8',
-        fontWeight: "100",
         letterSpacing: 2,
         margin: '5%',
-
+        fontWeight: "100",
         width: '70%',
         fontSize: 16,
-        //fontFamily: 'Calibri'
     },
-
+    buttonOneCustom: {
+        marginTop: '5%',
+    }
 });

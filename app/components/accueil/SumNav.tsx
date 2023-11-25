@@ -1,10 +1,7 @@
-import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../carousel/CarouselChamp/CardChamp";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-
-
-//export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
+import { SCREEN_WIDTH } from "../../types/screenDim";
 
 export function SumNav() {
   const navigation = useNavigation<StackNavigationProps>();
@@ -16,29 +13,29 @@ export function SumNav() {
     console.log({navigation: navigation.getState()})
     navigation.navigate('Login');
   };
+
   return (
     <View style={styles.sumNav}>
       <TouchableOpacity onPress={navigateLogin}>
         <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
       </TouchableOpacity>
-
       <View style={styles.sumNavTitleDesc}>
-        <Text style={styles.title}>Summoner</Text>
-        <Text style={styles.subtitle}>Super lolaifiaieorae</Text>
+        <Text style={styles.title}>TE0D00RA</Text>
+        <Text style={styles.subtitle}>Super Idol的笑容 都没你的甜</Text>
       </View>
       <TouchableOpacity onPress={navigate}>
         <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>
       <Image style={styles.rank} source={require('../../../assets/accueil/1-nav/rankPicture.png')} />
     </View>
-
   )
 }
 const styles = StyleSheet.create({
   sumNav: {
+    margin: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'black',
     zIndex: 2,
@@ -47,6 +44,7 @@ const styles = StyleSheet.create({
   },
   imageIconeSumNav: {
     marginTop: 10,
+    marginLeft: 10,
     width: 65,
     height: 65,
     resizeMode: 'contain',
@@ -58,12 +56,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
+    marginLeft: 15,
   },
   title: {
     color: 'white',
     fontSize: 26,
     fontWeight: 'bold',
-
   },
   subtitle: {
     color: 'white',
@@ -73,11 +71,13 @@ const styles = StyleSheet.create({
   loopSearch: {
     width: 30,
     height: 30,
+    marginTop: 10,
     marginLeft: 35,
   },
   rank: {
-    width: 75,
-    height: 75,
+    width: 65,
+    height: 65,
     resizeMode: 'contain',
+    marginRight: 10,
   }
 })

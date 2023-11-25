@@ -50,6 +50,7 @@ export function Search() {
           <BackArrow navigate={navigate} />
           <TextInput
           placeholder="Recherchez..."
+          placeholderTextColor={'white'}
           value={search}
           onChangeText={handleSearchChange}
           style={styles.searchbar}

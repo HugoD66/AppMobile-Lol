@@ -15,7 +15,7 @@ export default function ThirdSlide() {
 
 
     return (
-      <View style={styles.container}>
+    <View style={styles.container}>
           <Image
             style={styles.pictureChamp}
             source={require('../../../assets/intro/intro-thirthSlide.png')}
@@ -30,14 +30,13 @@ export default function ThirdSlide() {
           </View>
           <View style={styles.section}>
               <View style={styles.flexOblig}></View>
-
-          <Text style={styles.title}>Élevez votre elo rapidement </Text>
-          <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur </Text>
-          <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
-              <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-          </TouchableOpacity>
-      </View>
-      </View>
+              <Text style={styles.title}>Élevez votre elo rapidement </Text>
+              <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur {'\n'}</Text>
+              <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
+                  <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+              </TouchableOpacity>
+        </View>
+    </View>
     );
 }
 
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position:'absolute',
         top: SCREEN_HEIGHT * .3,
-
     },
     linearGradient: {
         zIndex: 2,
@@ -77,17 +75,14 @@ const styles = StyleSheet.create({
         zIndex: 3,
     },
     flexOblig: {
-        height: SCREEN_HEIGHT * .18,
+        height: SCREEN_HEIGHT * .40,
     },
     title: {
         margin: '5%',
         width: '80%',
-
         zIndex: 13,
         color: 'white',
         textAlign: 'center',
-        //bottom: '-10%',
-        //fontFamily: 'DM Sans',
         fontSize: 32,
     },
     desc: {
@@ -96,16 +91,14 @@ const styles = StyleSheet.create({
         fontWeight: "100",
         letterSpacing: 2,
         margin: '5%',
-
         width: '70%',
         fontSize: 16,
-        //fontFamily: 'Calibri'
     },
     button: {
         zIndex: 6,
         width: '15%',
         backgroundColor: 'rgb(72,0,255)',
-        margin: '4%',
+        margin: '5%',
     },
     pictureButton: {
         margin: 'auto',

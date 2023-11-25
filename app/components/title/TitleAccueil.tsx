@@ -1,22 +1,20 @@
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
-import {SCREEN_WIDTH} from "../../types/screenDim";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { SCREEN_WIDTH } from "../../types/screenDim";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackNavigationProps } from "../../../App";
+import {TitleProps} from "../../types/TitleProps";
 
-// @ts-ignore
-export function TitleAccueil({ title, subtitle }) {
-  const navigation = useNavigation<StackNavigationProps>();
+export function TitleAccueil({ title, subtitle, style, titleStyle, subtitleStyle, ...otherProps }: TitleProps) {
+  const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
-    console.log({navigation: navigation.getState()})
     navigation.navigate('Search');
   };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity
-        onPress={() => { navigate() }}>
-
-      <Text style={styles.subtitle}>{subtitle}</Text>
+      <Text style={[styles.title, titleStyle]}>{title}</Text>
+      <TouchableOpacity onPress={navigate}>
+        <Text style={[styles.subtitle, subtitleStyle]}>{subtitle}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -26,10 +24,9 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH ,
     alignItems: 'center',
     justifyContent: 'space-between',
-    textAlign: 'start',
+    textAlign: 'center',
     display: 'flex',
     flexDirection: 'row',
-
   },
   title: {
     color: 'white',
@@ -42,8 +39,8 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'white',
     fontSize: 17,
-    fontWeight: '200',
+    fontWeight: '100',
     margin: '3%',
-
-  }
+    marginBottom: '20%',
+  },
 });

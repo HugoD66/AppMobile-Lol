@@ -1,6 +1,11 @@
 Problemes rencontrés :
     Search :
         Animation ne s'effectue qu'une fois
+    StackParamList :
+        A delete ?
+
+
+
 
 Proposition:
     Liste Searchbar, joueur pro players (y a une api pour ca ? Photo + nom + role + team) ?

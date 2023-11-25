@@ -1,3 +1,4 @@
+/*
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 export type StackParamList = {
@@ -14,3 +15,4 @@ export type StackParamList = {
 
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList>
+ */

@@ -1,10 +1,10 @@
-import {View, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../../App";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackNavigationProps} from "../../../../App";
 
 export function Player() {
 
-    const navigation = useNavigation<StackNavigationProps>();
+    const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
         navigation.navigate('PlayerScreen');
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     playerName: {
         color: 'white',
         fontSize: 22,
+        marginBottom: 4,
     },
     teamDesc: {
         flexDirection: 'row',

@@ -11,18 +11,17 @@ export function CarouselChamp() {
       json: 'json',
     }),
   });
-  console.log(req);
+
   return (
     <View style={styles.container}>
         <ScrollView horizontal contentContainerStyle={styles.container}>
         <View style={styles.cards}>
-            <CardChamp
+          <CardChamp
              subTitleCard={'Ou Prodige Explorateur'}
              titleCard={'Ezreal'}
              imageCard={require('../../../../assets/accueil/2-carousel-champ/1-Ez.png')}
-             />
-
-              <CardChamp
+           />
+            <CardChamp
              subTitleCard={'L\'ombre de l\'agonie'}
              titleCard={'Evelynn'}
              imageCard={require('../../../../assets/accueil/2-carousel-champ/2-Eve.png')}
@@ -43,7 +42,6 @@ export function CarouselChamp() {
 
   )
 }
-//styleInterpolator={} closing={} transitionSpec={} onClose={} onGestureEnd={} current={} onOpen={} gestureDirection={} headerDarkContent={} pageOverflowEnabled={} insets={} interpolationIndex={} onTransition={} overlayEnabled={} onGestureBegin={} gesture={} onGestureCanceled={} layout={}
 const styles = StyleSheet.create({
   container: {},
   cards: {

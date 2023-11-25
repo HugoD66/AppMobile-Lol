@@ -1,11 +1,11 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../../App";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-import {ButtonOneProps} from "../../types/ButtonOneProps";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackNavigationProps } from "../../../App";
+import { SCREEN_WIDTH } from "../../types/screenDim";
+import { ButtonOneProps } from "../../types/ButtonOneProps";
 
 export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
-    const navigation = useNavigation<StackNavigationProps>();
+    const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
         navigation.navigate('Accueil');
@@ -21,20 +21,17 @@ export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
 const styles = StyleSheet.create({
     button: {
         width: SCREEN_WIDTH * .92,
-        height: 76,
+        height: 70,
         backgroundColor: '#8B00FF',
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     buttonText: {
         textAlign: 'center',
         color: 'white',
-        //marginBottom: 4,
         fontWeight: 'bold',
         fontSize: 16,
     },
-
 });
