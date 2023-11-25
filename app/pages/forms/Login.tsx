@@ -14,11 +14,11 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {BackArrow} from "../../components/button/BackArrow";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
-import {ButtonOne} from "../../components/button/ButtonOne";
+import {db} from "../../../db";
 
 export function Login() {
-  const [email, setEmail] = useState(''); // Utilisez 'email' pour le champ d'e-mail
-  const [password, setPassword] = useState(''); // Utilisez 'password' pour le champ du mot de passe
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
@@ -37,7 +37,25 @@ export function Login() {
     } else {
       console.log('email : ' + emailValue);
       console.log('password : ' + passwordValue);
-      navigation.navigate('Accueil');
+        db.transaction(tx => {
+          tx.executeSql(
+            'SELECT * FROM Users WHERE invocateur = ? AND password = ?',
+            [emailValue, passwordValue],
+            (_, { rows }) => {
+              if (rows.length > 0) {
+                console.log('User found');
+                navigation.navigate('Accueil');
+              } else {
+                console.log('User not found');
+              }
+            },
+            (_, error) => {
+              console.error('Error when selecting user', error);
+              return false;
+            }
+          );
+        });
+      // navigation.navigate('Accueil');
     }
   };
 

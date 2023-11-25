@@ -13,16 +13,23 @@ export function SumNav() {
     console.log({navigation: navigation.getState()})
     navigation.navigate('Login');
   };
+  const navigateRegister = () => {
+    console.log({navigation: navigation.getState()})
+    navigation.navigate('Register');
+  }
 
   return (
     <View style={styles.sumNav}>
       <TouchableOpacity onPress={navigateLogin}>
         <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
       </TouchableOpacity>
-      <View style={styles.sumNavTitleDesc}>
-        <Text style={styles.title}>TE0D00RA</Text>
-        <Text style={styles.subtitle}>Super Idol的笑容 都没你的甜</Text>
-      </View>
+      <TouchableOpacity onPress={navigateRegister}>
+        <View style={styles.sumNavTitleDesc}>
+          <Text style={styles.title}>TE0D00RA</Text>
+          <Text style={styles.subtitle}>Super Idol的笑容 都没你的甜</Text>
+        </View>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={navigate}>
         <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>

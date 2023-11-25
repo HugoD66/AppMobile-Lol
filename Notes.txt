@@ -4,6 +4,11 @@ Problemes rencontrés :
     StackParamList :
         A delete ?
 
+    DB :
+        Je créer une db au démarage ( si non existante ) et je la remplie avec les données de l'api
+        Je ne sais pas si c'est la bonne solution, mais ca marche
+
+
 
 
 

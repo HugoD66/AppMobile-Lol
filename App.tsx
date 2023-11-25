@@ -10,10 +10,11 @@ import {Champion} from "./app/pages/champ/Champion";
 import {Search} from "./app/pages/search/Search";
 import {SkinScreen} from "./app/pages/champ/SkinScreen";
 import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
-import {Login} from "./app/pages/login/Login";
+import {Login} from "./app/pages/forms/Login";
+import {Register} from "./app/pages/forms/Register";
 import { QueryClient, QueryClientProvider } from 'react-query';
-
-import {FunctionComponent} from "react";
+import {useEffect} from "react";
+import {db} from "./db";
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -28,6 +29,7 @@ export type StackParamList = {
   Accueil?: undefined;
   PlayerScreen?: undefined;
   Login?: undefined;
+  Register?: undefined;
   SkinScreen?: {
     nom: string,
   };
@@ -42,6 +44,25 @@ const IntroStackNavigator = createNativeStackNavigator<IntroParamList>();
 const queryClient = new QueryClient();
 
 const IntroStack = () => {
+
+
+
+  const fetchData = () => {
+    // Votre logique pour récupérer les données ici
+  };
+
+  useEffect(() => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, count INT)'
+      )
+    });
+    fetchData();
+  }, []);
+
+
+
+
   return (
       <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
         <IntroStackNavigator.Screen name={"FirstSlide"} component={FirstSlide} />
@@ -56,6 +77,7 @@ export type RootStackNavigationProps = NativeStackNavigationProp<StackParamList>
 const RootStack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
+
   return (
       <QueryClientProvider client={queryClient}>
           <NavigationContainer>
@@ -67,6 +89,7 @@ export default function App() {
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />
               <RootStack.Screen name={'PlayerScreen'} component={PlayerScreen} />
               <RootStack.Screen name={'Login'} component={Login} />
+              <RootStack.Screen name={'Register'} component={Register} />
             </RootStack.Navigator>
           </NavigationContainer>
       </QueryClientProvider>
