@@ -18,9 +18,8 @@ export function SumNav({ invocateur }: UserProps) {
     console.log({navigation: navigation.getState()})
     navigation.navigate('Register');
   }
-  console.log(invocateur)
-  console.log(invocateur)
-  console.log(invocateur)
+  console.log(`invocateur: ${invocateur}`)
+
   return (
     <View style={styles.sumNav}>
       <TouchableOpacity onPress={navigateLogin}>

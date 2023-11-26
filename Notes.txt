@@ -1,6 +1,6 @@
 Problemes rencontrés :
     Search :
-        Animation ne s'effectue qu'une fois
+        championData={championData}
 
     DB :
         Je créer une db au démarage ( si non existante ) et je la remplie avec les données de l'api
@@ -14,6 +14,7 @@ Problemes rencontrés :
 
     App :
         Erreur dans le App.tsx => component={Accueil}
+
 
 Demande prof :
     Est t'il possible de changer certaines choses ? du style:

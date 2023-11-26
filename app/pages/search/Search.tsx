@@ -7,31 +7,64 @@ import {RootStackNavigationProps} from "../../../App";
 import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {AfterSearch} from "./AfterSearch";
 import {BackArrow} from "../../components/button/BackArrow";
+import axios from "axios";
+import {APIKey} from "../../../APIKey";
+import {GetDataChampion} from "../../logic/logicChamp";
+import { ChampionDataInterface } from '../../types/ChampionDataInterface';
+
 
 export function Search() {
   const [search, setSearch] = useState('');
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
-  const [activeOption, setActiveOption] = useState('Champions');
-  const [showLoop, setShowLoop] = useState(true);
+  const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
+  const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
+
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
   };
 
-  const handleSearchChange = (text: string) => {
-      setShowLoop(text.length === 0)
-      Animated.timing(opacityAnimBefore, {
-        toValue: text.length === 0 ? 1 : 0,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(opacityAnimAfter, {
-        toValue: text.length === 0 ? 0 : 1,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
-    return setSearch(text);
+  const handleSearchChange = async (text: string) => {
+    setShowLoop(text.length === 0)
+    Animated.timing(opacityAnimBefore, {
+      toValue: text.length === 0 ? 1 : 0,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(opacityAnimAfter, {
+      toValue: text.length === 0 ? 0 : 1,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+    setSearch(text);
+
+    if (text.length > 0 && activeOption === 'Champions') {
+      try {
+        const championData = await GetDataChampion({ ChampionNameWithoutSpace: text });
+        setChampionData({
+          idChampion: championData.idChampion,
+          name: championData.nom,
+          title: championData.title,
+          full: championData.full,
+        });
+        console.log(championData);
+        console.log(' coucou'  + championData.title);
+
+      } catch (error) {
+        //console.error(error);
+      }
+    }
+
+    if (text.length > 0 && activeOption === 'Players') {
+      const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
+      try {
+        const response = await axios.get(url);
+        console.log(response.data);
+      } catch (error) {
+        //console.error(error);
+      }
+    }
   }
 
   const dismissKeyboard = () => {
@@ -54,8 +87,9 @@ export function Search() {
           value={search}
           onChangeText={handleSearchChange}
           style={styles.searchbar}
+          //onSubmit pour la recherche ?
           />
-            {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
+          {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
           <ScrollView horizontal >
             <View style={styles.selectionSearchList}>
               <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
@@ -68,13 +102,13 @@ export function Search() {
                   Pros
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Runetarra')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Runetarra' ? '500' : '200' }]}>
+              <TouchableOpacity onPress={() => handleOptionChange('Players')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
                 Players
               </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Skins')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Skins' ? '500' : '200' }]}>
+              <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
                 Teams
               </Text>
               </TouchableOpacity>
@@ -89,7 +123,9 @@ export function Search() {
             </Animated.View>
               ) : (
           <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-            <AfterSearch />
+            <AfterSearch
+              championData={championData}
+              activeOption={activeOption} />
           </Animated.View>
                 )}
         </View>

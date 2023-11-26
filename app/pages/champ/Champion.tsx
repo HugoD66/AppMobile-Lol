@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../types/screenDim";
 import { LinearGradient } from "expo-linear-gradient";
 import { RootStackNavigationProps } from "../../../App";
 
-import { GetDataChampion } from "../../logic/logic";
+import { GetDataChampion } from "../../logic/logicChamp";
 import { useQuery } from "react-query";
 import { RouteParams } from "../../types/RouteParams";
 import {Loader} from "../../components/loader/Loader";

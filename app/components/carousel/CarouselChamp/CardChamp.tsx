@@ -10,8 +10,6 @@ export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Ac
 
 export function CardChamp({titleCard, subTitleCard, imageCard}: CardChampProps) {
   const navigation = useNavigation<StackNavigationProps>();
-
-  console.log({titleCard})
   const navigate = () => {
     navigation.navigate('Champion', {
       nom: titleCard,

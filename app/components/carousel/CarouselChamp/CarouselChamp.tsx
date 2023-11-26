@@ -1,16 +1,6 @@
 import {StyleSheet, View, ScrollView} from "react-native";
 import {CardChamp} from "./CardChamp";
 export function CarouselChamp() {
-  const req = fetch('https://jsonplaceholder.typicode.com/todos?_limit=5', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      json: 'json',
-    }),
-  });
 
   return (
     <View style={styles.container}>

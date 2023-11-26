@@ -7,12 +7,10 @@ interface ChampionQuery {
 export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuery) => {
     console.log(ChampionNameWithoutSpace);
     const url = `https://ddragon.leagueoflegends.com/cdn/13.22.1/data/fr_FR/champion/${ChampionNameWithoutSpace}.json`;
-    console.log(url);
 
     try {
         const response = await axios.get(url);
         const championInfo = response.data.data[ChampionNameWithoutSpace];
-
         const Champion = {
             idChampion: championInfo.id,
             nom: championInfo.name,

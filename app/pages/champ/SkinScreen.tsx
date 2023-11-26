@@ -4,7 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import { RouteParams } from "../../types/RouteParams";
-import {GetDataChampion} from "../../logic/logic"
+import {GetDataChampion} from "../../logic/logicChamp"
 import {useQuery} from "react-query";
 import {Loader} from "../../components/loader/Loader";
 import {Error} from "../../components/loader/Error";
