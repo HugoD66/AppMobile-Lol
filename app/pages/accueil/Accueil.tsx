@@ -5,12 +5,21 @@ import { CarouselChamp } from "../../components/carousel/CarouselChamp/CarouselC
 import { CarouselRecommend } from "../../components/carousel/CarouselRecommend/CarouselRecommend";
 import { CarouselRuneterra } from "../../components/carousel/CarouselRunterra/CarouselRuneterra";
 import { ContentPlayerList } from "../../components/accueil/PlayerList/ContentPlayerList";
+import {UserProps} from "../../types/UserProps";
+import {useRoute} from "@react-navigation/native";
+import {useState} from "react";
 
-export function Accueil() {
+export function Accueil({ route }: { route: { params: { invocateur: string } } }) {
+  const { invocateur } = route.params;
+
+  /*
+  const initialInvocateur = route.params || ""; // Utilisez une valeur par défaut
+  const [invocateur, setInvocateur] = useState(initialInvocateur);
+   */
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <SumNav />
+      <SumNav  invocateur={invocateur}/>
       <TitleAccueil
         title="Mes champions"
         subtitle="Voir tous"/>

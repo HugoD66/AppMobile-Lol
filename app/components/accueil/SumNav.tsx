@@ -2,8 +2,9 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
 import { SCREEN_WIDTH } from "../../types/screenDim";
+import {UserProps} from "../../types/UserProps";
 
-export function SumNav() {
+export function SumNav({ invocateur }: UserProps) {
   const navigation = useNavigation<StackNavigationProps>();
   const navigate = () => {
     console.log({navigation: navigation.getState()})
@@ -17,7 +18,9 @@ export function SumNav() {
     console.log({navigation: navigation.getState()})
     navigation.navigate('Register');
   }
-
+  console.log(invocateur)
+  console.log(invocateur)
+  console.log(invocateur)
   return (
     <View style={styles.sumNav}>
       <TouchableOpacity onPress={navigateLogin}>
@@ -25,8 +28,8 @@ export function SumNav() {
       </TouchableOpacity>
       <TouchableOpacity onPress={navigateRegister}>
         <View style={styles.sumNavTitleDesc}>
-          <Text style={styles.title}>TE0D00RA</Text>
-          <Text style={styles.subtitle}>Super Idol的笑容 都没你的甜</Text>
+          <Text style={styles.title}>{invocateur ? invocateur : 'S\'enregistrer'}</Text>
+          <Text style={styles.subtitle}>{invocateur ? 'Identifié' : 'Non identifié'}</Text>
         </View>
       </TouchableOpacity>
 

@@ -15,10 +15,13 @@ import {BackArrow} from "../../components/button/BackArrow";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import {db} from "../../../db";
+import {LinearGradient} from "expo-linear-gradient";
 
 export function Login() {
-  const [email, setEmail] = useState('');
+  const [invocateur, setInvocateur] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
 
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
@@ -29,33 +32,36 @@ export function Login() {
   };
 
   const onSubmit = () => {
-    const emailValue: string = email;
+    const invocateurValue: string = invocateur;
     const passwordValue: string = password;
 
-    if (emailValue.trim() === '' || passwordValue.trim() === '') {
-      console.log('Veuillez remplir tous les champs.');
+    if (invocateurValue.trim() === '' || passwordValue.trim() === '') {
+      setError('Veuillez remplir tous les champs.');
     } else {
-      console.log('email : ' + emailValue);
+      console.log('email : ' + invocateurValue);
       console.log('password : ' + passwordValue);
         db.transaction(tx => {
           tx.executeSql(
             'SELECT * FROM Users WHERE invocateur = ? AND password = ?',
-            [emailValue, passwordValue],
+            [invocateurValue, passwordValue],
             (_, { rows }) => {
               if (rows.length > 0) {
+                setUser(rows._array[0].invocateur);
                 console.log('User found');
-                navigation.navigate('Accueil');
+                console.log(invocateurValue);
+                console.log(invocateur);
+
+                navigation.navigate('Accueil', { invocateur: invocateurValue });
               } else {
                 console.log('User not found');
               }
             },
             (_, error) => {
-              console.error('Error when selecting user', error);
+              setError('Veuillez remplir tous les champs.');
               return false;
             }
           );
         });
-      // navigation.navigate('Accueil');
     }
   };
 
@@ -63,9 +69,11 @@ export function Login() {
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.container}>
           <BackArrow navigate={navigate} style={styles.backArrowButton}/>
-
           <View style={styles.containerBackground}>
-          <Image style={styles.pictureback} source={require('../../../assets/login/pictureback-login.png')} />
+          <Image style={styles.pictureback} source={require('../../../assets/forms/pictureback-login.png')} />
+            <View style={styles.linear}>
+              <LinearGradient style={styles.linearGradient} colors={['rgba(52,43,43,0)', 'rgb(0,0,0)']} />
+            </View>
         </View>
         <View style={styles.contentLogin}>
           <KeyboardAvoidingView
@@ -73,24 +81,24 @@ export function Login() {
               style={styles.keyboardAvoidingView}
           >
             <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
-
             <View style={styles.contentForm}>
               <View style={styles.contentSearch}>
-                <Text style={styles.searchLabel}>Email</Text>
+                <Text style={styles.searchLabel}>Nom d'invocateur</Text>
                 <TextInput
                   style={styles.searchbar}
-                  value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  value={invocateur}
+                  onChangeText={(text) => setInvocateur(text)}
                 />
               </View>
               <View style={styles.contentSearch}>
                 <Text style={styles.searchLabel}>Password</Text>
                 <TextInput
-                  style={styles.searchbar}
                   value={password}
-                  secureTextEntry={true}
                   onChangeText={(text) => setPassword(text)}
+                  secureTextEntry={true}
+                  style={styles.searchbar}
                 />
+                {error ? <Text style={styles.errorText}>{error}</Text> : null}
               </View>
             </View>
             <TouchableOpacity style={styles.button} onPress={() => { onSubmit() }}>
@@ -143,6 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     top: 0,
+    zIndex: 5,
   },
   contentForm: {
     height: SCREEN_HEIGHT * .3,
@@ -178,5 +187,23 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  linear: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position:'absolute',
+    top: SCREEN_HEIGHT * .3,
+  },
+  linearGradient: {
+    zIndex: 2,
+    width: '100%',
+    height: SCREEN_HEIGHT * .2,
   },
 });
