@@ -50,10 +50,9 @@ export function Login() {
                 console.log('User found');
                 console.log(invocateurValue);
                 console.log(invocateur);
-
                 navigation.navigate('Accueil', { invocateur: invocateurValue });
               } else {
-                console.log('User not found');
+                setError('Nom d\'invocateur ou mot de passe incorrect.');
               }
             },
             (_, error) => {

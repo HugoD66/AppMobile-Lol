@@ -11,6 +11,8 @@ import axios from "axios";
 import {APIKey} from "../../../APIKey";
 import {GetDataChampion} from "../../logic/logicChamp";
 import { ChampionDataInterface } from '../../types/ChampionDataInterface';
+import {GetDataInvoc} from "../../logic/logicInvoc";
+import {InvocDataInterface} from "../../types/InvocDataInterface";
 
 
 export function Search() {
@@ -19,6 +21,7 @@ export function Search() {
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
   const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
   const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
+  const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
 
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
@@ -48,23 +51,38 @@ export function Search() {
           title: championData.title,
           full: championData.full,
         });
-        console.log(championData);
-        console.log(' coucou'  + championData.title);
-
       } catch (error) {
         //console.error(error);
       }
     }
 
     if (text.length > 0 && activeOption === 'Players') {
-      const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
       try {
+        const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
         const response = await axios.get(url);
         console.log(response.data);
+        setInvocData({
+          idInvoc: response.data.id,
+          name: response.data.name,
+          // @ts-ignore
+          profileIconId: response.data.profileIconId,
+          //level: response.data.summonerLevel,
+        });
       } catch (error) {
         //console.error(error);
       }
     }
+    /*
+     const invocData = await GetDataInvoc({ InvocName: text });
+        console.log(invocData);
+        setInvocData({
+          idInvoc: invocData.idInvoc,
+          name: invocData.nom,
+          //profileIconId: invocData.profileIconId,
+          //level: invocData.summonerLevel,
+        });
+        console.log( 'invocData', invocData.idInvoc, invocData.nom);
+     */
   }
 
   const dismissKeyboard = () => {
@@ -124,6 +142,8 @@ export function Search() {
               ) : (
           <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
             <AfterSearch
+              invocData={invocData}
+              // @ts-ignore
               championData={championData}
               activeOption={activeOption} />
           </Animated.View>
@@ -131,7 +151,6 @@ export function Search() {
         </View>
       </View>
     </TouchableWithoutFeedback>
-
   );
 }
 
