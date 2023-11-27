@@ -1,38 +1,30 @@
 import {View, StyleSheet, ScrollView, TouchableOpacity, Text, Image} from "react-native";
-import {SearchChampProps} from "../../types/SearchChampProps";
+import { SearchInvocProps } from '../../types/SearchInvocProps';
+import React from 'react';
 import {SCREEN_WIDTH} from "../../types/screenDim";
 import {useNavigation} from "@react-navigation/native";
-import {StackNavigationProps} from "../../components/carousel/CarouselChamp/CardChamp";
+import {RootStackNavigationProps} from "../../../App";
 
-export function ResultSearchChamp({ championData }: SearchChampProps) {
-  if(!championData) return null;
+export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
+  if(!invocData) return null;
 
-
-  const navigation = useNavigation<StackNavigationProps>();
-  const navigateChamp = () => {
-    navigation.navigate('Champion', {
-      nom: championData.name,
-    });
+  const navigation = useNavigation<RootStackNavigationProps>();
+  const navigateHomeTemp = () => {
+    navigation.navigate('Accueil');
   };
   return (
     <ScrollView>
       <View style={styles.container}>
-        {championData &&  (
-          <TouchableOpacity style={styles.touchableContent} onPress={() => navigateChamp()}>
-            <View style={styles.contentTexts}>
-              <Text style={styles.titleCard}>{championData.name}</Text>
-              <Text style={styles.subtitleCard}>{championData.title}</Text>
-            </View>
-            <Image style={styles.pictureCard} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championData.name}_0.jpg` }} />
+        {invocData &&  (
+          <TouchableOpacity style={styles.touchableContent} onPress={() => navigateHomeTemp()}>
+            <Text style={styles.titleCard}>{invocData?.name}</Text>
+            <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
           </TouchableOpacity>
         )}
       </View>
     </ScrollView>
   );
 }
-//            <Text style={styles.titleCard}>{invocData?.idInvoc}</Text>
-//               <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
-//
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
