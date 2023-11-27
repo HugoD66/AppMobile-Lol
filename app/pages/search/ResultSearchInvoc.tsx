@@ -19,6 +19,7 @@ export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
           <TouchableOpacity style={styles.touchableContent} onPress={() => navigateHomeTemp()}>
             <Text style={styles.titleCard}>{invocData?.name}</Text>
             <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
+            <Text style={styles.subtitleCard}>{invocData?.summonerLevel}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -45,14 +46,21 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     width: SCREEN_WIDTH * .4,
     height: SCREEN_WIDTH * .4,
-    borderRadius: 90,
+    borderRadius: 45,
   },
   titleCard: {
     color: 'white',
+    marginBottom: 5,
     fontSize: 22,
     fontWeight: 'bold',
-
   },
-
-
+  subtitleCard: {
+    color: 'white',
+    fontSize: 28,
+    backgroundColor: 'rgb(12,12,12)',
+    zIndex: 100,
+    fontWeight: '300',
+    bottom: 20,
+    borderRadius: 10,
+  },
 });

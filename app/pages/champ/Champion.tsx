@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     linearGradient: {
       zIndex: 2,
       width: '100%',
-
       height: SCREEN_HEIGHT * .2,
 
     },

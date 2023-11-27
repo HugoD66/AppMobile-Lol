@@ -1,6 +1,6 @@
 export interface InvocDataInterface {
   idInvoc?: string;
   name?: string;
-  //level?: number;
+  summonerLevel?: number;
   profileIconId?: number;
 }

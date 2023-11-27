@@ -23,7 +23,6 @@ export function Search() {
   const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
   const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
 
-
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
   };
@@ -58,7 +57,6 @@ export function Search() {
 
     if (text.length > 0 && activeOption === 'Players') {
       try {
-        console.log('coucou' + text);
         const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
         const response = await axios.get(url);
         console.log(response.data);
@@ -67,7 +65,7 @@ export function Search() {
           name: response.data.name,
           // @ts-ignore
           profileIconId: response.data.profileIconId,
-          //level: response.data.summonerLevel,
+          summonerLevel: response.data.summonerLevel,
         });
       } catch (error) {
         console.error(error);
