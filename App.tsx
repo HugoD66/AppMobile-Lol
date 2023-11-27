@@ -28,7 +28,7 @@ export type StackParamList = {
   Intro?: IntroParamList;
   Search?: undefined;
   Invocateur?: {
-    invocateur: string | undefined,
+    invocName: string | undefined,
   }
   Accueil?: {
     invocateur: string | undefined,
@@ -50,19 +50,6 @@ const IntroStackNavigator = createNativeStackNavigator<IntroParamList>();
 const queryClient = new QueryClient();
 
 const IntroStack = () => {
-/*
-const fetchData = () => {
-  // Votre logique pour récupérer les données ici
-};
-useEffect(() => {
-  db.transaction(tx => {
-    tx.executeSql(
-      'CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, count INT)'
-    )
-  });
-  fetchData();
-}, []);
-*/
 
   return (
       <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
@@ -85,7 +72,7 @@ export default function App() {
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
               <RootStack.Screen name={'Intro'} component={IntroStack} />
               <RootStack.Screen name={'Accueil'} component={Accueil} initialParams={{ invocateur: '' }} />
-              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocateur: '' }} />
+              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocName: '' }} />
               <RootStack.Screen name={'Champion'} component={Champion} />
               <RootStack.Screen name={'Search'} component={Search} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />

@@ -2,7 +2,6 @@ import * as SQLite from 'expo-sqlite';
 export const db = SQLite.openDatabase('MaBaseDeDonnees');
 
 
-
 db.transaction(tx => {
     tx.executeSql(
         'CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT, invocateur TEXT, password TEXT);'
@@ -23,6 +22,15 @@ db.transaction(tx => {
         (_, { rows }) => console.log(rows)
     );
 });
+
+
+/*
+db.transaction(tx => {
+    tx.executeSql(
+        'DELETE * FROM Users'
+    );
+});
+ */
 
 
 

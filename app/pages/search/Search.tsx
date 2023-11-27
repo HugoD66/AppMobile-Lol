@@ -10,9 +10,9 @@ import axios from "axios";
 import {APIKey} from "../../../APIKey";
 import {GetDataChampion} from "../../logic/logicChamp";
 import { ChampionDataInterface } from '../../types/ChampionDataInterface';
-import {InvocDataInterface} from "../../types/InvocDataInterface";
-import {ResultSearchChamp} from "./ResultSearchChamp";
-import {ResultSearchInvoc} from "./ResultSearchInvoc";
+import { InvocDataInterface } from "../../types/InvocDataInterface";
+import { ResultSearchChamp } from "./ResultSearchChamp";
+import { ResultSearchInvoc } from "./ResultSearchInvoc";
 
 
 export function Search() {
@@ -54,6 +54,8 @@ export function Search() {
       }
     }
 
+
+
     if (text.length > 0 && activeOption === 'Players') {
       try {
         const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
@@ -71,6 +73,10 @@ export function Search() {
       }
     }
   }
+
+  const resetInput = () => {
+    setSearch('');
+  };
 
   const dismissKeyboard = () => {
     Keyboard.dismiss();
@@ -94,6 +100,11 @@ export function Search() {
           style={styles.searchbar}
           //onSubmit pour la recherche ?
           />
+          {search.length > 0 && (
+              <View style={styles.contentSearchDots}>
+                <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
+              </View>
+          )}
           {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
           <ScrollView horizontal >
             <View style={styles.selectionSearchList}>
@@ -151,6 +162,16 @@ const styles = StyleSheet.create({
   loop: {
     top: -40,
     marginLeft: SCREEN_WIDTH * 0.75,
+    height: 20,
+  },
+  contentSearchDots: {
+    height: 20,
+  },
+  searchDots: {
+    top: -20,
+    marginLeft: SCREEN_WIDTH * 0.75,
+    width: 30,
+    height: 8,
   },
   contentSearch: {
     display: 'flex',
@@ -171,7 +192,8 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    height: SCREEN_HEIGHT * 0.08,
+    height: SCREEN_HEIGHT * 0.1,
+    bottom: 25,
   },
   selectionSearch: {
     fontSize: 20,

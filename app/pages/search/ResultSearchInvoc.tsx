@@ -6,17 +6,18 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 
 export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
-  if(!invocData) return null;
-
   const navigation = useNavigation<RootStackNavigationProps>();
-  const navigateHomeTemp = () => {
-    navigation.navigate('Accueil');
+  const navigateInvoc = () => {
+    navigation.navigate('Invocateur', {
+      invocName: invocData?.name,
+    });
   };
+
   return (
     <ScrollView>
       <View style={styles.container}>
         {invocData &&  (
-          <TouchableOpacity style={styles.touchableContent} onPress={() => navigateHomeTemp()}>
+          <TouchableOpacity style={styles.touchableContent} onPress={() => navigateInvoc()}>
             <Text style={styles.titleCard}>{invocData?.name}</Text>
             <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
             <Text style={styles.subtitleCard}>{invocData?.summonerLevel}</Text>
