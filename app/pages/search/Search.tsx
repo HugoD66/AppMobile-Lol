@@ -13,7 +13,6 @@ import { ChampionDataInterface } from '../../types/ChampionDataInterface';
 import {InvocDataInterface} from "../../types/InvocDataInterface";
 import {ResultSearchChamp} from "./ResultSearchChamp";
 import {ResultSearchInvoc} from "./ResultSearchInvoc";
-import {GetDataInvoc} from "../../logic/logicInvoc";
 
 
 export function Search() {
@@ -31,6 +30,7 @@ export function Search() {
 
   const handleSearchChange = async (text: string) => {
     setShowLoop(text.length === 0)
+    //setCross(text.length > 0);
     Animated.timing(opacityAnimBefore, {
       toValue: text.length === 0 ? 1 : 0,
       duration: 800,
@@ -58,7 +58,7 @@ export function Search() {
 
     if (text.length > 0 && activeOption === 'Players') {
       try {
-        //const invocData = await GetDataInvoc({ InvocName: text });
+        console.log('coucou' + text);
         const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
         const response = await axios.get(url);
         console.log(response.data);
@@ -70,7 +70,7 @@ export function Search() {
           //level: response.data.summonerLevel,
         });
       } catch (error) {
-        //console.error(error);
+        console.error(error);
       }
     }
   }
@@ -126,20 +126,19 @@ export function Search() {
         </View>
         <View style={styles.contentBeforeAfter}>
           {search.length === 0 ? (
-              <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+            <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
               <BeforeSearch />
             </Animated.View>
-              ) : (
-          <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-            {championData && activeOption === 'Champions' && (
-              <ResultSearchChamp championData={championData} />
-            )}
-            {invocData && activeOption === 'Players' && (
-              <ResultSearchInvoc invocData={invocData} />
-            )}
-
-          </Animated.View>
-                )}
+          ) : (
+            <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
+              {championData && activeOption === 'Champions' && (
+                <ResultSearchChamp championData={championData} />
+              )}
+              {invocData && activeOption === 'Players' && (
+                <ResultSearchInvoc invocData={invocData} />
+              )}
+            </Animated.View>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>

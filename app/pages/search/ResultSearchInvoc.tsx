@@ -32,48 +32,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: SCREEN_WIDTH,
     flexWrap: 'wrap',
-    flexDirection: 'row',
+    height: 'auto'
   },
   touchableContent : {
-    width: SCREEN_WIDTH * .9,
+    width: SCREEN_WIDTH,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  pictureCard: {
-    marginBottom: 5,
-    width: SCREEN_WIDTH * .80,
-    height: 200
+    flexDirection: 'column',
   },
   pictureInvocCard: {
     marginBottom: 5,
-    width: SCREEN_WIDTH * .80,
-    height: 200,
+    width: SCREEN_WIDTH * .4,
+    height: SCREEN_WIDTH * .4,
     borderRadius: 90,
   },
   titleCard: {
     color: 'white',
     fontSize: 22,
     fontWeight: 'bold',
-    width: '100%',
-    marginTop: 5,
-    padding: 5,
+
   },
-  subtitleCard: {
-    color: 'white',
-    fontSize: 17,
-    fontWeight: '300',
-    marginTop: 4,
-    marginBottom: 15,
-    padding: 5,
-  },
-  contentTexts : {
-    position: "absolute",
-    zIndex: 10,
-    top: 10,
-    left: 40,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderRadius: 10,
-  },
+
+
 });
