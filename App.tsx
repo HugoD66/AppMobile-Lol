@@ -15,6 +15,7 @@ import {Register} from "./app/pages/forms/Register";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import {useEffect} from "react";
 import {db} from "./db";
+import {Invocateur} from "./app/pages/invocateur/Invocateur";
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -26,6 +27,9 @@ export type IntroParamList = {
 export type StackParamList = {
   Intro?: IntroParamList;
   Search?: undefined;
+  Invocateur?: {
+    invocateur: string | undefined,
+  }
   Accueil?: {
     invocateur: string | undefined,
   };
@@ -81,6 +85,7 @@ export default function App() {
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
               <RootStack.Screen name={'Intro'} component={IntroStack} />
               <RootStack.Screen name={'Accueil'} component={Accueil} initialParams={{ invocateur: '' }} />
+              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocateur: '' }} />
               <RootStack.Screen name={'Champion'} component={Champion} />
               <RootStack.Screen name={'Search'} component={Search} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />

@@ -11,13 +11,12 @@ export const GetDataInvoc = async ({ InvocName }: InvocQuery) => {
   console.log(url);
   try {
     const response = await axios.get(url);
-    const invocInfo = response.data.data[InvocName];
 
     const Invoc = {
-      idInvoc: invocInfo.id,
-      nom: invocInfo.name,
-      //level: invocInfo.summonerLevel,
-      //profileIconId: invocInfo.profileIconId,
+      idInvoc: response.data.id,
+      nom: response.data.name,
+      summonerLevel: response.data.summonerLevel,
+      profileIconId: response.data.profileIconId,
     };
     return Invoc;
 

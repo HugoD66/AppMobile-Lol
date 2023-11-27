@@ -3,66 +3,65 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
 import { SCREEN_WIDTH } from "../../types/screenDim";
 import {UserProps} from "../../types/UserProps";
-import {APIKey} from "../../../APIKey";
-import axios from "axios/index";
 import React, {useEffect, useState} from "react";
 import {InvocDataInterface} from "../../types/InvocDataInterface";
+import {GetDataInvoc} from "../../logic/logicInvoc";
 
 export function SumNav({ invocateur }: UserProps) {
   const navigation = useNavigation<StackNavigationProps>();
   const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
 
-  const getInvocPicture = async (invocateur: string) => {
+  const getInvocInformations = async (invocateur: string) => {
     try {
-      const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${invocateur}?api_key=${APIKey}`;
-      const response = await axios.get(url);
-      console.log(response.data);
+      const invocData = await GetDataInvoc({ InvocName: invocateur });
       setInvocData({
-        idInvoc: response.data.id,
-        name: response.data.name,
-        // @ts-ignore
-        profileIconId: response.data.profileIconId,
-        summonerLevel: response.data.summonerLevel,
+        name: invocData.nom,
+        profileIconId: invocData.profileIconId,
+        summonerLevel: invocData.summonerLevel,
       });
     } catch (error) {
       console.error(error);
     }
   }
   const navigate = () => {
-    console.log({navigation: navigation.getState()})
     navigation.navigate('Search');
   };
   const navigateLogin = () => {
-    console.log({navigation: navigation.getState()})
     navigation.navigate('Login');
   };
   const navigateRegister = () => {
-    console.log({navigation: navigation.getState()})
     navigation.navigate('Register');
   }
-  console.log(`invocateur: ${invocateur}`)
-
+  const navigateInvocScreen = () => {
+    navigation.navigate('Invocateur');
+  }
   useEffect(() => {
     if (invocateur) {
-      getInvocPicture(invocateur);
+      getInvocInformations(invocateur);
     }
   }, [invocateur]);
+
   return (
     <View style={styles.sumNav}>
-      <TouchableOpacity onPress={navigateLogin}>
         { invocateur && invocData ?
-          <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData.profileIconId}.png` }} />
+          <TouchableOpacity onPress={navigateInvocScreen}>
+            <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData.profileIconId}.png` }} />
+          </TouchableOpacity>
           :
-          <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
+          <TouchableOpacity onPress={navigateLogin}>
+            <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
+          </TouchableOpacity>
         }
-      </TouchableOpacity>
       <TouchableOpacity onPress={navigateRegister}>
         <View style={styles.sumNavTitleDesc}>
           <Text style={styles.title}>{invocateur ? invocateur : 'S\'enregistrer'}</Text>
-          <Text style={styles.subtitle}>{invocateur ? 'Identifié' : 'Non identifié'}</Text>
+          { invocateur && invocData ?
+            <Text style={styles.subtitle}>{`Level : ${ invocData.summonerLevel }`}</Text>
+            :
+            <Text style={styles.subtitle}>Utilisateur non identifié</Text>
+          }
         </View>
       </TouchableOpacity>
-
       <TouchableOpacity onPress={navigate}>
         <Image  style={styles.loopSearch} source={require('../../../assets/general/loopSumNav.png')} />
       </TouchableOpacity>
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 26,
+    width: 170,
     fontWeight: 'bold',
   },
   subtitle: {

@@ -46,7 +46,6 @@ export function Search() {
       try {
         const championData = await GetDataChampion({ ChampionNameWithoutSpace: text });
         setChampionData({
-          idChampion: championData.idChampion,
           name: championData.nom,
           title: championData.title,
           full: championData.full,
