@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
   },
   afterSearchContainer: {
     width: '100%',
+
   },
   beforeSearchContainer: {
     width: '100%',

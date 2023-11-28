@@ -29,37 +29,25 @@ export function ResultSearchChamp({ championData }: SearchChampProps) {
                 </View>
               </TouchableOpacity>
           ))}
+          <View style={styles.b}></View>
         </View>
       </ScrollView>
   );
 }
-
-// Styles...
-
-
-//            <Text style={styles.titleCard}>{invocData?.idInvoc}</Text>
-//               <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
-//
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: SCREEN_WIDTH * 0.6,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    width: SCREEN_WIDTH * 0.7,
   },
   touchableContent : {
-    width: SCREEN_WIDTH * .6,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 5,
+    width: SCREEN_WIDTH * .7,
     flexDirection: 'row',
   },
   pictureCard: {
     marginBottom: 5,
     width: 90,
-    height: 90
+    height: 90,
+    borderRadius: 20,
   },
   pictureInvocCard: {
     marginBottom: 5,
@@ -76,15 +64,17 @@ const styles = StyleSheet.create({
   },
   subtitleCard: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '300',
     marginBottom: 15,
     padding: 5,
   },
   contentTexts : {
-
     left :10,
     backgroundColor: 'rgba(0,0,0,0.5)',
     borderRadius: 10,
+  },
+  b: {
+    height: 200
   },
 });
