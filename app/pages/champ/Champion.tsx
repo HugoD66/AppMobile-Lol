@@ -52,6 +52,7 @@ export function Champion() {
     const navigate = () => {
         navigation.navigate('SkinScreen', { nom: `${name}` });
     };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image style={styles.pictureChamp} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg` }} />

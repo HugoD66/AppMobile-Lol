@@ -1,30 +1,24 @@
 Problemes rencontrés :
-    Search :
-        championData={championData}
-
-    DB :
-        Je créer une db au démarage ( si non existante ) et je la remplie avec les données de l'api
-        Je ne sais pas si c'est la bonne solution, mais ca marche
-
     Champion :
         Passif non visible
 
     Login et register:
         Manque back button
 
-    App :
-        Erreur dans le App.tsx => component={Accueil}
+
+
+
+
 
 
 Demande prof :
+
+    Ombres
+
     Est t'il possible de changer certaines choses ? du style:
         -traduction
         -bouton ( selon ajout de composants)
+        -invoc screen montrer template créé
+    Montrer db embarquée (sqlite)
 
 
-
-Proposition:
-    Liste Searchbar, joueur pro players (y a une api pour ca ? Photo + nom + role + team) ?
-    Liste de teams ?
-
-    Autres choix : skins, runterra

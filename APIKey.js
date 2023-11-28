@@ -1,2 +1,2 @@
-//Expires: Tue, Nov 28th, 2023 @ 2:37am (PT)
-export const APIKey = "RGAPI-d155ff8e-0e04-45cb-97dc-165f5de950ba";
+//Expires: Wed, Nov 29th, 2023 @ 3:24am (PT) in 23 hours and 59 minutes
+export const APIKey = "RGAPI-9abefce4-da64-4d1d-8d94-170c2a2af2a6";

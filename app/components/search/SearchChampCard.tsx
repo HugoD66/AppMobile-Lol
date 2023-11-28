@@ -18,7 +18,7 @@ export function SearchChampCard({ championData }: SearchChampProps) {
     <View>
       {championData &&  (
         <TouchableOpacity style={styles.touchableContent} onPress={() => navigateChamp()}>
-          <Image style={styles.pictureCard} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championData.name}_0.jpg` }} />
+          <Image style={styles.pictureCard} resizeMode={'cover'} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championData.name}_0.jpg` }} />
           <Text style={styles.titleCard}>{championData.name}</Text>
           <Text style={styles.subtitleCard}>{championData.title}</Text>
         </TouchableOpacity>
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   pictureCard: {
     borderRadius: 10,
     width: SCREEN_WIDTH * .45,
-    resizeMode: 'cover',
     height: 180,
     border: 45,
   },
