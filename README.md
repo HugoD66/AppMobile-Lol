@@ -11,18 +11,17 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
  ## Présentation de l'application
 
  - Terminé : 
-   - 4 Slides d'intron; 
+   - 4 Slides d'intro; 
    - Page d'Acceuil;
    - Page de champion, avec informations; 
    - Liste des Skins(visuels) disponible pour le champion séléctionné;
    - Formulaire Login ( Image en haut à gauche sur la page d'accueil);
    - Page de recherche de champion ( Loupe en haut au milieu sur la page d'accueil);
+   - Formulaire d'enregistrement;
+   - Recherche de champion et invocateur !!!Seconde part!!!
 <br><br>
  - A faire : 
-   - Connexion de l'utilisateur;
-   - Recherche de champion et invocateur ( dans la page recherche);
-   - Page d'invocateur;
-   - Mise en favoris de champion;
+   - Page d'invocateur ( template + récupération );
+   - Mise en favoris de champion (optionnel);
    - Revoir template générale, responsive des blocs;
-   - Revoir les couleurs;
  
