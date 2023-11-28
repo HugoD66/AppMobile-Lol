@@ -1,7 +1,51 @@
 import axios from 'axios';
+import {useQuery} from "react-query";
 
 interface ChampionQuery {
     ChampionNameWithoutSpace: string;
+}
+interface ChampionStats {
+    hp: number;
+    // ... autres propriétés de stats
+}
+
+interface Champion {
+    version: string;
+    id: string;
+    key: string;
+    name: string;
+    title: string;
+    blurb: string;
+    info: {
+        attack: number;
+        defense: number;
+        magic: number;
+        difficulty: number;
+    };
+    image: {
+        full: string;
+        sprite: string;
+        group: string;
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+    };
+    tags: string[];
+    partype: string;
+    stats: ChampionStats;
+}
+
+interface ChampionData {
+    type: string;
+    format: string;
+    version: string;
+    data: { [key: string]: Champion };
+}
+interface ChampionSummary {
+    name: string;
+    imageUrl: string;
+    title : string;
 }
 
 export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuery) => {
@@ -32,3 +76,33 @@ export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuer
         throw error;
     }
 }
+const fetchChampions = async (): Promise<ChampionData> => {
+    const response = await fetch('https://ddragon.leagueoflegends.com/cdn/13.23.1/data/fr_FR/champion.json');
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+};
+
+// Méthode pour rechercher des champions par nom
+export const GetChampionByName = async (championName: string): Promise<{
+    title: string;
+    id : string;
+    imageUrl: any;
+    name: string }[]> => {
+    try {
+        const championData = await fetchChampions();
+        const champions = Object.values(championData.data);
+        return champions.filter(champion =>
+            champion.name.toLowerCase().startsWith(championName.toLowerCase())
+        ).map(champion => ({
+            id : champion.id,
+            name: champion.name,
+            imageUrl: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/${champion.image.full}`,
+            title: champion.title,
+        }));
+    } catch (error) {
+        console.error('Error fetching champions:', error);
+        return [];
+    }
+};

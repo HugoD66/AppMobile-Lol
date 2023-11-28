@@ -1,7 +1,8 @@
 export interface SearchChampProps {
-  championData?: {
-    name: string;
+  championData: Array<{
+    name: string | undefined;
+    id? : string;
     title: string;
     full: any;
-  };
+  }>;
 }

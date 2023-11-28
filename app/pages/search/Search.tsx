@@ -6,13 +6,11 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {BackArrow} from "../../components/button/BackArrow";
-import axios from "axios";
-import {APIKey} from "../../../APIKey";
-import {GetDataChampion} from "../../logic/logicChamp";
+import {GetChampionByName, GetDataChampion} from "../../logic/logicChamp";
 import { ChampionDataInterface } from '../../types/ChampionDataInterface';
-import { InvocDataInterface } from "../../types/InvocDataInterface";
-import { ResultSearchChamp } from "./ResultSearchChamp";
-import { ResultSearchInvoc } from "./ResultSearchInvoc";
+import {InvocDataInterface} from "../../types/InvocDataInterface";
+import {ResultSearchChamp} from "./ResultSearchChamp";
+import {ResultSearchInvoc} from "./ResultSearchInvoc";
 
 
 export function Search() {
@@ -22,6 +20,8 @@ export function Search() {
   const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
   const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
   const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
+  const [championDataList, setChampionDataList] = useState<ChampionDataInterface[]>([]);
+
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
@@ -29,7 +29,6 @@ export function Search() {
 
   const handleSearchChange = async (text: string) => {
     setShowLoop(text.length === 0)
-    //setCross(text.length > 0);
     Animated.timing(opacityAnimBefore, {
       toValue: text.length === 0 ? 1 : 0,
       duration: 800,
@@ -41,35 +40,27 @@ export function Search() {
       useNativeDriver: true,
     }).start();
     setSearch(text);
+    console.log(text)
+
+
 
     if (text.length > 0 && activeOption === 'Champions') {
       try {
-        const championData = await GetDataChampion({ ChampionNameWithoutSpace: text });
-        setChampionData({
-          idChampion: championData.idChampion,
-          name: championData.nom,
-          title: championData.title,
-          full: championData.full
-        });
-      } catch (error) {
-      }
-    }
-
-
-
-    if (text.length > 0 && activeOption === 'Players') {
-      try {
-        const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
-        const response = await axios.get(url);
-        console.log(response.data);
-        setInvocData({
-          idInvoc: response.data.id,
-          name: response.data.name,
-          profileIconId: response.data.profileIconId,
-          summonerLevel: response.data.summonerLevel,
-        });
+        const dataChampionArray = await GetChampionByName(text);
+        if (dataChampionArray.length > 0) {
+          setChampionDataList(dataChampionArray.map(champion => ({
+            name: champion.name,
+            full: champion.imageUrl, // ou une autre logique de correspondance
+            title: champion.title,
+            id: champion.id
+            // Ajoutez d'autres champs si nécessaire
+          })));
+        } else {
+          setChampionDataList([]); // Aucun champion trouvé
+        }
       } catch (error) {
         console.error(error);
+        setChampionDataList([]); // En cas d'erreur
       }
     }
   }
@@ -84,68 +75,64 @@ export function Search() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.container}>
-        <View style={styles.contentSearch}>
-          <BackArrow navigate={navigate} />
-          <TextInput
-          placeholder="Recherchez..."
-          placeholderTextColor={'white'}
-          value={search}
-          onChangeText={handleSearchChange}
-          style={styles.searchbar}
-          //onSubmit pour la recherche ?
-          />
-          {search.length > 0 && (
-              <View style={styles.contentSearchDots}>
-                <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <View style={styles.container}>
+          <View style={styles.contentSearch}>
+            <BackArrow navigate={navigate} />
+            <TextInput
+                placeholder="Recherchez..."
+                placeholderTextColor={'white'}
+                value={search}
+                onChangeText={handleSearchChange}
+                style={styles.searchbar}
+                //onSubmit pour la recherche ?
+            />
+            {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
+            <ScrollView horizontal >
+              <View style={styles.selectionSearchList}>
+                <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
+                    Champions
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
+                    Pros
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Players')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
+                    Players
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
+                    Teams
+                  </Text>
+                </TouchableOpacity>
               </View>
-          )}
-          {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
-          <ScrollView horizontal >
-            <View style={styles.selectionSearchList}>
-              <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
-                  Champions
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
-                  Pros
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Players')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
-                Players
-              </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
-                Teams
-              </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-          <View style={styles.divider} />
+            </ScrollView>
+            <View style={styles.divider} />
+          </View>
+          <View style={styles.contentBeforeAfter}>
+            {search.length === 0 ? (
+                <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+                  <BeforeSearch />
+                </Animated.View>
+            ) : (
+                <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
+                  {championDataList && activeOption === 'Champions' && (
+                      <ResultSearchChamp championData={championDataList} />
+                  )}
+                  {invocData && activeOption === 'Players' && (
+                      <ResultSearchInvoc invocData={invocData} />
+                  )}
+
+                </Animated.View>
+            )}
+          </View>
         </View>
-        <View style={styles.contentBeforeAfter}>
-          {search.length === 0 ? (
-            <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
-              <BeforeSearch />
-            </Animated.View>
-          ) : (
-            <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-              {championData && activeOption === 'Champions' && (
-                <ResultSearchChamp championData={championData} />
-              )}
-              {invocData && activeOption === 'Players' && (
-                <ResultSearchInvoc invocData={invocData} />
-              )}
-            </Animated.View>
-          )}
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
   );
 }
 
@@ -158,16 +145,6 @@ const styles = StyleSheet.create({
   loop: {
     top: -40,
     marginLeft: SCREEN_WIDTH * 0.75,
-    height: 20,
-  },
-  contentSearchDots: {
-    height: 20,
-  },
-  searchDots: {
-    top: -20,
-    marginLeft: SCREEN_WIDTH * 0.75,
-    width: 30,
-    height: 8,
   },
   contentSearch: {
     display: 'flex',
@@ -188,8 +165,7 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    height: SCREEN_HEIGHT * 0.1,
-    bottom: 25,
+    height: SCREEN_HEIGHT * 0.08,
   },
   selectionSearch: {
     fontSize: 20,

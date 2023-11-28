@@ -40,7 +40,7 @@ export type StackParamList = {
     nom: string,
   };
   Champion?: {
-    nom: string,
+    nom?: string,
   };
 }
 
