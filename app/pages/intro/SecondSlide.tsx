@@ -4,7 +4,10 @@ import {useNavigation} from "@react-navigation/native";
 import {IntroStackNavigationProps} from "../../../App";
 import {LinearGradient} from "expo-linear-gradient";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
+import {useFonts} from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
+SplashScreen.preventAutoHideAsync();
 export function SecondSlide() {
 
     const navigation = useNavigation<IntroStackNavigationProps>();
@@ -12,6 +15,17 @@ export function SecondSlide() {
             console.log({navigation: navigation.getState()})
             navigation.navigate('ThirdSlide');
     };
+
+    const [fontsLoaded] = useFonts({
+        'DM-Sans': require('../../../assets/fonts/DMSans.ttf'),
+    });
+
+    useEffect(() => {
+        const loadFonts = async () => {
+            await SplashScreen.hideAsync();
+        };
+        loadFonts();
+    }, []);
 
     return (
     <View style={styles.container}>
@@ -64,7 +78,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 32,
-        //fontFamily: 'DM Sans'
+        fontFamily: 'DM Sans'
     },
     desc: {
         textAlign: 'center',

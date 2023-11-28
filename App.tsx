@@ -13,9 +13,10 @@ import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
 import {Login} from "./app/pages/forms/Login";
 import {Register} from "./app/pages/forms/Register";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {useEffect} from "react";
-import {db} from "./db";
 import {Invocateur} from "./app/pages/invocateur/Invocateur";
+
+
+
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -51,6 +52,8 @@ const queryClient = new QueryClient();
 
 const IntroStack = () => {
 
+
+
   return (
       <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
         <IntroStackNavigator.Screen name={"FirstSlide"} component={FirstSlide} />
@@ -65,6 +68,8 @@ export type RootStackNavigationProps = NativeStackNavigationProp<StackParamList>
 const RootStack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
+
+
 
   return (
       <QueryClientProvider client={queryClient}>

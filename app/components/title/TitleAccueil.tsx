@@ -3,6 +3,7 @@ import { SCREEN_WIDTH } from "../../types/screenDim";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProps } from "../../../App";
 import {TitleProps} from "../../types/TitleProps";
+import theme from "../../../theme";
 
 export function TitleAccueil({ title, subtitle, style, titleStyle, subtitleStyle, ...otherProps }: TitleProps) {
   const navigation = useNavigation<RootStackNavigationProps>();
@@ -29,16 +30,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   title: {
-    color: 'white',
-    fontSize: 25,
-    fontWeight: 'bold',
-    letterSpacing: 1,
+    ...theme.textVariants.title,
+    fontWeight: '700',
     margin: '3%',
     marginBottom: '7%',
   },
   subtitle: {
-    color: 'white',
-    fontSize: 17,
+     ...theme.textVariants.subTitleVoirTous,
     fontWeight: '100',
     margin: '3%',
     marginBottom: '20%',

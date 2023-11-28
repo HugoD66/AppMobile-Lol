@@ -16,25 +16,24 @@ export default function ThirdSlide() {
 
     return (
     <View style={styles.container}>
-          <Image
-            style={styles.pictureChamp}
-            source={require('../../../assets/intro/intro-thirthSlide.png')}
-          />
-          <View style={styles.linear}>
-              <LinearGradient style={styles.linearGradient}
-                              colors={[
-                                  'rgba(52,43,43,0)',
-                                  'rgb(0,0,0)'
-                              ]}
-              />
-          </View>
-          <View style={styles.section}>
-              <View style={styles.flexOblig}></View>
-              <Text style={styles.title}>Élevez votre elo rapidement </Text>
-              <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur {'\n'}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => { navigate() }}>
-                  <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-              </TouchableOpacity>
+        <View>
+            <Image
+              style={styles.pictureChamp}
+              source={require('../../../assets/intro/intro-thirthSlide.png')}
+            />
+            <LinearGradient style={styles.linear}
+                            colors={[
+                                'rgba(52,43,43,0)',
+                                'rgb(0,0,0)'
+                            ]}
+            />
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.title}>Élevez votre elo rapidement </Text>
+          <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur {'\n'}</Text>
+          <TouchableOpacity onPress={() => { navigate() }}>
+              <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+          </TouchableOpacity>
         </View>
     </View>
     );
@@ -47,61 +46,38 @@ const styles = StyleSheet.create({
         backgroundColor: '#070707',
     },
     pictureChamp: {
-        margin: 0,
-        top: 0,
-        height: SCREEN_HEIGHT * .5,
+        height: SCREEN_HEIGHT * .61,
         width: SCREEN_WIDTH,
-        zIndex: 1,
-        position: "absolute"
     },
     linear: {
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
         position:'absolute',
-        top: SCREEN_HEIGHT * .3,
-    },
-    linearGradient: {
-        zIndex: 2,
-        width: '100%',
-        height: SCREEN_HEIGHT * .2,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 200,
     },
     section: {
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT,
-        display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 3,
-    },
-    flexOblig: {
-        height: SCREEN_HEIGHT * .40,
     },
     title: {
-        margin: '5%',
-        width: '80%',
-        zIndex: 13,
+        marginHorizontal: 38,
+        marginBottom: 16,
         color: 'white',
         textAlign: 'center',
         fontSize: 32,
+        //fontFamily: 'DM Sans'
     },
     desc: {
         textAlign: 'center',
         color: '#B3B0B8',
         fontWeight: "100",
-        letterSpacing: 2,
-        margin: '5%',
-        width: '70%',
         fontSize: 16,
-    },
-    button: {
-        zIndex: 6,
-        width: '15%',
-        backgroundColor: 'rgb(72,0,255)',
-        margin: '5%',
+        lineHeight: 24,
+        marginHorizontal: 50,
+        marginBottom: 22,
     },
     pictureButton: {
-        margin: 'auto',
-        width: '100%',
+        width: 56,
+        height: 56,
     }
 });
