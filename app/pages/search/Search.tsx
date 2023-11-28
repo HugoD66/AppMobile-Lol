@@ -47,6 +47,7 @@ export function Search() {
     if (text.length > 0 && activeOption === 'Champions') {
       try {
         const dataChampionArray = await GetChampionByName(text);
+
         if (dataChampionArray.length > 0) {
           setChampionDataList(dataChampionArray.map(champion => ({
             name: champion.name,
