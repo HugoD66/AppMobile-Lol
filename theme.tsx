@@ -1,13 +1,8 @@
-import {color, createTheme} from '@shopify/restyle';
+import { createTheme } from '@shopify/restyle';
 
 const palette = {
-  purpleLight: '#8C6FF7',
-  purplePrimary: '#5A31F4',
-  purpleDark: '#3F22AB',
+  purpleButtonDivider: '#8B00FF',
 
-  greenLight: '#56DCBA',
-  greenPrimary: '#0ECD9D',
-  greenDark: '#0A906E',
 
   backCarouselRun : 'rgb(43, 44, 51)',
 
@@ -20,6 +15,7 @@ const theme = createTheme({
     white: palette.white,
     backgroundApp: palette.white,
     backgroundRun: palette.backCarouselRun,
+    purpleButtonDivider: palette.purpleButtonDivider,
   },
   spacing: {
     s: 8,

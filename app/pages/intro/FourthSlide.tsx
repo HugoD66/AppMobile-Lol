@@ -1,6 +1,3 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
 import {ButtonOne} from "../../components/button/ButtonOne";
 import React from "react";
 import {Slide} from "./Slides";
@@ -15,10 +12,3 @@ export default function FourthSlide() {
       />
     );
 }
-
-const styles = StyleSheet.create({
-
-    buttonOneCustom: {
-        marginTop: '5%',
-    }
-});

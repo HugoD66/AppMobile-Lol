@@ -2,13 +2,7 @@ import React, {ReactNode} from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../types/screenDim';
-
-interface SlideProps {
-  imageSource: any;
-  title: string;
-  description: string;
-  button: ReactNode;
-}
+import { SlideProps } from '../../types/SlideProps';
 
 export function Slide({ imageSource, title, description, button }: SlideProps) {
 

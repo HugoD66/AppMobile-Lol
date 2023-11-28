@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
-import { Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {IntroStackNavigationProps} from "../../../App";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
+import { IntroStackNavigationProps } from "../../../App";
+import { SCREEN_WIDTH } from "../../types/screenDim";
 
 export function FirstSlide() {
     const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -35,7 +35,7 @@ export function FirstSlide() {
                 animateAndNavigate();
             }}>
                 <Animated.Image
-                    style={[styles.image, { transform: [{ rotate: rotation }] }]}
+                    style={[ { transform: [{ rotate: rotation }] }]}
                     source={require('../../../assets/intro/introLogo.png')}
                 />
             </TouchableOpacity>
@@ -46,17 +46,10 @@ export function FirstSlide() {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: SCREEN_WIDTH,
         flex: 1,
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    image: {
-        /*
-        width: 100,
-        right: 0,
-        height: 100,r
-         */
     },
 });

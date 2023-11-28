@@ -2,10 +2,10 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
 import { SCREEN_WIDTH } from "../../types/screenDim";
-import {UserProps} from "../../types/UserProps";
-import React, {useEffect, useState} from "react";
-import {InvocDataInterface} from "../../types/InvocDataInterface";
-import {GetDataInvoc} from "../../logic/logicInvoc";
+import { UserProps } from "../../types/UserProps";
+import React, {useEffect, useState } from "react";
+import { InvocDataInterface } from "../../types/InvocDataInterface";
+import { GetDataInvoc } from "../../logic/logicInvoc";
 
 export function SumNav({ invocateur }: UserProps) {
   const navigation = useNavigation<StackNavigationProps>();
@@ -21,7 +21,6 @@ export function SumNav({ invocateur }: UserProps) {
         summonerLevel: invocData.summonerLevel,
       });
     } catch (error) {
-      console.error(error);
     }
   }
   const navigate = () => {

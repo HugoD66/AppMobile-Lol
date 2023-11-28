@@ -3,8 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProps } from "../../../App";
 import { SCREEN_WIDTH } from "../../types/screenDim";
 import { ButtonOneProps } from "../../types/ButtonOneProps";
-
+import theme from "../../../theme";
 export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
+
     const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     button: {
         width: SCREEN_WIDTH * .92,
         height: 70,
-        backgroundColor: '#8B00FF',
+        backgroundColor: theme.colors.purpleButtonDivider,
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',
