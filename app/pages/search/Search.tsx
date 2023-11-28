@@ -46,9 +46,10 @@ export function Search() {
       try {
         const championData = await GetDataChampion({ ChampionNameWithoutSpace: text });
         setChampionData({
+          idChampion: championData.idChampion,
           name: championData.nom,
           title: championData.title,
-          full: championData.full,
+          full: championData.full
         });
       } catch (error) {
       }
@@ -64,7 +65,6 @@ export function Search() {
         setInvocData({
           idInvoc: response.data.id,
           name: response.data.name,
-          // @ts-ignore
           profileIconId: response.data.profileIconId,
           summonerLevel: response.data.summonerLevel,
         });
@@ -73,10 +73,6 @@ export function Search() {
       }
     }
   }
-
-  const resetInput = () => {
-    setSearch('');
-  };
 
   const dismissKeyboard = () => {
     Keyboard.dismiss();

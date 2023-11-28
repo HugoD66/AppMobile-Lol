@@ -9,8 +9,8 @@ import {UserProps} from "../../types/UserProps";
 import {useRoute} from "@react-navigation/native";
 import {useState} from "react";
 
-export function Accueil({ route }: { route: { params: { invocateur: string } } }) {
-  const { invocateur } = route.params;
+export function Accueil({ route }: { route?: { params?: { invocateur?: string } } }) {
+  const invocateur = route?.params?.invocateur;
 
   /*
   const initialInvocateur = route.params || ""; // Utilisez une valeur par défaut

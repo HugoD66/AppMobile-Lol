@@ -1,6 +1,6 @@
 export interface ChampionDataInterface {
-  idChampion?: string;
-  name?: string;
-  title?: string;
-  full?: any;
+  idChampion: string;
+  name: string;
+  title: string;
+  full: any;
 }

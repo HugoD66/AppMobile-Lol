@@ -9,18 +9,12 @@ export function ResultSearchChamp({ championData }: SearchChampProps) {
 
   if(!championData) return null;
 
-
   return (
     <ScrollView>
         {championData &&  (
           <View style={styles.container}>
             <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
-            <SearchChampCard championData={championData} />
+
           </View>
         )}
     </ScrollView>
