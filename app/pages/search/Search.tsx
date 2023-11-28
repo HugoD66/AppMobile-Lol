@@ -8,11 +8,11 @@ import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {BackArrow} from "../../components/button/BackArrow";
 import axios from "axios";
 import {APIKey} from "../../../APIKey";
-import {GetDataChampion} from "../../logic/logicChamp";
 import { ChampionDataInterface } from '../../types/ChampionDataInterface';
 import { InvocDataInterface } from "../../types/InvocDataInterface";
 import { ResultSearchChamp } from "./ResultSearchChamp";
 import { ResultSearchInvoc } from "./ResultSearchInvoc";
+import {GetChampionByName} from "../../logic/logicChamp";
 
 
 export function Search() {
@@ -20,8 +20,9 @@ export function Search() {
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
   const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
-  const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
   const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
+  const [championDataList, setChampionDataList] = useState<ChampionDataInterface[]>([]);
+
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
@@ -41,19 +42,27 @@ export function Search() {
     }).start();
     setSearch(text);
 
+
+
     if (text.length > 0 && activeOption === 'Champions') {
       try {
-        const championData = await GetDataChampion({ ChampionNameWithoutSpace: text });
-        setChampionData({
-          idChampion: championData.idChampion,
-          name: championData.nom,
-          title: championData.title,
-          full: championData.full
-        });
+        const dataChampionArray = await GetChampionByName(text);
+        if (dataChampionArray.length > 0) {
+          setChampionDataList(dataChampionArray.map(champion => ({
+            name: champion.name,
+            full: champion.imageUrl, // ou une autre logique de correspondance
+            title: champion.title,
+            id: champion.id
+            // Ajoutez d'autres champs si nécessaire
+          })));
+        } else {
+          setChampionDataList([]); // Aucun champion trouvé
+        }
       } catch (error) {
+        console.error(error);
+        setChampionDataList([]); // En cas d'erreur
       }
     }
-
     if (text.length > 0 && activeOption === 'Players') {
       try {
         const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
@@ -81,67 +90,68 @@ export function Search() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View style={styles.container}>
-        <View style={styles.contentSearch}>
-          <BackArrow navigate={navigate} />
-          <View style={styles.searchbarContent} >
-          <TextInput
-          placeholder="Recherchez ..."
-          placeholderTextColor={'white'}
-          value={search}
-          onChangeText={handleSearchChange}
-          style={styles.searchbar}
-          />
-          {search.length > 0 && (
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+        <View style={styles.container}>
+          <View style={styles.contentSearch}>
+            <BackArrow navigate={navigate} />
+            <View style={styles.searchbarContent} >
+            <TextInput
+                placeholder="Recherchez..."
+                placeholderTextColor={'white'}
+                value={search}
+                onChangeText={handleSearchChange}
+                style={styles.searchbar}
+            />
+            {search.length > 0 && (
                 <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
-          )}
-          {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
-        </View>
-          <ScrollView horizontal >
-            <View style={styles.selectionSearchList}>
-              <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
-                  Champions
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
-                  Pros
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Players')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
-                Players
-              </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
-              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
-                Teams
-              </Text>
-              </TouchableOpacity>
+            )}
+            {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
             </View>
-          </ScrollView>
-          <View style={styles.divider} />
+              <ScrollView horizontal >
+              <View style={styles.selectionSearchList}>
+                <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
+                    Champions
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
+                    Pros
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Players')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
+                    Players
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
+                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
+                    Teams
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+            <View style={styles.divider} />
+          </View>
+          <View style={styles.contentBeforeAfter}>
+            {search.length === 0 ? (
+                <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+                  <BeforeSearch />
+                </Animated.View>
+            ) : (
+                <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
+                  {championDataList && activeOption === 'Champions' && (
+                      <ResultSearchChamp championData={championDataList} />
+                  )}
+                  {invocData && activeOption === 'Players' && (
+                      <ResultSearchInvoc invocData={invocData} />
+                  )}
+
+                </Animated.View>
+            )}
+          </View>
         </View>
-        <View style={styles.contentBeforeAfter}>
-          {search.length === 0 ? (
-            <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
-              <BeforeSearch />
-            </Animated.View>
-          ) : (
-            <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-              {championData && activeOption === 'Champions' && (
-                <ResultSearchChamp championData={championData} />
-              )}
-              {invocData && activeOption === 'Players' && (
-                <ResultSearchInvoc invocData={invocData} />
-              )}
-            </Animated.View>
-          )}
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
   );
 }
 
@@ -158,7 +168,6 @@ const styles = StyleSheet.create({
     height: 28,
     width: 28,
   },
-
   searchDots: {
     position: 'absolute',
     top: 25,
@@ -191,7 +200,7 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    height: SCREEN_HEIGHT * 0.05,
+    height: SCREEN_HEIGHT * 0.08,
   },
   selectionSearch: {
     fontSize: 20,
