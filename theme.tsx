@@ -18,7 +18,6 @@ const palette = {
 const theme = createTheme({
   colors: {
     white: palette.white,
-
     backgroundApp: palette.white,
     backgroundRun: palette.backCarouselRun,
   },

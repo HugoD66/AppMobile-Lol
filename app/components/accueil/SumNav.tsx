@@ -15,6 +15,7 @@ export function SumNav({ invocateur }: UserProps) {
     try {
       const invocData = await GetDataInvoc({ InvocName: invocateur });
       setInvocData({
+        idInvoc: invocData.idInvoc,
         name: invocData.nom,
         profileIconId: invocData.profileIconId,
         summonerLevel: invocData.summonerLevel,
@@ -71,6 +72,7 @@ export function SumNav({ invocateur }: UserProps) {
 }
 const styles = StyleSheet.create({
   sumNav: {
+    marginTop: 20,
     margin: 10,
     display: 'flex',
     flexDirection: 'row',

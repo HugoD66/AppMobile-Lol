@@ -4,6 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import {IntroStackNavigationProps} from "../../../App";
 import { LinearGradient } from 'expo-linear-gradient';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
+import {Slide} from "./Slides";
 
 export default function ThirdSlide() {
 
@@ -13,29 +14,17 @@ export default function ThirdSlide() {
         navigation.navigate('FourthSlide');
     };
 
-
     return (
-    <View style={styles.container}>
-        <View>
-            <Image
-              style={styles.pictureChamp}
-              source={require('../../../assets/intro/intro-thirthSlide.png')}
-            />
-            <LinearGradient style={styles.linear}
-                            colors={[
-                                'rgba(52,43,43,0)',
-                                'rgb(0,0,0)'
-                            ]}
-            />
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.title}>Élevez votre elo rapidement </Text>
-          <Text style={styles.desc}> Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur {'\n'}</Text>
-          <TouchableOpacity onPress={() => { navigate() }}>
-              <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
-          </TouchableOpacity>
-        </View>
-    </View>
+      <Slide
+        imageSource={require('../../../assets/intro/intro-thirthSlide.png')}
+        title="Élevez votre elo rapidement"
+        description="Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur."
+        button={
+            <TouchableOpacity onPress={navigate}>
+                <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
+            </TouchableOpacity>
+        }
+      />
     );
 }
 

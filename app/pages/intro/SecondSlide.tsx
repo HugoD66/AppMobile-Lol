@@ -4,10 +4,8 @@ import {useNavigation} from "@react-navigation/native";
 import {IntroStackNavigationProps} from "../../../App";
 import {LinearGradient} from "expo-linear-gradient";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
-import {useFonts} from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+import {Slide} from "./Slides";
 
-SplashScreen.preventAutoHideAsync();
 export function SecondSlide() {
 
     const navigation = useNavigation<IntroStackNavigationProps>();
@@ -16,39 +14,18 @@ export function SecondSlide() {
             navigation.navigate('ThirdSlide');
     };
 
-    const [fontsLoaded] = useFonts({
-        'DM-Sans': require('../../../assets/fonts/DMSans.ttf'),
-    });
-
-    useEffect(() => {
-        const loadFonts = async () => {
-            await SplashScreen.hideAsync();
-        };
-        loadFonts();
-    }, []);
 
     return (
-    <View style={styles.container}>
-        <View>
-            <Image
-                style={styles.pictureChamp}
-                source={require('../../../assets/intro/intro-secondSlide.png')}
-            />
-            <LinearGradient style={styles.linear}
-                colors={[
-                    'rgba(52,43,43,0)',
-                    'rgb(0,0,0)'
-                ]}
-            />
-        </View>
-        <View style={styles.section}>
-            <Text style={styles.title}>Choisissez les meilleurs champions</Text>
-            <Text style={styles.desc}> Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu. </Text>
-            <TouchableOpacity onPress={() => { navigate() }}>
+      <Slide
+        imageSource={require('../../../assets/intro/intro-secondSlide.png')}
+        title="Choisissez les meilleurs champions"
+        description="Les meilleurs champions, builds, match-ups et tout ce dont vous avez besoin pour vous améliorer dans le jeu."
+        button={
+            <TouchableOpacity onPress={navigate}>
                 <Image style={styles.pictureButton} source={require('../../../assets/buttons/just_button.png')} />
             </TouchableOpacity>
-        </View>
-    </View>
+        }
+      />
   );
 }
 
@@ -78,7 +55,6 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 32,
-        fontFamily: 'DM Sans'
     },
     desc: {
         textAlign: 'center',

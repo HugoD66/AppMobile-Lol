@@ -1,10 +1,7 @@
+import React from "react";
 import {FirstSlide} from './app/pages/intro/FirstSlide';
-import {SecondSlide} from "./app/pages/intro/SecondSlide";
-
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
-import ThirdSlide from "./app/pages/intro/ThirdSlide";
-import FourthSlide from "./app/pages/intro/FourthSlide";
 import {Accueil} from "./app/pages/accueil/Accueil";
 import {Champion} from "./app/pages/champ/Champion";
 import {Search} from "./app/pages/search/Search";
@@ -14,9 +11,13 @@ import {Login} from "./app/pages/forms/Login";
 import {Register} from "./app/pages/forms/Register";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import {Invocateur} from "./app/pages/invocateur/Invocateur";
-
-
-
+import {Slide} from "./app/pages/intro/Slides";
+import {Image, TouchableOpacity} from "react-native";
+import { ButtonOne } from './app/components/button/ButtonOne';
+import { StyleSheet } from "react-native";
+import {SecondSlide} from "./app/pages/intro/SecondSlide";
+import ThirdSlide from "./app/pages/intro/ThirdSlide";
+import FourthSlide from "./app/pages/intro/FourthSlide";
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -45,14 +46,11 @@ export type StackParamList = {
   };
 }
 
-
 export type IntroStackNavigationProps = NativeStackNavigationProp<IntroParamList>
 const IntroStackNavigator = createNativeStackNavigator<IntroParamList>();
 const queryClient = new QueryClient();
 
 const IntroStack = () => {
-
-
 
   return (
       <IntroStackNavigator.Navigator screenOptions={{ headerShown: false }}>
@@ -89,3 +87,9 @@ export default function App() {
       </QueryClientProvider>
   );
 }
+const styles = StyleSheet.create({
+  pictureButton : {
+    width: 56,
+    height: 56,
+  }
+})
