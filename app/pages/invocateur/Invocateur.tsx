@@ -1,6 +1,7 @@
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
 import {SearchInvocProps} from "../../types/SearchInvocProps";
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from "../../types/screenDim";
+import theme from "../../../theme";
 
 export function Invocateur({ invocData }: SearchInvocProps) {
   //if(!invocData) return (<View><Text>Chargement...</Text></View>);
@@ -27,11 +28,51 @@ export function Invocateur({ invocData }: SearchInvocProps) {
 
 
       <View style={styles.selectionSearch}>
-        <Text>Tous</Text>
-        <Text>Solo/Duo</Text>
-        <Text>Flex</Text>
+        <Text style={styles.textSelection}>Tous</Text>
+        <Text style={styles.textSelection}>Solo/Duo</Text>
+        <Text style={styles.textSelection}>Flex</Text>
       </View>
       <View style={styles.panelMatchHistory}>
+        <ScrollView>
+
+             <View style={styles.contentGame}>
+
+               <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+
+               <View style={styles.contentInformationsGame}>
+                 <View style={styles.iconsMasteriesKDA}>
+                   <View style={styles.sumMasteriesIcons}>
+                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   </View>
+                   <View style={styles.kda}>
+                     <Text>10/2/5</Text>
+                     <Text>10.0 KDA</Text>
+                   </View>
+                 </View>
+                 <View style={styles.items}>
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 </View>
+               </View>
+
+                 <View style={styles.infoGame}>
+                   <Text>Flex 5:5 Rank</Text>
+                   <Text>Victoire</Text>
+                   <Text>Il y a 16 jours</Text>
+                   <Text>25 min</Text>
+                 </View>
+
+             </View>
+
+          <View style={{height: 1000, backgroundColor: 'red'}}></View>
+        </ScrollView>
       </View>
     </View>
   )
@@ -45,7 +86,7 @@ const styles = StyleSheet.create({
   },
   sumNav: {
     width: SCREEN_WIDTH,
-    height: 300,
+    height: 200,
     zIndex: 10,
     display: 'flex',
     flexDirection: 'row',
@@ -74,31 +115,103 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginRight: '20%',
+    //marginRight: '20%',
     marginBottom: 30,
   },
   name: {
     color: 'white',
     fontSize: 26,
-
+    textAlign: 'center',
   },
   region: {
     color: 'white',
-
+    textAlign: 'center',
   },
   rankPosition: {
-
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rankPicture: {
-
+    width: 100,
+    height: 100,
   },
   position: {
-
+    color: 'white',
+    fontSize: 16,
   },
   selectionSearch: {
-
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: 'black',
+  },
+  textSelection: {
+    color: 'white',
   },
   panelMatchHistory: {
+    backgroundColor: 'white',
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT - 250,
+  },
+  contentGame: {
+    height: 150,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: 5,
+    borderRadius: 16,
+    backgroundColor: theme.colors.backgroundRun,
+  },
+  pictureChamp: {
+    height: 100,
+    width: 100,
+  },
+  contentInformationsGame: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  iconsMasteriesKDA: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  sumMasteriesIcons: {
+    backgroundColor: 'red',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    width: 60,
+  },
+
+  icon: {
+    width: '48%',
+    margin: '1%',
+    height: 30,
+    borderRadius: 90,
+  },
+  items: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+
+  },
+  iconItems: {
+    height: 30,
+    width: 30,
+    borderRadius: 90,
+  },
+  kda: {
+
+  },
+  objects: {
+
+  },
+  infoGame: {
 
   },
 });

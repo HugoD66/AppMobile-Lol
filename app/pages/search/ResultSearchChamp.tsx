@@ -18,7 +18,6 @@ export function ResultSearchChamp({ championData }: SearchChampProps) {
                   style={styles.touchableContent}
                   onPress={() => navigation.navigate('Champion', { nom: champion.id })}
               >
-
                 <Image
                     style={styles.pictureCard}
                     source={{ uri: `${champion.full}` }}
