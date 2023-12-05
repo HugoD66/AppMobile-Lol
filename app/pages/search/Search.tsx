@@ -6,11 +6,13 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import { Animated, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import {BackArrow} from "../../components/button/BackArrow";
-import {GetChampionByName, GetDataChampion} from "../../logic/logicChamp";
+import axios from "axios";
+import {APIKey} from "../../../APIKey";
 import { ChampionDataInterface } from '../../types/ChampionDataInterface';
-import {InvocDataInterface} from "../../types/InvocDataInterface";
-import {ResultSearchChamp} from "./ResultSearchChamp";
-import {ResultSearchInvoc} from "./ResultSearchInvoc";
+import { InvocDataInterface } from "../../types/InvocDataInterface";
+import { ResultSearchChamp } from "./ResultSearchChamp";
+import { ResultSearchInvoc } from "./ResultSearchInvoc";
+import {GetChampionByName} from "../../logic/logicChamp";
 
 
 export function Search() {
@@ -18,7 +20,6 @@ export function Search() {
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
   const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
-  const [championData, setChampionData] = useState<ChampionDataInterface | null>(null);
   const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
   const [championDataList, setChampionDataList] = useState<ChampionDataInterface[]>([]);
 
@@ -40,13 +41,13 @@ export function Search() {
       useNativeDriver: true,
     }).start();
     setSearch(text);
-    console.log(text)
 
 
 
     if (text.length > 0 && activeOption === 'Champions') {
       try {
         const dataChampionArray = await GetChampionByName(text);
+
         if (dataChampionArray.length > 0) {
           setChampionDataList(dataChampionArray.map(champion => ({
             name: champion.name,
@@ -61,6 +62,21 @@ export function Search() {
       } catch (error) {
         console.error(error);
         setChampionDataList([]); // En cas d'erreur
+      }
+    }
+    if (text.length > 0 && activeOption === 'Players') {
+      try {
+        const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
+        const response = await axios.get(url);
+        console.log(response.data);
+        setInvocData({
+          idInvoc: response.data.id,
+          name: response.data.name,
+          profileIconId: response.data.profileIconId,
+          summonerLevel: response.data.summonerLevel,
+        });
+      } catch (error) {
+        console.error(error);
       }
     }
   }
@@ -79,16 +95,20 @@ export function Search() {
         <View style={styles.container}>
           <View style={styles.contentSearch}>
             <BackArrow navigate={navigate} />
+            <View style={styles.searchbarContent} >
             <TextInput
                 placeholder="Recherchez..."
                 placeholderTextColor={'white'}
                 value={search}
                 onChangeText={handleSearchChange}
                 style={styles.searchbar}
-                //onSubmit pour la recherche ?
             />
+            {search.length > 0 && (
+                <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
+            )}
             {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
-            <ScrollView horizontal >
+            </View>
+              <ScrollView horizontal >
               <View style={styles.selectionSearchList}>
                 <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
                   <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
@@ -143,8 +163,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   loop: {
-    top: -40,
-    marginLeft: SCREEN_WIDTH * 0.75,
+    position: "absolute",
+    top: 16,
+    left: 16,
+    height: 28,
+    width: 28,
+  },
+  searchDots: {
+    position: 'absolute',
+    top: 25,
+    left: 16,
+    width: 30,
+    height: 8,
   },
   contentSearch: {
     display: 'flex',
@@ -153,11 +183,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: SCREEN_HEIGHT * 0.28,
   },
+  searchbarContent: {
+    width: SCREEN_WIDTH * 0.90,
+    backgroundColor: '#1E1724',
+    height: 60,
+  },
   searchbar: {
     color: 'white',
     height: 60,
-    width: SCREEN_WIDTH * 0.90,
+    fontSize: 16,
     backgroundColor: '#1E1724',
+    marginLeft: 60,
   },
   selectionSearchList: {
     display: 'flex',
@@ -178,6 +214,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: 1,
     backgroundColor: '#545662',
+    bottom: 20,
   },
   contentBeforeAfter: {
     marginTop: 20,
@@ -187,6 +224,7 @@ const styles = StyleSheet.create({
   },
   afterSearchContainer: {
     width: '100%',
+
   },
   beforeSearchContainer: {
     width: '100%',

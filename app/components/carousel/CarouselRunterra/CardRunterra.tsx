@@ -1,6 +1,6 @@
 import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
 import {CardRunterraProps} from "../../../types/CardRunterraProps";
-
+import theme from "../../../../theme";
 
 
 export function CardRunterra({titleCard, subTitleCard, imageCard}: CardRunterraProps) {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   card: {
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: 'rgb(43, 44, 51)',
+    backgroundColor: theme.colors.backgroundRun,
     margin: 5,
     borderRadius: 10,
   },

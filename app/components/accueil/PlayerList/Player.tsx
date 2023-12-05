@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackNavigationProps} from "../../../../App";
-
+import { RootStackNavigationProps } from "../../../../App";
 export function Player() {
 
     const navigation = useNavigation<RootStackNavigationProps>();

@@ -52,52 +52,57 @@ export function Champion() {
     const navigate = () => {
         navigation.navigate('SkinScreen', { nom: `${name}` });
     };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+          <View>
             <Image style={styles.pictureChamp} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg` }} />
-            <View style={styles.linear}>
-                <LinearGradient style={styles.linearGradient} colors={['rgba(52,43,43,0)', 'rgb(0,0,0)']} />
-            </View>
-            <View style={styles.flexOblig} />
-            <View style={styles.titleSubTitleIcon}>
-                <View style={styles.titleSubTitle}>
-                    <Text style={styles.titleChamp}>{name}</Text>
-                    <Text style={styles.subTitle}>{championData.title}</Text>
-                </View>
-                <Image style={styles.likeChampIcon} source={require('../../../assets/buttons/hearth.png')} />
-            </View>
-            <Text style={styles.description}>{championData.lore}</Text>
-            <Text style={styles.skills}>Skills</Text>
-            <View style={styles.skillsContent}>
-                {championData.spells.map((spell: { id: string | null; image: { full: any; }; }, index: React.Key | null | undefined) => (
-                    <TouchableOpacity key={index} onPress={() => selectSkill(spell.id)}>
-                        <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
-                        {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
-                    </TouchableOpacity>
-                ))}
-            </View>
-            {showDivider && <View style={styles.divider} />}
-            <View style={styles.descLetterNameSpell}>
-                <Text style={styles.letterSpell}>{selectedSpellLetter}</Text>
-                <Text style={styles.nameSpell}>{selectedSpellName}</Text>
-                <Text style={styles.descSpell}>{spellDescription}</Text>
-            </View>
-            <View style={styles.generalInformations}>
-                <Image style={styles.pictureRole} source={require('../../../assets/tempEzChamp/Atirador.png')} />
-                <View style={styles.textRoleRoleImport}>
-                    <Text style={styles.role}>Rôle</Text>
-                    <Text style={styles.roleImport}>Tireur</Text>
-                </View>
-                <View style={styles.difficultInformations}>
-                    <Text style={styles.textDifficult}>Difficulté</Text>
-                    <Text style={styles.niveauDifficult}>Facile</Text>
-                    <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')} />
-                </View>
-            </View>
-            <TouchableOpacity style={styles.button} onPress={navigate}>
-                <Text style={styles.buttonText}>Skins</Text>
-            </TouchableOpacity>
-            <View style={styles.endScreen}></View>
+            <LinearGradient style={styles.linear}
+                            colors={[
+                              'rgba(52,43,43,0)',
+                              'rgb(0,0,0)'
+                            ]}
+            />
+          </View>
+          <View style={styles.titleSubTitleIcon}>
+              <View style={styles.titleSubTitle}>
+                  <Text style={styles.titleChamp}>{name}</Text>
+                  <Text style={styles.subTitle}>{championData.title}</Text>
+              </View>
+              <Image style={styles.likeChampIcon} source={require('../../../assets/buttons/hearth.png')} />
+          </View>
+          <Text style={styles.description}>{championData.lore}</Text>
+          <Text style={styles.skills}>Skills</Text>
+          <View style={styles.skillsContent}>
+              {championData.spells.map((spell: { id: string | null; image: { full: any; }; }, index: React.Key | null | undefined) => (
+                  <TouchableOpacity key={index} onPress={() => selectSkill(spell.id)}>
+                      <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
+                      {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
+                  </TouchableOpacity>
+              ))}
+          </View>
+          {showDivider && <View style={styles.divider} />}
+          <View style={styles.descLetterNameSpell}>
+              <Text style={styles.letterSpell}>{selectedSpellLetter}</Text>
+              <Text style={styles.nameSpell}>{selectedSpellName}</Text>
+              <Text style={styles.descSpell}>{spellDescription}</Text>
+          </View>
+          <View style={styles.generalInformations}>
+              <Image style={styles.pictureRole} source={require('../../../assets/tempEzChamp/Atirador.png')} />
+              <View style={styles.textRoleRoleImport}>
+                  <Text style={styles.role}>Rôle</Text>
+                  <Text style={styles.roleImport}>Tireur</Text>
+              </View>
+              <View style={styles.difficultInformations}>
+                  <Text style={styles.textDifficult}>Difficulté</Text>
+                  <Text style={styles.niveauDifficult}>Facile</Text>
+                  <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')} />
+              </View>
+          </View>
+          <TouchableOpacity style={styles.button} onPress={navigate}>
+              <Text style={styles.buttonText}>Skins</Text>
+          </TouchableOpacity>
+          <View style={styles.endScreen}></View>
         </ScrollView>
     );
 }
@@ -120,28 +125,15 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     pictureChamp: {
-      margin: 0,
-      top: 0,
-      height: SCREEN_HEIGHT * .4,
+      height: SCREEN_HEIGHT * .40,
       width: SCREEN_WIDTH,
-      zIndex: 1,
-      position: "absolute"
     },
     linear: {
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
       position:'absolute',
-      top: SCREEN_HEIGHT * .2,
-    },
-    linearGradient: {
-      zIndex: 2,
-      width: '100%',
-      height: SCREEN_HEIGHT * .2,
-
-    },
-    flexOblig: {
-      height: SCREEN_HEIGHT * .35,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      height: 200,
     },
     titleSubTitleIcon: {
       width: SCREEN_WIDTH * .92,
