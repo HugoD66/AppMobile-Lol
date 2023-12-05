@@ -7,6 +7,7 @@ import React, {useEffect, useState } from "react";
 import { InvocDataInterface } from "../../types/InvocDataInterface";
 // @ts-ignore
 import { GetDataInvoc } from "../../logic/logicInvoc";
+import theme from "../../../theme";
 
 export function SumNav({ invocateur }: UserProps) {
   const navigation = useNavigation<StackNavigationProps>();
@@ -72,55 +73,50 @@ export function SumNav({ invocateur }: UserProps) {
 }
 const styles = StyleSheet.create({
   sumNav: {
-    marginTop: 20,
-    margin: 10,
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'black',
-    zIndex: 2,
-    height: 120,
+    height: 130,
+    marginTop: theme.spacing.l,
+    margin: theme.spacing.d,
+    backgroundColor: theme.colors.black,
     width: SCREEN_WIDTH,
   },
   imageIconeSumNav: {
-    marginTop: 10,
-    marginLeft: 10,
-    borderRadius: 90,
+    resizeMode: 'contain',
     width: 65,
     height: 65,
-    resizeMode: 'contain',
+    marginTop: theme.spacing.d,
+    marginLeft: theme.spacing.j,
+    borderRadius: theme.spacing.roundBorder,
   },
   sumNavTitleDesc: {
-    height: '100%',
-    backgroundColor: 'black',
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginLeft: 15,
+    marginLeft: theme.spacing.g,
   },
   title: {
-    color: 'white',
-    fontSize: 26,
-    width: 170,
     fontWeight: 'bold',
+    fontFamily: 'DM-Sans',
+    color: theme.colors.white,
+    fontSize: theme.fontSize.titleSum,
   },
   subtitle: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '200',
+    fontFamily: 'Inter',
+    color: theme.colors.subtitleCard,
+    fontSize: theme.fontSize.subTitleSum,
   },
   loopSearch: {
     width: 30,
     height: 30,
-    marginTop: 10,
-    marginLeft: 35,
+    marginTop: theme.spacing.d,
+    marginLeft: theme.spacing.p,
   },
   rank: {
+    resizeMode: 'contain',
     width: 65,
     height: 65,
-    resizeMode: 'contain',
-    marginRight: 10,
+    marginRight: theme.spacing.j,
   }
 })

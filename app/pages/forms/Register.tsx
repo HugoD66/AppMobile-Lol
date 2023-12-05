@@ -15,6 +15,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import {db} from "../../../db";
 import {LinearGradient} from "expo-linear-gradient";
+import theme from "../../../theme";
 
 export function Register() {
   const [email, setEmail] = useState('');
@@ -50,7 +51,7 @@ export function Register() {
           (_, { rows }) => console.log(rows)
         );
       });
-      // navigation.navigate('Accueil');
+      navigation.navigate('Accueil');
     }
   };
 
@@ -72,14 +73,14 @@ export function Register() {
             <LinearGradient style={styles.linearGradient} colors={['rgba(52,43,43,0)', 'rgb(0,0,0)']} />
           </View>
         </View>
-        <View style={styles.contentLogin}>
+        <View style={styles.contentRegister}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.keyboardAvoidingView}
           >
             <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
             <View style={styles.contentForm}>
-              <View style={styles.contentSearch}>
+              <View>
                 <Text style={styles.searchLabel}>Email</Text>
                 <TextInput
                   style={styles.searchbar}
@@ -87,7 +88,7 @@ export function Register() {
                   onChangeText={(text) => setEmail(text)}
                 />
               </View>
-              <View style={styles.contentSearch}>
+              <View>
                 <Text style={styles.searchLabel}>Password</Text>
                 <TextInput
                   value={password}
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.black,
   },
   backArrowButton: {
     position: "absolute",
@@ -125,73 +126,68 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT,
   },
   pictureback: {
-    width: '100%',
     position: 'absolute',
+    width: SCREEN_WIDTH,
   },
   keyboardAvoidingView: {
-    flex: 1,
-    height: SCREEN_HEIGHT * .9,
-    width: SCREEN_WIDTH,
-    display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    flex: 1,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT * .9,
   },
   pictureLogo: {
     top: '8%',
   },
-  contentLogin: {
+  contentRegister: {
     position: 'absolute',
-    flex: 1,
-    width: SCREEN_WIDTH,
-    display: 'flex',
     margin: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
     top: 0,
-    zIndex: 5,
-
+    zIndex: 10,
+    width: SCREEN_WIDTH,
   },
   contentForm: {
     height: SCREEN_HEIGHT * .3,
-    display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-
-  },
-  contentSearch: {
   },
   searchLabel: {
-    color: 'white',
+    color: theme.colors.white,
+    fontFamily: 'DM-Sans',
+    marginBottom: theme.spacing.f,
   },
   searchbar: {
-    color: 'white',
     height: 60,
     width: SCREEN_WIDTH * 0.90,
-    backgroundColor: '#1E1724',
+    backgroundColor: theme.colors.backForm,
+    color: theme.colors.white,
   },
   customButtonComponent: {
     marginTop: '10%',
   },
   button: {
-    width: SCREEN_WIDTH * .92,
-    height: 70,
-    backgroundColor: '#8B00FF',
-    borderRadius: 10,
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: 70,
+    borderRadius: 10,
+    width: SCREEN_WIDTH * .92,
+    backgroundColor: theme.colors.purplePrimary,
   },
   buttonText: {
     textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: 'DM-Sans',
+    fontSize: theme.fontSize.subTitleSum,
+    color: theme.colors.white,
   },
   errorText: {
-    color: 'red',
+    marginTop: '2%',
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: 'Inter',
+    fontSize: theme.fontSize.subTitleSum,
+    color: theme.colors.red,
   },
   linear: {
     width: '100%',
@@ -201,8 +197,7 @@ const styles = StyleSheet.create({
     top: SCREEN_HEIGHT * .3,
   },
   linearGradient: {
-    zIndex: 2,
-    width: '100%',
+    width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT * .2,
 
   },

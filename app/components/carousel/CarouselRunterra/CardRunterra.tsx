@@ -2,35 +2,26 @@ import {StyleSheet, Image, Text, TouchableOpacity} from "react-native";
 import {CardRunterraProps} from "../../../types/CardRunterraProps";
 import theme from "../../../../theme";
 
-
 export function CardRunterra({titleCard, subTitleCard, imageCard}: CardRunterraProps) {
   return (
-    <TouchableOpacity onPress={() => console.log('pressed')}>
+    <TouchableOpacity>
        <Image style={styles.card} source={imageCard} />
        <Text style={styles.titleCard}>{titleCard}</Text>
-       <Text style={styles.subtitleCard}>{subTitleCard}</Text>
     </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({
   card: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    backgroundColor: theme.colors.backgroundRun,
-    margin: 5,
     borderRadius: 10,
+    width: 110,
+    marginRight: theme.spacing.e,
+    backgroundColor: theme.colors.blackTwo,
   },
   titleCard: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-
-  },
-  subtitleCard: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'normal',
-    width: '70%',
-    textAlign: 'justify',
+    fontFamily: 'DM-Sans',
+    marginTop: theme.spacing.d,
+    marginBottom: theme.spacing.d,
+    color: theme.colors.white,
+    fontSize: theme.fontSize.subTitleSum,
   },
 });

@@ -22,23 +22,20 @@ export function TitleAccueil({ title, subtitle, style, titleStyle, subtitleStyle
 }
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH ,
     alignItems: 'center',
     justifyContent: 'space-between',
     textAlign: 'center',
-    display: 'flex',
     flexDirection: 'row',
+    width: SCREEN_WIDTH ,
   },
   title: {
     ...theme.textVariants.title,
-    fontWeight: '700',
-    margin: '3%',
     marginBottom: '7%',
+    fontFamily: 'DM-Sans',
   },
   subtitle: {
      ...theme.textVariants.subTitleVoirTous,
     fontWeight: '100',
-    margin: '3%',
     marginBottom: '20%',
   },
 });

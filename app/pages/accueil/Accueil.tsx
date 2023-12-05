@@ -8,6 +8,8 @@ import { ContentPlayerList } from "../../components/accueil/PlayerList/ContentPl
 import {UserProps} from "../../types/UserProps";
 import {useRoute} from "@react-navigation/native";
 import {useState} from "react";
+import {SCREEN_WIDTH} from "../../types/screenDim";
+import theme from "../../../theme";
 
 export function Accueil({ route }: { route?: { params?: { invocateur?: string } } }) {
   const invocateur = route?.params?.invocateur;
@@ -43,10 +45,10 @@ export function Accueil({ route }: { route?: { params?: { invocateur?: string } 
 }
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    backgroundColor: '#070707',
+    width: SCREEN_WIDTH,
+    backgroundColor: theme.colors.black,
   },
   title : {
-    marginBottom: '0%',
+    marginBottom: 0,
   },
 });

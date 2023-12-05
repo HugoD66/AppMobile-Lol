@@ -1,5 +1,6 @@
 import {StyleSheet, View, ScrollView} from "react-native";
 import {CardChamp} from "./CardChamp";
+import theme from "../../../../theme";
 export function CarouselChamp() {
 
   return (
@@ -40,10 +41,9 @@ export function CarouselChamp() {
 const styles = StyleSheet.create({
   container: {},
   cards: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    paddingHorizontal: 10,
+    marginBottom: theme.spacing.i,
+    paddingHorizontal: theme.spacing.i,
   },
 });

@@ -4,6 +4,7 @@ import {CardChampProps} from "../../../types/CardRecommendProps";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {StackParamList} from "../../../../App";
 import {useNavigation} from "@react-navigation/native";
+import theme from "../../../../theme";
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
 
@@ -48,30 +49,27 @@ const styles = StyleSheet.create({
     height: 200,
   },
   backPicture: {
-    height: 250,
     resizeMode: 'cover',
     position: 'absolute',
+    height: 250,
     borderRadius: 20,
-    zIndex: 1,
   },
   pictureChamp: {
+    resizeMode: 'contain',
+    position: 'absolute',
     width: 250,
     height: 280,
     top: -25,
-    resizeMode: 'contain',
-    position: 'absolute',
-    zIndex: 3,
-    left: 100,
+    left: theme.spacing.cent,
+    zIndex: 2,
   },
   linear: {
-    zIndex: 2,
-    height: 250,
     resizeMode: 'cover',
     position: 'absolute',
     borderRadius: 20,
+    height: 250,
   },
   contentCardRecom: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -79,40 +77,38 @@ const styles = StyleSheet.create({
     height: '100%',
     marginLeft: '5%',
     marginTop: '5%',
-    zIndex: 7,
   },
   contentText: {
-    bottom: 10,
-    display: 'flex',
+    bottom: theme.spacing.d,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     height: '100%',
     marginTop: 70,
-
   },
   titleRecomCard: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'white'
+    fontFamily: 'DM-Sans',
+    zIndex: 3,
+    fontSize: theme.fontSize.titleCardRecom,
+    color: theme.colors.white,
   },
   subtitleRecomCard: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'normal',
+    fontWeight: '300',
     width: '70%',
     textAlign: 'justify',
+    fontFamily: 'Inter',
+    zIndex: 3,
+    color: theme.colors.subtitleCard,
+    fontSize: theme.fontSize.subtitleCardRecom,
   },
   button: {
-    width: 100,
-    height: 100,
-    color: 'red',
+    width: theme.spacing.cent,
+    height: theme.spacing.cent,
   },
   pictureButton: {
-    marginTop: 10,
     width: 60,
     height: 60,
     borderRadius: 15,
+    marginTop: theme.spacing.d,
   },
-
 });

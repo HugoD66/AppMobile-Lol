@@ -1,7 +1,7 @@
 import {StyleSheet, View, Image, Text, TouchableOpacity, ScrollView} from "react-native";
 import {CardChamp} from "../CarouselChamp/CardChamp";
 import {CardRunterra} from "./CardRunterra";
-
+import theme from "../../../../theme";
 export function CarouselRuneterra() {
   return (
       <ScrollView horizontal contentContainerStyle={styles.container}>
@@ -57,15 +57,15 @@ export function CarouselRuneterra() {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
-    paddingVertical: 10,
+    paddingVertical: theme.spacing.h,
+    marginBottom: theme.spacing.f,
+
   },
   cards: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     overflow: 'scroll',
-    paddingHorizontal: 5,
+    paddingHorizontal: theme.spacing.i,
   },
 });

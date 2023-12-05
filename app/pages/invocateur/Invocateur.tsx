@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 5,
     borderRadius: 16,
-    backgroundColor: theme.colors.backgroundRun,
+    backgroundColor: theme.colors.backgroundApp,
   },
   pictureChamp: {
     height: 100,

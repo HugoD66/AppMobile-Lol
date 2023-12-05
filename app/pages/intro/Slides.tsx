@@ -1,8 +1,9 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useContext} from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../types/screenDim';
 import { SlideProps } from '../../types/SlideProps';
+import theme from "../../../theme";
 
 export function Slide({ imageSource, title, description, button }: SlideProps) {
 
@@ -20,11 +21,14 @@ export function Slide({ imageSource, title, description, button }: SlideProps) {
     </View>
   );
 }
+
+
+
 const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    backgroundColor: '#070707',
+    backgroundColor: theme.colors.black,
   },
   pictureChamp: {
     height: SCREEN_HEIGHT * .61,
@@ -41,21 +45,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    marginHorizontal: 38,
-    marginBottom: 16,
-    color: 'white',
+    ...theme.titleSlide,
+    color: theme.colors.white,
     textAlign: 'center',
-    fontSize: 32,
-    fontFamily: 'DM Sans'
+    fontFamily: 'DM-Sans',
   },
   desc: {
+    ...theme.descSlide,
     textAlign: 'center',
-    color: '#B3B0B8',
-    fontWeight: "100",
-    fontSize: 16,
-    lineHeight: 24,
-    marginHorizontal: 50,
-    marginBottom: 22,
+    fontFamily: 'Inter',
+    color: theme.colors.subtitleCard,
   },
   pictureButton: {
     width: 56,
