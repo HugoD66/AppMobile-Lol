@@ -1,30 +1,21 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
 import { SCREEN_WIDTH } from "../../types/screenDim";
 import { UserProps } from "../../types/UserProps";
 import React, {useEffect, useState } from "react";
 import { InvocDataInterface } from "../../types/InvocDataInterface";
-import { getDataInvoc } from "../../logic/logicInvoc";
 import theme from "../../../theme";
+import { getSummonerData } from "../../logic/logicInvoc";
+import {useGetDataInvoc} from "../../hooks/useGetDataInvoc";
+import {StackParamList} from "../../../App";
+import {SearchInvocProps} from "../../types/SearchInvocProps";
 
-export function SumNav({ invocateur }: UserProps) {
+
+export function SumNav( { idInvoc, name, summonerLevel, profileIconId }: SearchInvocProps ) {
   const navigation = useNavigation<StackNavigationProps>();
-  const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
 
-  const getInvocInformations = async (invocateur: string) => {
-    try {
-      const invocData = await getDataInvoc({ InvocName: invocateur });
-      setInvocData({
-        idInvoc: invocData.idInvoc,
-        name: invocData.nom,
-        profileIconId: invocData.profileIconId,
-        summonerLevel: invocData.summonerLevel,
-      });
-    } catch (error) {
-    }
-  }
-  console.log(invocData);
+
   const navigate = () => {
     navigation.navigate('Search');
   };
@@ -37,28 +28,24 @@ export function SumNav({ invocateur }: UserProps) {
   const navigateInvocScreen = () => {
     navigation.navigate('Invocateur');
   }
-  useEffect(() => {
-    if (invocateur) {
-      getInvocInformations(invocateur);
-    }
-  }, [invocateur]);
+
 
   return (
     <View style={styles.sumNav}>
-        { invocateur && invocData ?
-          <TouchableOpacity onPress={navigateInvocScreen}>
-            <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData.profileIconId}.png` }} />
-          </TouchableOpacity>
-          :
-          <TouchableOpacity onPress={navigateLogin}>
-            <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
-          </TouchableOpacity>
-        }
+      { idInvoc ?
+        <TouchableOpacity onPress={navigateInvocScreen}>
+          <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${profileIconId}.png` }} />
+        </TouchableOpacity>
+        :
+        <TouchableOpacity onPress={navigateLogin}>
+          <Image style={styles.imageIconeSumNav} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
+        </TouchableOpacity>
+      }
       <TouchableOpacity onPress={navigateRegister}>
         <View style={styles.sumNavTitleDesc}>
-          <Text style={styles.title}>{invocateur ? invocateur : 'S\'enregistrer'}</Text>
-          { invocateur && invocData ?
-            <Text style={styles.subtitle}>{`Level : ${ invocData.summonerLevel }`}</Text>
+          <Text style={styles.title}>{idInvoc ? name : 'S\'enregistrer'}</Text>
+          { idInvoc  ?
+            <Text style={styles.subtitle}>{`Level : ${ summonerLevel }`}</Text>
             :
             <Text style={styles.subtitle}>Utilisateur non identifié</Text>
           }

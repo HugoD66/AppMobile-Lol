@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from "react-native";
+import {Text, StyleSheet, ScrollView } from "react-native";
 import { SumNav } from "../../components/accueil/SumNav";
 import { TitleAccueil } from "../../components/title/TitleAccueil";
 import { CarouselChamp } from "../../components/carousel/CarouselChamp/CarouselChamp";
@@ -7,21 +7,27 @@ import { CarouselRuneterra } from "../../components/carousel/CarouselRunterra/Ca
 import { ContentPlayerList } from "../../components/accueil/PlayerList/ContentPlayerList";
 import {UserProps} from "../../types/UserProps";
 import {useRoute} from "@react-navigation/native";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {SCREEN_WIDTH} from "../../types/screenDim";
 import theme from "../../../theme";
+import {InvocDataInterface} from "../../types/InvocDataInterface";
+import {SearchInvocProps} from "../../types/SearchInvocProps";
+// @ts-ignore
+//import {GetDataInvoc, getSummonerData} from "../../logic/logicInvoc";
+import { RouteProp } from '@react-navigation/native';
+import {StackParamList} from "../../../App";
+type AccueilRouteProp = RouteProp<StackParamList, 'Accueil'>;
 
-export function Accueil({ route }: { route?: { params?: { invocateur?: string } } }) {
-  const invocateur = route?.params?.invocateur;
+export function Accueil({ route }: { route: AccueilRouteProp }) {
 
-  /*
-  const initialInvocateur = route.params || ""; // Utilisez une valeur par défaut
-  const [invocateur, setInvocateur] = useState(initialInvocateur);
-   */
+  const { invocateur } = route.params || {};
+  const { id, name, summonerLevel, profileIconId } = invocateur || {};
+
+
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <SumNav  invocateur={invocateur}/>
+      <SumNav name={name} summonerLevel={summonerLevel} idInvoc={id} profileIconId={profileIconId}/>
       <TitleAccueil
         title="Mes champions"
         subtitle="Voir tous"/>

@@ -4,23 +4,22 @@ import React from 'react';
 import {SCREEN_WIDTH} from "../../types/screenDim";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
-
-export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
+export function ResultSearchInvoc({ idInvoc, name, summonerLevel, profileIconId }: SearchInvocProps) {
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigateInvoc = () => {
     navigation.navigate('Invocateur', {
-      invocName: invocData?.name,
+      invocName: name ?? '',
     });
   };
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        {invocData &&  (
+        {name &&  (
           <TouchableOpacity style={styles.touchableContent} onPress={() => navigateInvoc()}>
-            <Text style={styles.titleCard}>{invocData?.name}</Text>
-            <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
-            <Text style={styles.subtitleCard}>{invocData?.summonerLevel}</Text>
+            <Text style={styles.titleCard}>{name}</Text>
+            <Image style={styles.pictureInvocCard} source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${profileIconId}.jpg` }} />
+            <Text style={styles.subtitleCard}>{summonerLevel}</Text>
           </TouchableOpacity>
         )}
       </View>

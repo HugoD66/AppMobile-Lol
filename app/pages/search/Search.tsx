@@ -13,13 +13,14 @@ import { InvocDataInterface } from "../../types/InvocDataInterface";
 import { ResultSearchChamp } from "./ResultSearchChamp";
 import { ResultSearchInvoc } from "./ResultSearchInvoc";
 import {GetChampionByName} from "../../logic/logicChamp";
+import {SearchInvocProps} from "../../types/SearchInvocProps";
 
 export function Search() {
   const [search, setSearch] = useState('');
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
   const opacityAnimAfter = useRef(new Animated.Value(0)).current;
   const [activeOption, setActiveOption] = useState('Champions');  const [showLoop, setShowLoop] = useState(true);
-  const [invocData, setInvocData] = useState<InvocDataInterface | null>(null);
+  const [invocData,  setInvocData] = useState<SearchInvocProps | null>(null);
   const [championDataList, setChampionDataList] = useState<ChampionDataInterface[]>([]);
 
 
@@ -141,7 +142,12 @@ export function Search() {
                     <ResultSearchChamp championData={championDataList} />
                 )}
                 {invocData && activeOption === 'Players' && (
-                    <ResultSearchInvoc invocData={invocData} />
+                  <ResultSearchInvoc
+                    idInvoc={invocData?.idInvoc}
+                    name={invocData?.name}
+                    summonerLevel={invocData?.summonerLevel}
+                    profileIconId={invocData?.profileIconId}
+                  />
                 )}
               </Animated.View>
           )}

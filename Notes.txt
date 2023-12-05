@@ -1,12 +1,4 @@
-Problemes rencontrés :
-    Champion :
-        Passif non visible
-
-    Login et register:
-        Manque back button
-
-
-
+Probleme sumnav accueil récupération invoc
 
 
 

@@ -1,8 +1,8 @@
 export interface SearchInvocProps {
-  invocData?: {
-    idInvoc: string;
-    name: string;
-    summonerLevel: number;
-    profileIconId?: number;
-  };
+
+  idInvoc: string | undefined;
+  name: string | undefined;
+  summonerLevel: number | undefined;
+  profileIconId?: number | undefined;
+
 }

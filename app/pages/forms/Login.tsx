@@ -18,6 +18,8 @@ import {RootStackNavigationProps} from "../../../App";
 import {db} from "../../../db";
 import {LinearGradient} from "expo-linear-gradient";
 import theme from "../../../theme";
+import {getSummonerData} from "../../logic/logicInvoc";
+import {InvocDataInterface} from "../../types/InvocDataInterface";
 
 export function Login() {
   const [invocateur, setInvocateur] = useState('');
@@ -44,10 +46,36 @@ export function Login() {
           tx.executeSql(
             'SELECT * FROM Users WHERE invocateur = ? AND password = ?',
             [invocateurValue, passwordValue],
-            (_, { rows }) => {
+            async (_, {rows}) => {
               if (rows.length > 0) {
                 setUser(rows._array[0].invocateur);
-                navigation.navigate('Accueil', { invocateur: invocateurValue });
+                const summonerData: InvocDataInterface = await getSummonerData(invocateurValue);
+                console.log('Good summonerData');
+                /*
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                console.log(summonerData)
+                 */
+                navigation.navigate('Accueil', {
+                  invocateur: {
+                    id: summonerData.id,
+                    name: summonerData.name,
+                    summonerLevel: summonerData.summonerLevel,
+                    profileIconId: summonerData.profileIconId
+                  }
+                });
               } else {
                 setError('Nom d\'invocateur ou mot de passe incorrect.');
               }

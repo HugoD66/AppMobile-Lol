@@ -29,14 +29,11 @@ export function Register() {
     if (emailValue.trim() === '' || passwordValue.trim() === '') {
       setError('Veuillez remplir tous les champs.');
     } else {
-      console.log('email : ' + emailValue);
-      console.log('password : ' + passwordValue);
       db.transaction(tx => {
         tx.executeSql(
           'INSERT INTO Users (invocateur, password) VALUES (?, ?)',
           [emailValue, passwordValue],
           (_, { rows }) => {
-            console.log('User created');
             navigation.navigate('Accueil');
           },
           (_, error) => {

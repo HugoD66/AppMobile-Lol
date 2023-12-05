@@ -1,6 +1,8 @@
 export interface InvocDataInterface {
-  idInvoc: string;
-  name: string;
-  summonerLevel: number;
-  profileIconId: number;
+  summonerLevel?: number | undefined,
+  profileIconId?: number | undefined,
+  name?: string | undefined,
+  puuid?: string | undefined,
+  accountId?: string | undefined,
+  id?: string | undefined,
 }
