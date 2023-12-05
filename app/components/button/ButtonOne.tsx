@@ -8,7 +8,6 @@ export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
 
     const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
-        console.log({navigation: navigation.getState()})
         navigation.navigate('Accueil');
     };
 

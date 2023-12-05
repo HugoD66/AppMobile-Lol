@@ -2,15 +2,13 @@ import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
 import {SearchInvocProps} from "../../types/SearchInvocProps";
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from "../../types/screenDim";
 import theme from "../../../theme";
-
+import { Error } from "../../components/loader/Error";
 export function Invocateur({ invocData }: SearchInvocProps) {
-  //if(!invocData) return (<View><Text>Chargement...</Text></View>);
-  console.log(invocData);
-  console.log('coucou');
-  console.log(invocData?.name);
+  console.log(invocData)
+  if(!invocData) return (<Error />);
+
   return (
     <View style={styles.container}>
-
       <View style={styles.sumNav}>
         <View style={styles.sumIconAndLevel}>
           <Image style={styles.sumIcon} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
@@ -25,8 +23,6 @@ export function Invocateur({ invocData }: SearchInvocProps) {
           <Text style={styles.position}>Emerald 2</Text>
         </View>
       </View>
-
-
       <View style={styles.selectionSearch}>
         <Text style={styles.textSelection}>Tous</Text>
         <Text style={styles.textSelection}>Solo/Duo</Text>
@@ -34,43 +30,37 @@ export function Invocateur({ invocData }: SearchInvocProps) {
       </View>
       <View style={styles.panelMatchHistory}>
         <ScrollView>
-
-             <View style={styles.contentGame}>
-
-               <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-
-               <View style={styles.contentInformationsGame}>
-                 <View style={styles.iconsMasteriesKDA}>
-                   <View style={styles.sumMasteriesIcons}>
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   </View>
-                   <View style={styles.kda}>
-                     <Text>10/2/5</Text>
-                     <Text>10.0 KDA</Text>
-                   </View>
+           <View style={styles.contentGame}>
+             <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+             <View style={styles.contentInformationsGame}>
+               <View style={styles.iconsMasteriesKDA}>
+                 <View style={styles.sumMasteriesIcons}>
+                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
                  </View>
-                 <View style={styles.items}>
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <View style={styles.kda}>
+                   <Text>10/2/5</Text>
+                   <Text>10.0 KDA</Text>
                  </View>
                </View>
-
-                 <View style={styles.infoGame}>
-                   <Text>Flex 5:5 Rank</Text>
-                   <Text>Victoire</Text>
-                   <Text>Il y a 16 jours</Text>
-                   <Text>25 min</Text>
-                 </View>
-
+               <View style={styles.items}>
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+               </View>
              </View>
-
+               <View style={styles.infoGame}>
+                 <Text>Flex 5:5 Rank</Text>
+                 <Text>Victoire</Text>
+                 <Text>Il y a 16 jours</Text>
+                 <Text>25 min</Text>
+               </View>
+           </View>
           <View style={{height: 1000, backgroundColor: 'red'}}></View>
         </ScrollView>
       </View>
@@ -82,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.black,
   },
   sumNav: {
     width: SCREEN_WIDTH,
@@ -92,10 +82,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.i,
   },
   sumIconAndLevel: {
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -105,9 +94,9 @@ const styles = StyleSheet.create({
     height: 100,
   },
   level: {
-    backgroundColor: 'black',
-    color: 'white',
-    fontSize: 20,
+    backgroundColor: theme.colors.black,
+    color: theme.colors.white,
+    fontSize: theme.fontSize.subTitleCard,
     bottom: 10,
   },
   nameRegion: {
