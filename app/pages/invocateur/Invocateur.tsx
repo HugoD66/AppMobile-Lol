@@ -5,7 +5,7 @@ import theme from "../../../theme";
 import { Error } from "../../components/loader/Error";
 export function Invocateur({ invocData }: SearchInvocProps) {
   console.log(invocData)
-  if(!invocData) return (<Error />);
+  //if(!invocData) return (<Error />);
 
   return (
     <View style={styles.container}>
@@ -28,8 +28,12 @@ export function Invocateur({ invocData }: SearchInvocProps) {
         <Text style={styles.textSelection}>Solo/Duo</Text>
         <Text style={styles.textSelection}>Flex</Text>
       </View>
+      <View style={styles.divider}></View>
       <View style={styles.panelMatchHistory}>
         <ScrollView>
+
+
+
            <View style={styles.contentGame}>
              <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
              <View style={styles.contentInformationsGame}>
@@ -41,8 +45,8 @@ export function Invocateur({ invocData }: SearchInvocProps) {
                    <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
                  </View>
                  <View style={styles.kda}>
-                   <Text>10/2/5</Text>
-                   <Text>10.0 KDA</Text>
+                   <Text style={styles.kdaText}>10/2/5</Text>
+                   <Text style={styles.kdaText}>10.0 KDA</Text>
                  </View>
                </View>
                <View style={styles.items}>
@@ -61,7 +65,43 @@ export function Invocateur({ invocData }: SearchInvocProps) {
                  <Text>25 min</Text>
                </View>
            </View>
-          <View style={{height: 1000, backgroundColor: 'red'}}></View>
+
+
+          <View style={styles.contentGame}>
+            <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+            <View style={styles.contentInformationsGame}>
+              <View style={styles.iconsMasteriesKDA}>
+                <View style={styles.sumMasteriesIcons}>
+                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                </View>
+                <View style={styles.kda}>
+                  <Text style={styles.kdaText}>10/2/5</Text>
+                  <Text style={styles.kdaText}>10.0 KDA</Text>
+                </View>
+              </View>
+              <View style={styles.items}>
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+              </View>
+            </View>
+            <View style={styles.infoGame}>
+              <Text>Flex 5:5 Rank</Text>
+              <Text>Victoire</Text>
+              <Text>Il y a 16 jours</Text>
+              <Text>25 min</Text>
+            </View>
+          </View>
+
+
+
+          <View style={{height: 1000}}></View>
         </ScrollView>
       </View>
     </View>
@@ -130,7 +170,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectionSearch: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -138,26 +177,32 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   textSelection: {
-    color: 'white',
+    color: theme.colors.white,
+  },
+  divider: {
+    height: 2,
+    width: SCREEN_WIDTH,
+    backgroundColor: theme.colors.purplePrimary,
   },
   panelMatchHistory: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.blackThree,
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT - 250,
   },
   contentGame: {
-    height: 150,
-    display: 'flex',
+    marginTop: 16,
+    height: 120,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     margin: 5,
     borderRadius: 16,
-    backgroundColor: theme.colors.backgroundApp,
+    backgroundColor: theme.colors.gameLoose,
   },
   pictureChamp: {
-    height: 100,
-    width: 100,
+    height: 115,
+    width: 115,
+    borderRadius: 16,
   },
   contentInformationsGame: {
     flexDirection: 'column',
@@ -166,16 +211,16 @@ const styles = StyleSheet.create({
   },
   iconsMasteriesKDA: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    width: 180,
+    marginBottom: theme.spacing.e
   },
   sumMasteriesIcons: {
-    backgroundColor: 'red',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     width: 60,
   },
-
   icon: {
     width: '48%',
     margin: '1%',
@@ -185,22 +230,32 @@ const styles = StyleSheet.create({
   items: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-
+    marginRight: '4%'
   },
   iconItems: {
-    height: 30,
-    width: 30,
+    height: 27,
+    width: 27,
     borderRadius: 90,
+    margin: 1,
   },
   kda: {
-
+    marginTop: 10,
+    marginRight: 30,
+  },
+  kdaText: {
+    margin: 2,
+    fontFamily: 'DM-Sans',
   },
   objects: {
 
   },
   infoGame: {
-
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-end',
+    fontFamily: 'Inter',
   },
 });

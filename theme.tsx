@@ -20,7 +20,11 @@ const palette = {
   green: '#39CC59',
   red: '#E03F3F',
   white: '#F0F2F3',
-  subtitleCard: 'rgba(255,255,255, 0.6)'
+  subtitleCard: 'rgba(255,255,255, 0.6)',
+
+  gameWin: 'rgba(10,243,60,0.45)',
+  gameLoose: 'rgba(245,13,13,0.51)',
+
 };
 
 const theme = createTheme({
@@ -40,6 +44,8 @@ const theme = createTheme({
     backgroundApp: palette.white,
     subtitleCard: palette.subtitleCard,
     backForm: palette.backForm,
+    gameWin: palette.gameWin,
+    gameLoose: palette.gameLoose,
   },
   spacing: {
     a: 4,

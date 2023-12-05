@@ -9,6 +9,7 @@ import {useQuery} from "react-query";
 import {Loader} from "../../components/loader/Loader";
 import {Error} from "../../components/loader/Error";
 import theme from "../../../theme";
+import Svg, {Path} from "react-native-svg";
 
 interface Skin {
     id: string;
@@ -47,7 +48,14 @@ export function SkinScreen() {
   return (
       <View style={styles.container}>
           <TouchableOpacity onPress={() => navigate()} style={styles.arrowBackButton}>
-              <Image style={styles.arrowBack} source={require('../../../assets/search/arrow-back.png')} />
+            <Svg
+              width={120}
+              height={120}
+              viewBox="0 0 50 50"
+            >
+              <Path d="M16 17L9 11.5L16 6" fill="#000"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </Svg>
           </TouchableOpacity>
           <ScrollView horizontal={true} style={styles.galery}>
               {skinImages}
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
     arrowBackButton: {
       top: '33%',
       position: 'absolute',
-      backgroundColor: 'black',
+      backgroundColor: theme.colors.black,
       zIndex: 30,
       right: -100,
       borderRadius: 90,

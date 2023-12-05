@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -200,
     left: -80,
+    zIndex: 10,
   },
   containerBackground: {
     width: SCREEN_WIDTH,

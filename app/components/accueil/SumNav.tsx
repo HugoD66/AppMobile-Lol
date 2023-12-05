@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
   loopSearch: {
     width: 30,
     height: 30,
-    marginTop: theme.spacing.d,
     marginLeft: theme.spacing.p,
+    marginRight: theme.spacing.c,
   },
   rank: {
     resizeMode: 'contain',
