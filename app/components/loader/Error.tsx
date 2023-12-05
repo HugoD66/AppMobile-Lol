@@ -1,4 +1,5 @@
 import {Text, StyleSheet, View} from 'react-native';
+import theme from "../../../theme";
 export function Error() {
   return (
     <View style={styles.container}>
@@ -9,14 +10,13 @@ export function Error() {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.black,
   },
   text: {
-    color: 'white',
-    fontSize: 20,
+    color: theme.colors.white,
+    fontSize: theme.fontSize.subTitleCard,
   }
 });

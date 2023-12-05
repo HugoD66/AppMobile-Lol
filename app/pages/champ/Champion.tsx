@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { RouteParams } from "../../types/RouteParams";
 import {Loader} from "../../components/loader/Loader";
 import {Error} from "../../components/loader/Error";
+import theme from "../../../theme";
 export function Champion() {
     const [showDivider, setShowDivider] = useState(false);
     const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
@@ -21,6 +22,7 @@ export function Champion() {
     const route = useRoute();
     const params = route.params as RouteParams;
     const name = params.nom;
+    const spellLetters = ['A', 'Z', 'E', 'R'];
 
     const { data: championData, isLoading, error } = useQuery(['champion', name], () => GetDataChampion({ ChampionNameWithoutSpace: name }), {
         enabled: !!name
@@ -40,14 +42,21 @@ export function Champion() {
     }
 
     const selectSkill = (skillId: string | null) => {
-        const selectedSpell = championData.spells.find((spell: { id: string; }) => spell.id === skillId);
-        if (selectedSpell) {
-            setShowDivider(true);
-            setSelectedSkill(skillId);
-            setSelectedSpellLetter(selectedSpell.id.charAt(0));
-            setSelectedSpellName(selectedSpell.name);
-            setSpellDescription(selectedSpell.description);
-        }
+      let selectedSpell;
+      let spellIndex;
+      if (skillId === 'passive') {
+        selectedSpell = championData.passive;
+      } else {
+        spellIndex = championData.spells.findIndex((spell: { id: string; }) => spell.id === skillId);
+        selectedSpell = championData.spells[spellIndex];
+      }
+      if (selectedSpell) {
+        setShowDivider(true);
+        setSelectedSkill(skillId);
+        setSelectedSpellLetter(spellIndex !== undefined ? spellLetters[spellIndex] : '');
+        setSelectedSpellName(selectedSpell.name);
+        setSpellDescription(selectedSpell.description);
+      }
     };
     const navigate = () => {
         navigation.navigate('SkinScreen', { nom: `${name}` });
@@ -74,11 +83,15 @@ export function Champion() {
           <Text style={styles.description}>{championData.lore}</Text>
           <Text style={styles.skills}>Skills</Text>
           <View style={styles.skillsContent}>
+            <TouchableOpacity onPress={() => selectSkill('passive')}>
+                <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/passive/${championData.passive.image.full}` }} />
+                {selectedSkill === 'passive' && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
+              </TouchableOpacity>
               {championData.spells.map((spell: { id: string | null; image: { full: any; }; }, index: React.Key | null | undefined) => (
-                  <TouchableOpacity key={index} onPress={() => selectSkill(spell.id)}>
-                      <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
-                      {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
-                  </TouchableOpacity>
+                <TouchableOpacity key={index} onPress={() => selectSkill(spell.id, index)}>
+                  <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
+                  {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
+                </TouchableOpacity>
               ))}
           </View>
           {showDivider && <View style={styles.divider} />}
@@ -96,7 +109,7 @@ export function Champion() {
               <View style={styles.difficultInformations}>
                   <Text style={styles.textDifficult}>Difficulté</Text>
                   <Text style={styles.niveauDifficult}>Facile</Text>
-                  <Image style={styles.pictureDifficult} source={require('../../../assets/tempEzChamp/niveau.png')} />
+                  <Image source={require('../../../assets/tempEzChamp/niveau.png')} />
               </View>
           </View>
           <TouchableOpacity style={styles.button} onPress={navigate}>
@@ -108,25 +121,25 @@ export function Champion() {
 }
 const styles = StyleSheet.create({
     overlayImage: {
-        position: 'absolute',
-        width: SCREEN_WIDTH * .18,
-        height: SCREEN_WIDTH * .18,
+      position: 'absolute',
+      width: SCREEN_WIDTH * .18,
+      height: SCREEN_WIDTH * .18,
     },
     divider: {
-        width: '100%',
-        height: 2,
-        backgroundColor: '#8B00FF',
+      marginTop: 20,
+      height: 2,
+      width: SCREEN_WIDTH,
+      backgroundColor: theme.colors.purplePrimary,
     },
     container: {
-      width: SCREEN_WIDTH,
-      backgroundColor: '#070707',
-      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      width: SCREEN_WIDTH,
+      backgroundColor: theme.colors.black,
     },
     pictureChamp: {
-      height: SCREEN_HEIGHT * .40,
       width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT * .40,
     },
     linear: {
       position:'absolute',
@@ -136,146 +149,136 @@ const styles = StyleSheet.create({
       height: 200,
     },
     titleSubTitleIcon: {
-      width: SCREEN_WIDTH * .92,
-      display: 'flex',
-      height: 100,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      zIndex: 4,
+      width: SCREEN_WIDTH * .92,
+      height: theme.spacing.cent,
     },
     titleSubTitle: {
-      display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
       justifyContent: 'center',
       textAlign: 'left',
-      zIndex: 4,
     },
     titleChamp: {
-      color: 'white',
-      fontSize: 40,
-      fontWeight: 'bold',
-      marginBottom: 6,
+      fontFamily: 'DM-Sans',
+      marginBottom: theme.spacing.c,
+      color: theme.colors.white,
+      fontSize: theme.fontSize.titleChamp,
     },
     subTitle: {
-      color: 'white',
-      fontWeight: '200'
+      fontFamily: 'Inter',
+      marginBottom: theme.spacing.g,
+      color: theme.colors.subtitleCard,
+      fontSize: theme.fontSize.subTitleCard,
     },
     likeChampIcon: {
       marginRight: SCREEN_WIDTH * .05,
-      zIndex: 4,
     },
     description: {
-      color: 'white',
+      textAlign: 'justify',
       width: SCREEN_WIDTH * .92,
-      fontSize: 16,
-      zIndex: 4,
+      color: theme.colors.white,
+      fontSize: theme.fontSize.subtitleCardRecom,
     },
     skills : {
-      width: SCREEN_WIDTH,
       textAlign: 'center',
       color: 'white',
+      fontFamily: 'Inter',
       marginTop: 4,
       marginLeft: 60,
-      fontWeight: '200'
+      width: SCREEN_WIDTH
     },
     skillsContent: {
       width: SCREEN_WIDTH * .92,
-      height: 100,
+      height: theme.spacing.cent,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
-      zIndex: 4,
     },
     skillsPicture: {
       width: SCREEN_WIDTH * .16,
       height: SCREEN_WIDTH * .16,
     },
     descLetterNameSpell: {
-      width: SCREEN_WIDTH * .92,
-      display: 'flex',
       flexDirection: 'column',
-      marginTop: 20,
+      width: SCREEN_WIDTH * .92,
+      marginTop: theme.spacing.i,
     },
     letterSpell: {
-      color: '#8B00FF',
-      fontSize: 14,
       fontWeight: 'bold',
+      color: theme.colors.purplePrimary,
+      fontSize: theme.fontSize.subtitleCardRecom,
+      marginTop: theme.spacing.i,
     },
     nameSpell: {
-      color: 'white',
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginTop: 10,
+      fontFamily: 'DM-Sans',
+      color: theme.colors.white,
+      fontSize: theme.fontSize.titleSum,
+      marginTop: theme.spacing.f,
     },
     descSpell: {
-      width: '100%',
-      color: 'white',
-      fontSize: 14,
-      fontWeight: '300',
-      marginTop: 10,
+      fontFamily: 'Inter',
+      fontSize: theme.fontSize.subtitleCardRecom,
+      width: SCREEN_WIDTH * .92,
+      marginTop: theme.spacing.f,
+      color: theme.colors.subtitleCard,
     },
     generalInformations: {
-      width: SCREEN_WIDTH,
-      display: 'flex',
+      alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      alignItems: 'center',
-      marginTop: 20,
+      width: SCREEN_WIDTH,
+      marginTop: theme.spacing.i,
     },
     pictureRole: {
       width: SCREEN_WIDTH * .2,
       height: SCREEN_WIDTH * .2,
-
     },
     textRoleRoleImport: {
         marginRight: SCREEN_WIDTH * .16,
     },
     role: {
-      fontWeight: '300',
-      color: 'white',
-      marginBottom: 6,
-      fontSize: 14,
+      color: theme.colors.subtitleCard,
+      marginBottom: theme.spacing.c,
+      fontSize: theme.fontSize.subtitleCardRecom,
     },
     roleImport: {
-      color: 'white',
-      fontSize: 26,
-      fontWeight: 'bold',
+      fontFamily: 'DM-Sans',
+      fontSize: theme.fontSize.titleSum,
+      color: theme.colors.white,
     },
     difficultInformations: {
-      marginBottom: 30,
+      marginBottom: theme.spacing.n,
     },
     textDifficult: {
-      color: 'white',
-      fontWeight: '300',
-      fontSize: 14,
+      fontFamily: 'Inter',
+      color: theme.colors.subtitleCard,
+      fontSize: theme.fontSize.subtitleCardRecom,
     },
     niveauDifficult: {
-      color: 'white',
-      marginBottom: 6,
-      fontSize: 26,
-    },
-    pictureDifficult: {
+      color: theme.colors.white,
+      marginBottom: theme.spacing.c,
+      fontSize: theme.fontSize.titleSum,
     },
     button: {
-      width: SCREEN_WIDTH * .92,
-      height: 76,
-      backgroundColor: '#8B00FF',
-      margin: 20,
-      marginBottom: 20,
-      borderRadius: 10,
-      display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      height: 70,
+      borderRadius: 10,
+      width: SCREEN_WIDTH * 0.92,
+      margin: theme.spacing.i,
+      marginBottom: theme.spacing.i,
+      backgroundColor: theme.colors.purplePrimaryDark,
     },
     buttonText: {
       textAlign: 'center',
-      color: 'white',
-      marginBottom: 6,
-      fontWeight: 'bold',
-      fontSize: 16,
+      color: theme.colors.white,
+      marginBottom: theme.spacing.c,
+      fontFamily: 'DM-Sans',
+      fontSize: theme.fontSize.subTitleSum,
     },
     endScreen: {
       height: SCREEN_HEIGHT * .01,

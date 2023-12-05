@@ -29,17 +29,14 @@ export function CarouselRecommend() {
 }
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 0,
-    height: 300,
     margin: 'auto',
     marginLeft: '3%',
+    height: 300,
   },
   cards: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 0,
     height: 280,
   },
 });

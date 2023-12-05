@@ -4,6 +4,7 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import { CardChampProps } from "../../../types/CardChampProps"
 import {StackParamList} from "../../../../App";
 import {SCREEN_WIDTH} from "../../../types/screenDim";
+import theme from "../../../../theme";
 
 
 export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Accueil'>
@@ -29,22 +30,23 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * .30,
   },
   card: {
-    marginBottom: 5,
+    marginBottom: theme.spacing.b,
     width: SCREEN_WIDTH * .27,
   },
   titleCard: {
-    color: 'white',
-    fontSize: 18,
     fontWeight: 'bold',
-    width: '100%',
-    marginTop: 5,
+    fontFamily: 'DM-Sans',
+    color: theme.colors.white,
+    fontSize: theme.fontSize.subTitleCard,
+    marginTop: theme.spacing.b,
   },
   subtitleCard: {
-    color: 'white',
-    fontSize: 13,
     fontWeight: '300',
     width: '90%',
-    marginTop: 4,
-    marginBottom: 15,
+    fontFamily: 'Inter',
+    fontSize: 13,
+    color: theme.colors.subtitleCard,
+    marginTop: theme.spacing.b,
+    marginBottom: theme.spacing.f,
   },
 });

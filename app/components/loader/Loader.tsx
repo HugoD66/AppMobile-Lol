@@ -1,4 +1,5 @@
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import theme from "../../../theme";
 export function Loader() {
   return (
     <View style={styles.container}>
@@ -9,10 +10,9 @@ export function Loader() {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.black,
   },
 });

@@ -1,12 +1,14 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackNavigationProps } from "../../../../App";
+import theme from "../../../../theme";
+import {SCREEN_WIDTH} from "../../../types/screenDim";
 export function Player() {
 
     const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
         console.log({navigation: navigation.getState()})
-        navigation.navigate('PlayerScreen');
+        navigation.navigate('Accueil');
     };
 
     return (
@@ -18,7 +20,7 @@ export function Player() {
               <View style={styles.titlePictureDesc}>
                 <Text style={styles.playerName}>Player</Text>
                   <View style={styles.teamDesc}>
-                      <Image style={styles.pictureTeam} source={require('../../../../assets/accueil/5-player-list/teams/1-team.png')} />
+                      <Image source={require('../../../../assets/accueil/5-player-list/teams/1-team.png')} />
                       <Text style={styles.desc}>NomTeam</Text>
                   </View>
               </View>
@@ -35,41 +37,37 @@ export function Player() {
 }
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
         margin: '3%',
     },
     picturePlayerBorder: {
-        backgroundColor: '#6500BA',
-        width: 52,
-        height: 52,
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         margin: '1%',
-        borderRadius: 6,
+        width: theme.spacing.mm + 1,
+        height: theme.spacing.mm + 1,
+        backgroundColor: theme.colors.purplePrimaryDark,
+        borderRadius: theme.spacing.b,
     },
     picturePlayer: {
-        margin: 10,
-        width: 50,
-        height: 50,
-        borderRadius: 6,
+        margin: theme.spacing.d,
+        width: theme.spacing.mm,
+        height: theme.spacing.mm,
+        borderRadius: theme.spacing.c,
     },
     titlePictureDesc: {
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
         flexDirection: 'column',
-        borderRadius: 30,
-    },
-    pictureTeam: {
+        borderRadius: theme.spacing.n,
     },
     playerName: {
-        color: 'white',
-        fontSize: 22,
-        marginBottom: 4,
+        fontFamily: 'DM-Sans',
+        color: theme.colors.white,
+        fontSize: theme.spacing.j,
+        marginBottom: theme.spacing.a,
     },
     teamDesc: {
         flexDirection: 'row',
@@ -77,30 +75,31 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     desc: {
-        color: 'white',
-        marginLeft: 8,
         fontWeight: '200',
+        fontFamily: 'Inter',
+        color: theme.colors.white,
+        marginLeft: theme.spacing.c,
     },
     role: {
-        height: 22,
-        width: 22,
-        marginLeft: 20,
+        height: theme.spacing.j,
+        width: theme.spacing.j,
+        marginLeft: theme.spacing.i,
     },
     champs: {
         flexDirection: 'row',
         justifyContent: 'center',
     },
     pictureChamp: {
-        height: 30,
-        width: 30,
+        height: theme.spacing.n,
+        width: theme.spacing.n,
         margin: -5,
     },
     divider: {
-        width: '100%',
-        position: 'absolute',
-        bottom: -10,
-        left: 100,
         height: 1,
-        backgroundColor: 'rgb(43, 44, 51)',
+        position: 'absolute',
+        width: SCREEN_WIDTH,
+        bottom: -theme.spacing.d,
+        left: theme.spacing.cent,
+        backgroundColor: theme.colors.blackThree,
     }
 });

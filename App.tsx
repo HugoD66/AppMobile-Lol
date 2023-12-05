@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import {FirstSlide} from './app/pages/intro/FirstSlide';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackNavigationProp} from "@react-navigation/native-stack";
@@ -6,18 +6,15 @@ import {Accueil} from "./app/pages/accueil/Accueil";
 import {Champion} from "./app/pages/champ/Champion";
 import {Search} from "./app/pages/search/Search";
 import {SkinScreen} from "./app/pages/champ/SkinScreen";
-import {PlayerScreen} from "./app/pages/playerScreen/PlayerScreen";
 import {Login} from "./app/pages/forms/Login";
 import {Register} from "./app/pages/forms/Register";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import {Invocateur} from "./app/pages/invocateur/Invocateur";
-import {Slide} from "./app/pages/intro/Slides";
-import {Image, TouchableOpacity} from "react-native";
-import { ButtonOne } from './app/components/button/ButtonOne';
-import { StyleSheet } from "react-native";
 import {SecondSlide} from "./app/pages/intro/SecondSlide";
 import ThirdSlide from "./app/pages/intro/ThirdSlide";
 import FourthSlide from "./app/pages/intro/FourthSlide";
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -65,12 +62,29 @@ const IntroStack = () => {
 export type RootStackNavigationProps = NativeStackNavigationProp<StackParamList>
 const RootStack = createNativeStackNavigator<StackParamList>();
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
 
+  const [fontsLoaded] = useFonts({
+    'DM-Sans': require('./assets/fonts/DMSans.ttf'),
+    'Inter': require('./assets/fonts/Inter.ttf'),
+  });
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
+  useEffect(() => {
+    onLayoutRootView();
+  }, [onLayoutRootView]);
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
           <NavigationContainer>
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
               <RootStack.Screen name={'Intro'} component={IntroStack} />
@@ -79,7 +93,6 @@ export default function App() {
               <RootStack.Screen name={'Champion'} component={Champion} />
               <RootStack.Screen name={'Search'} component={Search} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />
-              <RootStack.Screen name={'PlayerScreen'} component={PlayerScreen} />
               <RootStack.Screen name={'Login'} component={Login} />
               <RootStack.Screen name={'Register'} component={Register} />
             </RootStack.Navigator>
@@ -87,9 +100,3 @@ export default function App() {
       </QueryClientProvider>
   );
 }
-const styles = StyleSheet.create({
-  pictureButton : {
-    width: 56,
-    height: 56,
-  }
-})

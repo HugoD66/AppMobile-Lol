@@ -7,7 +7,7 @@ export default function FourthSlide() {
       <Slide
         imageSource={require('../../../assets/intro/intro-fourthSlide.png')}
         title="Élevez votre elo rapidement"
-        description="Assurez-vous de regarder l'application qui vous fera passer au niveau supérieur."
+        description="Bienvenue dans l'application qui vous emmènera au niveau suivant dans le jeu League of Legend."
         button= { <ButtonOne /> }
       />
     );

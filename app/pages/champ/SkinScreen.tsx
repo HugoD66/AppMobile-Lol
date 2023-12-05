@@ -8,13 +8,12 @@ import {GetDataChampion} from "../../logic/logicChamp"
 import {useQuery} from "react-query";
 import {Loader} from "../../components/loader/Loader";
 import {Error} from "../../components/loader/Error";
+import theme from "../../../theme";
 
 interface Skin {
     id: string;
     num: number;
 }
-
-
 export function SkinScreen() {
     const navigation = useNavigation<RootStackNavigationProps>();
     const route = useRoute();
@@ -34,7 +33,6 @@ export function SkinScreen() {
     if (!championData) {
       return <Error />;
     }
-
 
   const navigate = () => {
     navigation.navigate('Accueil');
@@ -59,36 +57,35 @@ export function SkinScreen() {
 }
 const styles = StyleSheet.create({
     container: {
-      display: 'flex',
       flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'center',
+      transform: [{rotate: '90deg'}],
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
-      alignItems: 'center',
-      transform: [{rotate: '90deg'}],
-      backgroundColor: 'black',
+      backgroundColor: theme.colors.black,
     },
     galery: {
-      position: 'absolute',
-      backgroundColor: 'black',
-      width: SCREEN_HEIGHT,
-      height: SCREEN_WIDTH,
       top: '27%',
+      position: 'absolute',
+      width: SCREEN_HEIGHT,
+      height: SCREEN_WIDTH + 10,
+      backgroundColor: theme.colors.black,
     },
     pictureGalery: {
-      margin: 5,
+      margin: theme.spacing.d,
       width: SCREEN_HEIGHT,
       height: SCREEN_WIDTH,
     },
     arrowBackButton: {
-      zIndex: 30,
-      position: 'absolute',
-      width: 40,
-      height: 40,
-      borderRadius: 90,
-      backgroundColor: 'black',
       top: '33%',
+      position: 'absolute',
+      backgroundColor: 'black',
+      zIndex: 30,
       right: -100,
+      borderRadius: 90,
+      width: theme.spacing.s,
+      height: theme.spacing.s,
     },
     arrowBack: {
       width: 35,

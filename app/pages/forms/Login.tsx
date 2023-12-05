@@ -7,7 +7,8 @@ import {
   View,
   Image,
   Platform,
-  TouchableWithoutFeedback, Keyboard, Animated
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import React, {useState} from 'react';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../types/screenDim";
@@ -16,6 +17,7 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
 import {db} from "../../../db";
 import {LinearGradient} from "expo-linear-gradient";
+import theme from "../../../theme";
 
 export function Login() {
   const [invocateur, setInvocateur] = useState('');
@@ -38,8 +40,6 @@ export function Login() {
     if (invocateurValue.trim() === '' || passwordValue.trim() === '') {
       setError('Veuillez remplir tous les champs.');
     } else {
-      console.log('email : ' + invocateurValue);
-      console.log('password : ' + passwordValue);
         db.transaction(tx => {
           tx.executeSql(
             'SELECT * FROM Users WHERE invocateur = ? AND password = ?',
@@ -47,9 +47,6 @@ export function Login() {
             (_, { rows }) => {
               if (rows.length > 0) {
                 setUser(rows._array[0].invocateur);
-                console.log('User found');
-                console.log(invocateurValue);
-                console.log(invocateur);
                 navigation.navigate('Accueil', { invocateur: invocateurValue });
               } else {
                 setError('Nom d\'invocateur ou mot de passe incorrect.');
@@ -81,7 +78,7 @@ export function Login() {
           >
             <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
             <View style={styles.contentForm}>
-              <View style={styles.contentSearch}>
+              <View>
                 <Text style={styles.searchLabel}>Nom d'invocateur</Text>
                 <TextInput
                   style={styles.searchbar}
@@ -89,7 +86,7 @@ export function Login() {
                   onChangeText={(text) => setInvocateur(text)}
                 />
               </View>
-              <View style={styles.contentSearch}>
+              <View>
                 <Text style={styles.searchLabel}>Password</Text>
                 <TextInput
                   value={password}
@@ -114,95 +111,90 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    backgroundColor: '#000000',
+    backgroundColor: theme.colors.black,
   },
   backArrowButton: {
     position: "absolute",
     top: -200,
     left: -80,
-    zIndex: 20,
   },
   containerBackground: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
   },
   pictureback: {
-    width: '100%',
     position: 'absolute',
+    width: SCREEN_WIDTH,
   },
   keyboardAvoidingView: {
-    flex: 1,
-    height: SCREEN_HEIGHT * .9,
-    width: SCREEN_WIDTH,
-    display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    flex: 1,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT * .9,
   },
   pictureLogo: {
     top: '8%',
   },
   contentLogin: {
     position: 'absolute',
-    flex: 1,
-    width: SCREEN_WIDTH,
-    display: 'flex',
     margin: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
     top: 0,
+    flex: 1,
     zIndex: 5,
+    width: SCREEN_WIDTH,
   },
   contentForm: {
-    height: SCREEN_HEIGHT * .3,
-    display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  contentSearch: {
+    height: SCREEN_HEIGHT * .3,
   },
   searchLabel: {
-    color: 'white',
+    color: theme.colors.white,
+    fontFamily: 'DM-Sans',
+    marginBottom: theme.spacing.f,
   },
   searchbar: {
-    color: 'white',
-    height: 60,
     width: SCREEN_WIDTH * 0.90,
-    backgroundColor: '#1E1724',
+    height: 60,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.backForm,
   },
   customButtonComponent: {
     marginTop: '10%',
   },
   button: {
-    width: SCREEN_WIDTH * .92,
-    height: 70,
-    backgroundColor: '#8B00FF',
-    borderRadius: 10,
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: 70,
+    borderRadius: 10,
+    width: SCREEN_WIDTH * .92,
+    backgroundColor: theme.colors.purplePrimary,
   },
   buttonText: {
     textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: 'DM-Sans',
+    fontSize: theme.fontSize.subTitleSum,
+    color: theme.colors.white,
   },
   errorText: {
-    color: 'red',
+    marginTop: '2%',
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: 'Inter',
+    fontSize: theme.fontSize.subTitleSum,
+    color: theme.colors.red,
   },
   linear: {
-    width: '100%',
+    width: SCREEN_WIDTH,
+    position:'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    position:'absolute',
     top: SCREEN_HEIGHT * .3,
   },
   linearGradient: {
-    zIndex: 2,
-    width: '100%',
+    width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT * .2,
   },
 });

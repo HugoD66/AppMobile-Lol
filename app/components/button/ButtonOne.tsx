@@ -21,18 +21,18 @@ export function ButtonOne({ style, ...otherProps }: ButtonOneProps) {
 
 const styles = StyleSheet.create({
     button: {
-        width: SCREEN_WIDTH * .92,
-        height: 70,
-        backgroundColor: theme.colors.purpleButtonDivider,
-        borderRadius: 10,
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        width: SCREEN_WIDTH * .92,
+        height: 70,
+        borderRadius: 10,
+        backgroundColor: theme.colors.purplePrimary,
+
     },
     buttonText: {
         textAlign: 'center',
-        color: 'white',
         fontWeight: 'bold',
-        fontSize: 16,
+        color: theme.colors.white,
+        fontSize: theme.fontSize.subTitleSum,
     },
 });
