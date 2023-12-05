@@ -14,7 +14,6 @@ import { ResultSearchChamp } from "./ResultSearchChamp";
 import { ResultSearchInvoc } from "./ResultSearchInvoc";
 import {GetChampionByName} from "../../logic/logicChamp";
 
-
 export function Search() {
   const [search, setSearch] = useState('');
   const opacityAnimBefore = useRef(new Animated.Value(1)).current;
@@ -26,9 +25,13 @@ export function Search() {
 
   const handleOptionChange = (option: React.SetStateAction<string>) => {
     setActiveOption(option);
+    setSearch('')
+    setShowLoop(true);
+
   };
 
   const handleSearchChange = async (text: string) => {
+    console.log(text);
     setShowLoop(text.length === 0)
     Animated.timing(opacityAnimBefore, {
       toValue: text.length === 0 ? 1 : 0,
@@ -41,34 +44,28 @@ export function Search() {
       useNativeDriver: true,
     }).start();
     setSearch(text);
-
-
-
     if (text.length > 0 && activeOption === 'Champions') {
       try {
         const dataChampionArray = await GetChampionByName(text);
-
         if (dataChampionArray.length > 0) {
           setChampionDataList(dataChampionArray.map(champion => ({
             name: champion.name,
-            full: champion.imageUrl, // ou une autre logique de correspondance
+            full: champion.imageUrl,
             title: champion.title,
             id: champion.id
-            // Ajoutez d'autres champs si nécessaire
           })));
         } else {
-          setChampionDataList([]); // Aucun champion trouvé
+          setChampionDataList([]);
         }
       } catch (error) {
         console.error(error);
-        setChampionDataList([]); // En cas d'erreur
+        setChampionDataList([]);
       }
     }
     if (text.length > 0 && activeOption === 'Players') {
       try {
         const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${text}?api_key=${APIKey}`;
         const response = await axios.get(url);
-        console.log(response.data);
         setInvocData({
           idInvoc: response.data.id,
           name: response.data.name,
@@ -80,7 +77,6 @@ export function Search() {
       }
     }
   }
-
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -91,68 +87,67 @@ export function Search() {
   };
 
   return (
-      <TouchableWithoutFeedback onPress={dismissKeyboard}>
-        <View style={styles.container}>
-          <View style={styles.contentSearch}>
-            <BackArrow navigate={navigate} />
-            <View style={styles.searchbarContent} >
-            <TextInput
-                placeholder="Recherchez..."
-                placeholderTextColor={'white'}
-                value={search}
-                onChangeText={handleSearchChange}
-                style={styles.searchbar}
-            />
-            {search.length > 0 && (
-                <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
-            )}
-            {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <View style={styles.container}>
+        <View style={styles.contentSearch}>
+          <BackArrow navigate={navigate} />
+          <View style={styles.searchbarContent} >
+          <TextInput
+              placeholder="Recherchez..."
+              placeholderTextColor={'white'}
+              value={search}
+              onChangeText={handleSearchChange}
+              style={styles.searchbar}
+          />
+          {search.length > 0 && (
+              <Image style={styles.searchDots} source={require('../../../assets/search/loading.gif')} />
+          )}
+          {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
+          </View>
+            <ScrollView horizontal >
+            <View style={styles.selectionSearchList}>
+              <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
+                  Champions
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
+                  Pros
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Players')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
+                  Players
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
+                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
+                  Teams
+                </Text>
+              </TouchableOpacity>
             </View>
-              <ScrollView horizontal >
-              <View style={styles.selectionSearchList}>
-                <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
-                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
-                    Champions
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
-                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
-                    Pros
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleOptionChange('Players')}>
-                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
-                    Players
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
-                  <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
-                    Teams
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
-            <View style={styles.divider} />
-          </View>
-          <View style={styles.contentBeforeAfter}>
-            {search.length === 0 ? (
-                <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
-                  <BeforeSearch />
-                </Animated.View>
-            ) : (
-                <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
-                  {championDataList && activeOption === 'Champions' && (
-                      <ResultSearchChamp championData={championDataList} />
-                  )}
-                  {invocData && activeOption === 'Players' && (
-                      <ResultSearchInvoc invocData={invocData} />
-                  )}
-
-                </Animated.View>
-            )}
-          </View>
+          </ScrollView>
+          <View style={styles.divider} />
         </View>
-      </TouchableWithoutFeedback>
+        <View style={styles.contentBeforeAfter}>
+          {search.length === 0 ? (
+              <Animated.View style={[styles.beforeSearchContainer, { opacity: opacityAnimBefore }]}>
+                <BeforeSearch />
+              </Animated.View>
+          ) : (
+              <Animated.View style={[styles.afterSearchContainer, { opacity: opacityAnimAfter }]}>
+                {championDataList && activeOption === 'Champions' && (
+                    <ResultSearchChamp championData={championDataList} />
+                )}
+                {invocData && activeOption === 'Players' && (
+                    <ResultSearchInvoc invocData={invocData} />
+                )}
+              </Animated.View>
+          )}
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

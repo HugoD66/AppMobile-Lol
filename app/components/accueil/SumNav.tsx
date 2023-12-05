@@ -5,7 +5,7 @@ import { SCREEN_WIDTH } from "../../types/screenDim";
 import { UserProps } from "../../types/UserProps";
 import React, {useEffect, useState } from "react";
 import { InvocDataInterface } from "../../types/InvocDataInterface";
-import { GetDataInvoc } from "../../logic/logicInvoc";
+import { getDataInvoc } from "../../logic/logicInvoc";
 import theme from "../../../theme";
 
 export function SumNav({ invocateur }: UserProps) {
@@ -14,7 +14,7 @@ export function SumNav({ invocateur }: UserProps) {
 
   const getInvocInformations = async (invocateur: string) => {
     try {
-      const invocData = await GetDataInvoc({ InvocName: invocateur });
+      const invocData = await getDataInvoc({ InvocName: invocateur });
       setInvocData({
         idInvoc: invocData.idInvoc,
         name: invocData.nom,
@@ -24,6 +24,7 @@ export function SumNav({ invocateur }: UserProps) {
     } catch (error) {
     }
   }
+  console.log(invocData);
   const navigate = () => {
     navigation.navigate('Search');
   };
