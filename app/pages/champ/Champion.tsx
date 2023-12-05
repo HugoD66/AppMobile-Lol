@@ -41,23 +41,22 @@ export function Champion() {
         return <Text>Erreur spell</Text>
     }
 
-    const selectSkill = (skillId: string | null) => {
-      let selectedSpell;
-      let spellIndex;
-      if (skillId === 'passive') {
-        selectedSpell = championData.passive;
-      } else {
-        spellIndex = championData.spells.findIndex((spell: { id: string; }) => spell.id === skillId);
-        selectedSpell = championData.spells[spellIndex];
-      }
-      if (selectedSpell) {
-        setShowDivider(true);
-        setSelectedSkill(skillId);
-        setSelectedSpellLetter(spellIndex !== undefined ? spellLetters[spellIndex] : '');
-        setSelectedSpellName(selectedSpell.name);
-        setSpellDescription(selectedSpell.description);
-      }
-    };
+  const selectSkill = (skillId: string | null, spellIndex?: any) => {
+    let selectedSpell;
+    if (skillId === 'passive') {
+      selectedSpell = championData.passive;
+    } else {
+      selectedSpell = championData.spells[spellIndex as number];
+    }
+    if (selectedSpell) {
+      setShowDivider(true);
+      setSelectedSkill(skillId);
+      setSelectedSpellLetter(spellIndex !== undefined ? spellLetters[spellIndex] : '');
+      setSelectedSpellName(selectedSpell.name);
+      setSpellDescription(selectedSpell.description);
+    }
+  };
+
     const navigate = () => {
         navigation.navigate('SkinScreen', { nom: `${name}` });
     };
