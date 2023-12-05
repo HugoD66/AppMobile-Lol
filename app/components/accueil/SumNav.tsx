@@ -5,6 +5,7 @@ import { SCREEN_WIDTH } from "../../types/screenDim";
 import { UserProps } from "../../types/UserProps";
 import React, {useEffect, useState } from "react";
 import { InvocDataInterface } from "../../types/InvocDataInterface";
+// @ts-ignore
 import { GetDataInvoc } from "../../logic/logicInvoc";
 
 export function SumNav({ invocateur }: UserProps) {

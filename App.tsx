@@ -30,7 +30,7 @@ export type StackParamList = {
   Intro?: IntroParamList;
   Search?: undefined;
   Invocateur?: {
-    invocName: string | undefined,
+    invocName: string,
   }
   Accueil?: {
     invocateur: string | undefined,
@@ -44,6 +44,7 @@ export type StackParamList = {
   Champion?: {
     nom?: string,
   };
+
 }
 
 export type IntroStackNavigationProps = NativeStackNavigationProp<IntroParamList>
@@ -75,7 +76,7 @@ export default function App() {
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
               <RootStack.Screen name={'Intro'} component={IntroStack} />
               <RootStack.Screen name={'Accueil'} component={Accueil} initialParams={{ invocateur: '' }} />
-              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocName: '' }} />
+              <RootStack.Screen name={'Invocateur'} component={() => <Invocateur />} initialParams={{ invocName: '' }} />
               <RootStack.Screen name={'Champion'} component={Champion} />
               <RootStack.Screen name={'Search'} component={Search} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />

@@ -9,7 +9,7 @@ export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigateInvoc = () => {
     navigation.navigate('Invocateur', {
-      invocName: invocData?.name,
+      invocName: invocData?.name ?? '',
     });
   };
 
@@ -19,7 +19,7 @@ export function ResultSearchInvoc({ invocData }: SearchInvocProps) {
         {invocData &&  (
           <TouchableOpacity style={styles.touchableContent} onPress={() => navigateInvoc()}>
             <Text style={styles.titleCard}>{invocData?.name}</Text>
-            <Image style={styles.pictureInvocCard} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocData?.profileIconId}.png` }} />
+            <Image style={styles.pictureInvocCard} source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${invocData?.profileIconId}.jpg` }} />
             <Text style={styles.subtitleCard}>{invocData?.summonerLevel}</Text>
           </TouchableOpacity>
         )}

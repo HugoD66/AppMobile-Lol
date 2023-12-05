@@ -1,28 +1,37 @@
 import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
-import {SearchInvocProps} from "../../types/SearchInvocProps";
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from "../../types/screenDim";
 import theme from "../../../theme";
+import {RouteProp, useRoute} from "@react-navigation/native";
+import {StackParamList} from "../../../App";
+import {useGetDataInvoc} from "../../hooks/useGetDataInvoc";
 
-export function Invocateur({ invocData }: SearchInvocProps) {
-  //if(!invocData) return (<View><Text>Chargement...</Text></View>);
-  console.log(invocData);
-  console.log('coucou');
-  console.log(invocData?.name);
+type RouteProps = RouteProp<StackParamList, 'Invocateur'>
+
+export function Invocateur() {
+  const route = useRoute<RouteProps>();
+  const invocName = route.params?.invocName;
+  const {data} = useGetDataInvoc(invocName)
+  //console.log(`https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${data?.summoner.icon}.jpg`)
+
+
+
+  //console.log(data);
+  //console.log('coucou');
   return (
     <View style={styles.container}>
 
       <View style={styles.sumNav}>
         <View style={styles.sumIconAndLevel}>
-          <Image style={styles.sumIcon} source={require('../../../assets/accueil/1-nav/icone-sum.png')} />
-          <Text style={styles.level}>124</Text>
+          <Image style={styles.sumIcon}  source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${data?.summoner.icon}.jpg` }}/>
+          <Text style={styles.level}>{data?.summoner.lvl}</Text>
         </View>
         <View style={styles.nameRegion}>
-          <Text style={styles.name}>Truffman</Text>
+          <Text style={styles.name}>{data?.summoner.name}</Text>
           <Text style={styles.region}>#EUW</Text>
         </View>
         <View style={styles.rankPosition}>
-          <Image style={styles.rankPicture} source={require('../../../assets/accueil/1-nav/rankPicture.png')} />
-          <Text style={styles.position}>Emerald 2</Text>
+          <Image style={styles.rankPicture} source={data?.imageRank} />
+          <Text style={styles.position}>{data?.summonerDetail.rank}</Text>
         </View>
       </View>
 
@@ -92,7 +101,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding:0,
+    marginTop : 10,
   },
   sumIconAndLevel: {
     display: 'flex',
@@ -103,6 +113,8 @@ const styles = StyleSheet.create({
   sumIcon: {
     width: 100,
     height: 100,
+    borderRadius: 360,
+    marginRight: 10,
   },
   level: {
     backgroundColor: 'black',
@@ -133,8 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rankPicture: {
-    width: 100,
-    height: 100,
+    width: 500,
+    height: 500,
   },
   position: {
     color: 'white',
