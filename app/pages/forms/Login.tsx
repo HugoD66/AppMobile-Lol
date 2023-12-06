@@ -25,7 +25,6 @@ export function Login() {
   const [invocateur, setInvocateur] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [user, setUser] = useState(null);
 
   const navigation = useNavigation<RootStackNavigationProps>();
   const navigate = () => {
@@ -48,33 +47,9 @@ export function Login() {
             [invocateurValue, passwordValue],
             async (_, {rows}) => {
               if (rows.length > 0) {
-                setUser(rows._array[0].invocateur);
                 const summonerData: InvocDataInterface = await getSummonerData(invocateurValue);
-                console.log('Good summonerData');
-                /*
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                console.log(summonerData)
-                 */
                 navigation.navigate('Accueil', {
-                  invocateur: {
-                    id: summonerData.id,
-                    name: summonerData.name,
-                    summonerLevel: summonerData.summonerLevel,
-                    profileIconId: summonerData.profileIconId,
-                  }
+                  invocateur: summonerData
                 });
               } else {
                 setError('Nom d\'invocateur ou mot de passe incorrect.');

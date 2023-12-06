@@ -5,10 +5,13 @@ import {RouteProp} from "@react-navigation/native";
 import {StackParamList} from "../../../App";
 import {useEffect, useState} from "react";
 import {CompleteInvocDataInterface} from "../../types/InvocDataInterface";
-import {getCompleteSummonerData} from "../../logic/logicInvoc";
+import {getAllDetailMatchHistorique, getCompleteSummonerData, getHistoriqueBySummoner} from "../../logic/logicInvoc";
 import { Error } from "../../components/loader/Error";
 type InvocRouteProps = RouteProp<StackParamList, 'Invocateur'>
 
+
+//ALLER PRENDRE INFO TYPE MODE DE JEUX DANS : game.detailMatchInfo.gameMode
+//{(game.detailMatchInfo.participants.challenge.kda)}
 
 
 export function Invocateur({ route }: { route: InvocRouteProps }) {
@@ -17,17 +20,31 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
   const invocData = invocateur || {};
   if(!invocData) return (<Error />);
 
+  //Rank Image
   const [summonerDetail, setSummonerDetail] = useState<CompleteInvocDataInterface | null>(null);
   const [imageRank, setImageRank] = useState<any>(null);
+
+  //LastGames IDS ( Exemple : EUW1_6687314659 )
+  const [lastGamesID, setLastGamesID] = useState<string[] | null>(null);
+
+  const [lastGamesAll, setLastGamesAll] = useState<any>(null);
+
 
   useEffect(() => {
     const fetchSummonerDetail = async () => {
       const { summonerDetail, imageRank } = await getCompleteSummonerData(invocData.id);
+      const lastGamesIDList :[]= await getHistoriqueBySummoner(invocData.puuid);
+      const lastGamesAll = await getAllDetailMatchHistorique(lastGamesIDList);
+      console.log(lastGamesAll)
       setSummonerDetail(summonerDetail);
       setImageRank(imageRank);
+      setLastGamesID(lastGamesIDList)
+      setLastGamesAll(lastGamesAll);
     };
     fetchSummonerDetail();
-  }, [invocData.id]);
+  }, [invocData.id, invocData.puuid]);
+
+
 
   return (
     <View style={styles.container}>
@@ -41,9 +58,12 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <Text style={styles.region}>#EUW</Text>
         </View>
         <View style={styles.rankPosition}>
-          <Image style={styles.rankPicture} source={imageRank} />
-          <Text style={styles.position}>{summonerDetail?.rank}</Text>
+
         </View>
+        {imageRank && (
+          <Image style={styles.rankPicture} source={imageRank} />
+        )}
+        <Text style={styles.position}>{summonerDetail?.rank}</Text>
       </View>
       <View style={styles.selectionSearch}>
         <Text style={styles.textSelection}>Tous</Text>
@@ -53,37 +73,42 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
       <View style={styles.divider}></View>
       <View style={styles.panelMatchHistory}>
         <ScrollView>
-          <View style={styles.contentGame}>
-            <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-            <View style={styles.contentInformationsGame}>
-              <View style={styles.iconsMasteriesKDA}>
-                <View style={styles.sumMasteriesIcons}>
-                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                  <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+          {lastGamesAll && lastGamesAll.map((game: any) => (
+            <View style={styles.contentGame}>
+              <View style={styles.contentGame}>
+                <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                <View style={styles.contentInformationsGame}>
+                  <View style={styles.iconsMasteriesKDA}>
+                    <View style={styles.sumMasteriesIcons}>
+                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    </View>
+                    <View style={styles.kda}>
+                      <Text style={styles.kdaText}>10/2/5</Text>
+                      <Text style={styles.kdaText}>10.0 KDA</Text>
+                    </View>
+                  </View>
+                  <View style={styles.items}>
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  </View>
                 </View>
-                <View style={styles.kda}>
-                  <Text style={styles.kdaText}>10/2/5</Text>
-                  <Text style={styles.kdaText}>10.0 KDA</Text>
+                <View style={styles.infoGame}>
+                  <Text>Flex 5:5 Rank</Text>
+                  <Text>Victoire</Text>
+                  <Text>Il y a 16 jours</Text>
+                  <Text>{game.detailMatchInfo.gameMode}</Text>
                 </View>
               </View>
-              <View style={styles.items}>
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-              </View>
             </View>
-            <View style={styles.infoGame}>
-              <Text>Flex 5:5 Rank</Text>
-              <Text>Victoire</Text>
-              <Text>Il y a 16 jours</Text>
-              <Text>25 min</Text>
-            </View>
-          </View>
+          ))}
+
           <View style={{height: 1000}}></View>
         </ScrollView>
       </View>
@@ -131,12 +156,12 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-start',
-      //marginRight: '20%',
       marginBottom: 30,
     },
     name: {
       color: 'white',
       fontSize: 26,
+      zIndex: 3,
       textAlign: 'center',
     },
     region: {
@@ -149,8 +174,10 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
       alignItems: 'center',
     },
     rankPicture: {
-      width: 500,
-      height: 500,
+      width: 400,
+      height: 400,
+      zIndex: 2,
+      right: 110,
     },
     position: {
       color: 'white',

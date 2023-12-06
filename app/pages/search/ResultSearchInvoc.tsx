@@ -4,13 +4,19 @@ import React from 'react';
 import {SCREEN_WIDTH} from "../../types/screenDim";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackNavigationProps} from "../../../App";
+import {CompleteInvocDataInterface, InvocDataInterface} from "../../types/InvocDataInterface";
+import {getCompleteSummonerData, getSummonerData} from "../../logic/logicInvoc";
 export function ResultSearchInvoc({ idInvoc, name, summonerLevel, profileIconId }: SearchInvocProps) {
   const navigation = useNavigation<RootStackNavigationProps>();
-  const navigateInvoc = () => {
+
+  const navigateInvoc = async () => {
+    const invocateur = await getSummonerData(name);
+    console.log(invocateur);
     navigation.navigate('Invocateur', {
-      invocName: name ?? '',
+      invocateur: invocateur
     });
   };
+
 
   return (
     <ScrollView>

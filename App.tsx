@@ -28,7 +28,7 @@ export type StackParamList = {
   Intro?: IntroParamList;
   Search?: undefined;
   Invocateur?: {
-    invocateur: InvocDataInterface | null
+    invocateur: CompleteInvocDataInterface | InvocDataInterface | null
   }
   Accueil?: {
     invocateur: CompleteInvocDataInterface | InvocDataInterface| null

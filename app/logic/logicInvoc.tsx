@@ -2,8 +2,6 @@ import axios from 'axios';
 import { APIKey } from '../../APIKey';
 import {CompleteInvocDataInterface, InvocDataInterface} from "../types/InvocDataInterface";
 
-
-
 export const getSummonerData = async (invocName: string | undefined) => {
   const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${invocName}?api_key=${APIKey}`;
   try {
@@ -36,13 +34,6 @@ export const getCompleteSummonerData = async (invocId: string | undefined) => {
    throw error;
  }
 }
-
-export const getSummonerByName = async (InvocName: string) => {
-  const summonerNameWithoutSpace = InvocName.replace(/ /g, '%20');
-  const summonerData = await getSummonerData(summonerNameWithoutSpace);
-  return summonerData;
-};
-
 const getRankImage = ({tier}: { tier?: string }) => {
   switch (tier?.toLowerCase()) {
     case 'CHALLENGER':
@@ -67,18 +58,15 @@ const getRankImage = ({tier}: { tier?: string }) => {
       return require('../../assets/rank/emblem-iron.png');
   }
 };
+export const getSummonerByName = async (InvocName: string) => {
+  const summonerNameWithoutSpace = InvocName.replace(/ /g, '%20');
+  const summonerData = await getSummonerData(summonerNameWithoutSpace);
+  return summonerData;
+};
 
 
-interface Invoc {
-  idInvoc: string;
-  nom: string;
-  summonerLevel: number;
-  profileIconId: number;
-}
-
-export const getHistoriqueBySummoner = async (puuid: string) => {
+export const getHistoriqueBySummoner = async (puuid: string | undefined) => {
   const url = `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=15&api_key=${APIKey}`;
-
   try {
     const response = await axios(url);
     const summonerHistoryIDs = response.data;
@@ -87,16 +75,18 @@ export const getHistoriqueBySummoner = async (puuid: string) => {
     console.error(error);
   }
 };
-
-export const getDetailMatchHistorique = async (idMatch: string) => {
-  const url = `https://europe.api.riotgames.com/lol/match/v5/matches/${idMatch}?api_key=${APIKey}&includeTimeline=true`;
-
+export const getAllDetailMatchHistorique = async (idMatch: string[]) => {
   try {
-    const response = await axios(url);
-    const data = response.data;
-    const detailMatchInfo = data.info;
-    const detailMatchMetaData = data.metadata;
-    return { detailMatchInfo, detailMatchMetaData };
+    const promises = idMatch.map(async (id: string) => {
+      const url = `https://europe.api.riotgames.com/lol/match/v5/matches/${id}?api_key=${APIKey}&includeTimeline=true`;
+      const response = await axios(url);
+      const data = response.data;
+      const detailMatchInfo = data.info;
+      const detailMatchMetaData = data.metadata;
+      return { detailMatchInfo, detailMatchMetaData };
+    });
+    const results = await Promise.all(promises);
+    return results;
   } catch (error) {
     console.error(error);
   }
