@@ -1,21 +1,15 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import { useNavigation} from "@react-navigation/native";
 import { StackNavigationProps } from "../carousel/CarouselChamp/CardChamp";
 import { SCREEN_WIDTH } from "../../types/screenDim";
-import { UserProps } from "../../types/UserProps";
-import React, {useEffect, useState } from "react";
-import { InvocDataInterface } from "../../types/InvocDataInterface";
+import React from "react";
 import theme from "../../../theme";
-import { getSummonerData } from "../../logic/logicInvoc";
-import {useGetDataInvoc} from "../../hooks/useGetDataInvoc";
-import {StackParamList} from "../../../App";
-import {SearchInvocProps} from "../../types/SearchInvocProps";
+import {CompleteInvocDataInterface, InvocDataInterface} from "../../types/InvocDataInterface";
 
 
-export function SumNav( { idInvoc, name, summonerLevel, profileIconId }: SearchInvocProps ) {
+export function SumNav({ invocateur }: { invocateur: CompleteInvocDataInterface | InvocDataInterface | null }) {
+
   const navigation = useNavigation<StackNavigationProps>();
-
-
   const navigate = () => {
     navigation.navigate('Search');
   };
@@ -26,15 +20,14 @@ export function SumNav( { idInvoc, name, summonerLevel, profileIconId }: SearchI
     navigation.navigate('Register');
   }
   const navigateInvocScreen = () => {
-    navigation.navigate('Invocateur');
+    navigation.navigate('Invocateur', { invocateur: invocateur });
   }
-
 
   return (
     <View style={styles.sumNav}>
-      { idInvoc ?
+      { invocateur ?
         <TouchableOpacity onPress={navigateInvocScreen}>
-          <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${profileIconId}.png` }} />
+          <Image style={styles.imageIconeSumNav} source={{ uri: `http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${invocateur.profileIconId}.png` }} />
         </TouchableOpacity>
         :
         <TouchableOpacity onPress={navigateLogin}>
@@ -43,9 +36,9 @@ export function SumNav( { idInvoc, name, summonerLevel, profileIconId }: SearchI
       }
       <TouchableOpacity onPress={navigateRegister}>
         <View style={styles.sumNavTitleDesc}>
-          <Text style={styles.title}>{idInvoc ? name : 'S\'enregistrer'}</Text>
-          { idInvoc  ?
-            <Text style={styles.subtitle}>{`Level : ${ summonerLevel }`}</Text>
+          <Text style={styles.title}>{invocateur?.id ? invocateur.name : 'S\'enregistrer'}</Text>
+          { invocateur  ?
+            <Text style={styles.subtitle}>{`Level : ${ invocateur.summonerLevel }`}</Text>
             :
             <Text style={styles.subtitle}>Utilisateur non identifié</Text>
           }

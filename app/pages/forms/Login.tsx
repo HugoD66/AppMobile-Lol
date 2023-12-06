@@ -73,7 +73,7 @@ export function Login() {
                     id: summonerData.id,
                     name: summonerData.name,
                     summonerLevel: summonerData.summonerLevel,
-                    profileIconId: summonerData.profileIconId
+                    profileIconId: summonerData.profileIconId,
                   }
                 });
               } else {

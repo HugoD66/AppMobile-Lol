@@ -6,3 +6,7 @@ export interface InvocDataInterface {
   accountId?: string | undefined,
   id?: string | undefined,
 }
+export interface CompleteInvocDataInterface extends InvocDataInterface {
+  rank?: string,
+  tier?: string,
+}

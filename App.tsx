@@ -15,7 +15,7 @@ import ThirdSlide from "./app/pages/intro/ThirdSlide";
 import FourthSlide from "./app/pages/intro/FourthSlide";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import {InvocDataInterface} from "./app/types/InvocDataInterface";
+import {CompleteInvocDataInterface, InvocDataInterface} from "./app/types/InvocDataInterface";
 
 export type IntroParamList = {
     FirstSlide?: undefined;
@@ -28,12 +28,10 @@ export type StackParamList = {
   Intro?: IntroParamList;
   Search?: undefined;
   Invocateur?: {
-    invocName: string
-      | undefined
-
+    invocateur: InvocDataInterface | null
   }
   Accueil?: {
-    invocateur: InvocDataInterface | null
+    invocateur: CompleteInvocDataInterface | InvocDataInterface| null
   };
   PlayerScreen?: undefined;
   Login?: undefined;
@@ -93,7 +91,7 @@ export default function App() {
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
               <RootStack.Screen name={'Intro'} component={IntroStack} />
               <RootStack.Screen name={'Accueil'} component={Accueil} initialParams={{ invocateur: null }} />
-              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocName: '' }} />
+              <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocateur: null }} />
               <RootStack.Screen name={'Search'} component={Search} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />
               <RootStack.Screen name={'Login'} component={Login} />

@@ -4,10 +4,10 @@
     "slug": "League-of-Legends",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/general/logo-lol.jpg",
+    "icon": "./assets/general/league-of-legends.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/general/logo-lol.jpg",
+      "image": "./assets/general/league-of-legends.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/general/logo-lol.jpg",
+        "foregroundImage": "./assets/general/league-of-legends.png",
         "backgroundColor": "#000000"
       }
     },

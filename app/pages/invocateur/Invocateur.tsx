@@ -1,38 +1,48 @@
 import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
-import {SearchInvocProps} from "../../types/SearchInvocProps";
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from "../../types/screenDim";
 import theme from "../../../theme";
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RouteProp} from "@react-navigation/native";
 import {StackParamList} from "../../../App";
-import {useGetDataInvoc} from "../../hooks/useGetDataInvoc";
+import {useEffect, useState} from "react";
+import {CompleteInvocDataInterface} from "../../types/InvocDataInterface";
+import {getCompleteSummonerData} from "../../logic/logicInvoc";
 import { Error } from "../../components/loader/Error";
-
-type RouteProps = RouteProp<StackParamList, 'Invocateur'>
-
+type InvocRouteProps = RouteProp<StackParamList, 'Invocateur'>
 
 
-export function Invocateur() {
-    //if(!invocData) return (<Error />);
 
-    const route = useRoute<RouteProps>();
-    const invocName = route.params?.invocName;
-    const {data} = useGetDataInvoc(invocName)
+export function Invocateur({ route }: { route: InvocRouteProps }) {
 
+  const { invocateur } = route.params || {};
+  const invocData = invocateur || {};
+  if(!invocData) return (<Error />);
+
+  const [summonerDetail, setSummonerDetail] = useState<CompleteInvocDataInterface | null>(null);
+  const [imageRank, setImageRank] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchSummonerDetail = async () => {
+      const { summonerDetail, imageRank } = await getCompleteSummonerData(invocData.id);
+      setSummonerDetail(summonerDetail);
+      setImageRank(imageRank);
+    };
+    fetchSummonerDetail();
+  }, [invocData.id]);
 
   return (
     <View style={styles.container}>
       <View style={styles.sumNav}>
         <View style={styles.sumIconAndLevel}>
-          <Image style={styles.sumIcon}  source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${data?.summoner.profileIconId}.jpg` }}/>
-          <Text style={styles.level}>{data?.summoner.summonerLevel}</Text>
+          <Image style={styles.sumIcon}  source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${invocData.profileIconId}.jpg` }}/>
+          <Text style={styles.level}>{invocData.summonerLevel}</Text>
         </View>
         <View style={styles.nameRegion}>
-          <Text style={styles.name}>{data?.summoner.name}</Text>
+          <Text style={styles.name}>{invocData.name}</Text>
           <Text style={styles.region}>#EUW</Text>
         </View>
         <View style={styles.rankPosition}>
-          <Image style={styles.rankPicture} source={data?.imageRank} />
-          <Text style={styles.position}>{data?.summonerDetail.rank}</Text>
+          <Image style={styles.rankPicture} source={imageRank} />
+          <Text style={styles.position}>{summonerDetail?.rank}</Text>
         </View>
       </View>
       <View style={styles.selectionSearch}>
@@ -43,42 +53,6 @@ export function Invocateur() {
       <View style={styles.divider}></View>
       <View style={styles.panelMatchHistory}>
         <ScrollView>
-
-
-
-           <View style={styles.contentGame}>
-             <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-             <View style={styles.contentInformationsGame}>
-               <View style={styles.iconsMasteriesKDA}>
-                 <View style={styles.sumMasteriesIcons}>
-                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 </View>
-                 <View style={styles.kda}>
-                   <Text style={styles.kdaText}>10/2/5</Text>
-                   <Text style={styles.kdaText}>10.0 KDA</Text>
-                 </View>
-               </View>
-               <View style={styles.items}>
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-               </View>
-             </View>
-               <View style={styles.infoGame}>
-                 <Text>Flex 5:5 Rank</Text>
-                 <Text>Victoire</Text>
-                 <Text>Il y a 16 jours</Text>
-                 <Text>25 min</Text>
-               </View>
-           </View>
-
-
           <View style={styles.contentGame}>
             <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
             <View style={styles.contentInformationsGame}>

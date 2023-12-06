@@ -69,7 +69,6 @@ export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuer
             passive: championInfo.passive,
         };
         return Champion;
-
     } catch (error) {
         console.error(error);
         throw error;
