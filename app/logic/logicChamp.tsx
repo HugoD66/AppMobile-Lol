@@ -104,3 +104,16 @@ export const GetChampionByName = async (championName: string): Promise<{
         return [];
     }
 };
+// @ts-ignore
+export const GetChampIcone = async ({ champ }): Promise<HTMLPictureElement> => {
+    const url = `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/${champ}.png`;
+
+    try {
+        const responseChampIcon = await axios.get(url);
+        let championInfo = responseChampIcon.data.data[champ];
+        return championInfo;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}

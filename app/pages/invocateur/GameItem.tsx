@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import theme from "../../../theme";
+import {GetChampIcone} from "../../logic/logicChamp";
 //@ts-ignore
 export function GameItem({ game, invocData }) {
   const participantsList = game.detailMatchInfo.participants;
@@ -16,9 +17,18 @@ export function GameItem({ game, invocData }) {
   }
 
   const participant = participantsList.find(
-    (participant) => participant.puuid === invocData.puuid
+    (participant: { puuid: any; }) => participant.puuid === invocData.puuid
   );
 
+  const getChampionIcon = async () => {
+    try {
+      const championIcon = await GetChampIcone({ champ: participant.championName });
+      return championIcon;
+    } catch (error) {
+      console.error("Error fetching champion icon:", error);
+      return null; // Gérer l'erreur de manière appropriée
+    }
+  }
   if (!participant) {
     return (
       <View style={styles.contentGame}>
@@ -29,6 +39,13 @@ export function GameItem({ game, invocData }) {
     );
   }
 
+  // CALCUL DIFFERENCE DE TEMPS
+  const gameStartTimeStamp = game.detailMatchInfo.gameStartTimestamp;
+  const currentTimeStamp = new Date().getTime();
+  const timeDifferenceInDays = Math.floor((currentTimeStamp - gameStartTimeStamp) / (1000 * 60 * 60 * 24));
+
+
+  const championIcone = `https://ddragon.leagueoflegends.com/cdn/11.16.1/img/champion/${participant.championName}.png`;
   return (
     <View
       style={[
@@ -99,7 +116,7 @@ export function GameItem({ game, invocData }) {
       <View style={styles.infoGame}>
         <Text>{game.detailMatchInfo.gameMode}</Text>
         <Text>{participant.win ? 'VICTOIRE' : 'DEFAITE'}</Text>
-        <Text>Il y a 16 jours</Text>
+        <Text>Il y a {timeDifferenceInDays} jours</Text>
         <Text>{(game.detailMatchInfo.gameDuration / 60).toFixed(1)} min</Text>
       </View>
     </View>

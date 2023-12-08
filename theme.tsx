@@ -22,8 +22,8 @@ const palette = {
   white: '#F0F2F3',
   subtitleCard: 'rgba(255,255,255, 0.6)',
 
-  gameWin: 'rgba(10,243,60,0.45)',
-  gameLoose: 'rgba(245,13,13,0.51)',
+  gameWin: 'rgba(10,243,60,0.25)',
+  gameLoose: 'rgba(245,13,13,0.43)',
 
 };
 
