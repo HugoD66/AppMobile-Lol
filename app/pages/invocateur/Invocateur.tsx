@@ -1,65 +1,84 @@
-import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
-import {SCREEN_WIDTH, SCREEN_HEIGHT} from "../../types/screenDim";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from "../../types/screenDim";
 import theme from "../../../theme";
-import {RouteProp} from "@react-navigation/native";
-import {StackParamList} from "../../../App";
-import {useEffect, useState} from "react";
-import {CompleteInvocDataInterface} from "../../types/InvocDataInterface";
-import {getAllDetailMatchHistorique, getCompleteSummonerData, getHistoriqueBySummoner} from "../../logic/logicInvoc";
+import { RouteProp } from "@react-navigation/native";
+import { StackParamList } from "../../../App";
+import { CompleteInvocDataInterface } from "../../types/InvocDataInterface";
+import {
+  getCompleteSummonerData,
+} from "../../logic/logicInvoc";
 import { Error } from "../../components/loader/Error";
+import { GameItem } from "./GameItem";
+import {
+  getAllGamesDetails,
+  getlastGamesKeys,
+} from "../../logic/logicLastGames";
 type InvocRouteProps = RouteProp<StackParamList, 'Invocateur'>
 
 
-//ALLER PRENDRE INFO TYPE MODE DE JEUX DANS : game.detailMatchInfo.gameMode
-//{(game.detailMatchInfo.participants.challenge.kda)}
-
 
 export function Invocateur({ route }: { route: InvocRouteProps }) {
-
   const { invocateur } = route.params || {};
   const invocData = invocateur || {};
-  if(!invocData) return (<Error />);
+  if (!invocData) return <Error />;
 
-  //Rank Image
   const [summonerDetail, setSummonerDetail] = useState<CompleteInvocDataInterface | null>(null);
   const [imageRank, setImageRank] = useState<any>(null);
-
-  //LastGames IDS ( Exemple : EUW1_6687314659 )
+  const [isLoading, setIsLoading] = useState(true);
   const [lastGamesID, setLastGamesID] = useState<string[] | null>(null);
-
   const [lastGamesAll, setLastGamesAll] = useState<any>(null);
-
 
   useEffect(() => {
     const fetchSummonerDetail = async () => {
-      const { summonerDetail, imageRank } = await getCompleteSummonerData(invocData.id);
-      const lastGamesIDList :[]= await getHistoriqueBySummoner(invocData.puuid);
-      const lastGamesAll = await getAllDetailMatchHistorique(lastGamesIDList);
-      console.log(lastGamesAll)
-      setSummonerDetail(summonerDetail);
-      setImageRank(imageRank);
-      setLastGamesID(lastGamesIDList)
-      setLastGamesAll(lastGamesAll);
+      try {
+        const { summonerDetail, imageRank } = await getCompleteSummonerData(invocData.id);
+        const lastGamesIDList: string[] = await getlastGamesKeys(invocData.puuid);
+        const lastGamesAll = await getAllGamesDetails(lastGamesIDList);
+        setSummonerDetail(summonerDetail);
+        setImageRank(imageRank);
+        setLastGamesID(lastGamesIDList);
+        setLastGamesAll(lastGamesAll);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
     };
     fetchSummonerDetail();
   }, [invocData.id, invocData.puuid]);
 
-
+  const renderGameItems = () => {
+    if (!lastGamesAll) return null;
+    return lastGamesAll.map((game: any, index: number) => (
+      <GameItem key={index} game={game} invocData={invocData} />
+    ));
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.sumNav}>
         <View style={styles.sumIconAndLevel}>
-          <Image style={styles.sumIcon}  source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${invocData.profileIconId}.jpg` }}/>
+          <Image
+            style={styles.sumIcon}
+            source={{
+              uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${invocData.profileIconId}.jpg`,
+            }}
+          />
           <Text style={styles.level}>{invocData.summonerLevel}</Text>
         </View>
         <View style={styles.nameRegion}>
           <Text style={styles.name}>{invocData.name}</Text>
           <Text style={styles.region}>#EUW</Text>
         </View>
-        <View style={styles.rankPosition}>
-
-        </View>
+        <View style={styles.rankPosition}></View>
         {imageRank && (
           <Image style={styles.rankPicture} source={imageRank} />
         )}
@@ -71,52 +90,25 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         <Text style={styles.textSelection}>Flex</Text>
       </View>
       <View style={styles.divider}></View>
-      <View style={styles.panelMatchHistory}>
-        <ScrollView>
-          {lastGamesAll && lastGamesAll.map((game: any) => (
-            <View style={styles.contentGame}>
-              <View style={styles.contentGame}>
-                <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                <View style={styles.contentInformationsGame}>
-                  <View style={styles.iconsMasteriesKDA}>
-                    <View style={styles.sumMasteriesIcons}>
-                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                      <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    </View>
-                    <View style={styles.kda}>
-                      <Text style={styles.kdaText}>10/2/5</Text>
-                      <Text style={styles.kdaText}>10.0 KDA</Text>
-                    </View>
-                  </View>
-                  <View style={styles.items}>
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                    <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                  </View>
-                </View>
-                <View style={styles.infoGame}>
-                  <Text>Flex 5:5 Rank</Text>
-                  <Text>Victoire</Text>
-                  <Text>Il y a 16 jours</Text>
-                  <Text>{game.detailMatchInfo.gameMode}</Text>
-                </View>
-              </View>
-            </View>
-          ))}
-
-          <View style={{height: 1000}}></View>
-        </ScrollView>
-      </View>
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      ) : (
+        <View style={styles.panelMatchHistory}>
+          <ScrollView>{renderGameItems()}</ScrollView>
+        </View>
+      )}
     </View>
-  )
+  );
 }
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     container: {
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
@@ -203,73 +195,5 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT - 250,
     },
-    contentGame: {
-      marginTop: 16,
-      height: 120,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      margin: 5,
-      borderRadius: 16,
-      backgroundColor: theme.colors.gameLoose,
-    },
-    pictureChamp: {
-      height: 115,
-      width: 115,
-      borderRadius: 16,
-    },
-    contentInformationsGame: {
-      flexDirection: 'column',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-    },
-    iconsMasteriesKDA: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: 180,
-      marginBottom: theme.spacing.e
-    },
-    sumMasteriesIcons: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      width: 60,
-    },
-    icon: {
-      width: '48%',
-      margin: '1%',
-      height: 30,
-      borderRadius: 90,
-    },
-    items: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
-      marginRight: '4%'
-    },
-    iconItems: {
-      height: 27,
-      width: 27,
-      borderRadius: 90,
-      margin: 1,
-    },
-    kda: {
-      marginTop: 10,
-      marginRight: 30,
-    },
-    kdaText: {
-      margin: 2,
-      fontFamily: 'DM-Sans',
-    },
-    objects: {
 
-    },
-    infoGame: {
-      height: '100%',
-      flexDirection: 'column',
-      justifyContent: 'space-evenly',
-      alignItems: 'flex-end',
-      fontFamily: 'Inter',
-    },
   });
