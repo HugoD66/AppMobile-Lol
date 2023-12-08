@@ -1,14 +1,14 @@
-import {getSummonerByName} from "../logic/logicInvoc";
+import {getHistoriqueBySummoner, getSummonerByName} from "../logic/logicInvoc";
 import {useQuery} from "react-query";
 
-const fetchData = async (invocName: string) => {
-    return getSummonerByName(invocName);
+const fetchData = async (puuid: string) => {
+    return getHistoriqueBySummoner(puuid);
 };
 
-export const useGetDataInvoc = (invocName: string | undefined) => {
+export const useGetAllGame = (puuid: string | undefined) => {
     return useQuery({
-        queryKey: ['invocs'],
-        queryFn: () => fetchData(invocName ?? ''),
-        enabled: Boolean(invocName)
+        queryKey: ['games'],
+        queryFn: () => fetchData(puuid ?? ''),
+        enabled: Boolean(puuid)
     })
 }

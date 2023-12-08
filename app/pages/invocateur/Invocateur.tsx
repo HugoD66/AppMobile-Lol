@@ -4,87 +4,123 @@ import theme from "../../../theme";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../../../App";
 import {useGetDataInvoc} from "../../hooks/useGetDataInvoc";
+import {useGetAllGame} from "../../hooks/useGetAllGame";
+import {useGetDetailGame} from "../../hooks/useGetInfoGame";
 
 type RouteProps = RouteProp<StackParamList, 'Invocateur'>
-
 export function Invocateur() {
   const route = useRoute<RouteProps>();
   const invocName = route.params?.invocName;
-  const {data} = useGetDataInvoc(invocName)
+  const {data: dataInvoc } = useGetDataInvoc(invocName)
+  const {data: dataHistorique} = useGetAllGame(dataInvoc?.summoner.puuid)
+
+  if (dataHistorique && Array.isArray(dataHistorique)) {
+    const dataGameArray: any[] = [];
+
+    dataHistorique.forEach((item) => {
+      const dataGame = useGetDetailGame(item);
+      dataGameArray.push(dataGame);
+    });
+
+    console.log(dataGameArray);
+  } else {
+    console.log('dataHistorique is undefined or not an array');
+  }
+
+
+//const {data : detailGame } = useGetDetailGame(dataHistorique.forEach())
+
   //console.log(`https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${data?.summoner.icon}.jpg`)
+  console.log(dataHistorique);
+  //console.log('coucou');$
 
 
 
-  //console.log(data);
-  //console.log('coucou');
+
   return (
-    <View style={styles.container}>
+      <View style={styles.container}>
 
-      <View style={styles.sumNav}>
-        <View style={styles.sumIconAndLevel}>
-          <Image style={styles.sumIcon}  source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${data?.summoner.icon}.jpg` }}/>
-          <Text style={styles.level}>{data?.summoner.lvl}</Text>
+        <View style={styles.sumNav}>
+          <View style={styles.sumIconAndLevel}>
+            <Image style={styles.sumIcon} source={{ uri: `https://opgg-static.akamaized.net/meta/images/profile_icons/profileIcon${dataInvoc?.summoner.icon}.jpg` }}/>
+            <Text style={styles.level}>{dataInvoc?.summoner.lvl}</Text>
+          </View>
+          <View style={styles.nameRegion}>
+            <Text style={styles.name}>{dataInvoc?.summoner.name}</Text>
+            <Text style={styles.region}>#EUW</Text>
+          </View>
+          <View style={styles.rankPosition}>
+
+            <Image
+                style={styles.rankPicture}
+                source={dataInvoc?.embleme}
+                resizeMode="contain"
+            />
+            <Text style={styles.position}>{dataInvoc?.summonerDetail?.rank}</Text>
+          </View>
         </View>
-        <View style={styles.nameRegion}>
-          <Text style={styles.name}>{data?.summoner.name}</Text>
-          <Text style={styles.region}>#EUW</Text>
+
+
+        <View style={styles.selectionSearch}>
+          <Text style={styles.textSelection}>Tous</Text>
+          <Text style={styles.textSelection}>Solo/Duo</Text>
+          <Text style={styles.textSelection}>Flex</Text>
         </View>
-        <View style={styles.rankPosition}>
-          <Image style={styles.rankPicture} source={data?.imageRank} />
-          <Text style={styles.position}>{data?.summonerDetail.rank}</Text>
+        <View style={styles.panelMatchHistory}>
+          <ScrollView>
+
+            <View style={styles.contentGame}>
+
+              <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+
+              <View style={styles.contentInformationsGame}>
+                <View style={styles.iconsMasteriesKDA}>
+                  <View style={styles.sumMasteriesIcons}>
+                    <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                    <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  </View>
+                  <View style={styles.kda}>
+                    <Text>10/2/5</Text>
+                    <Text>10.0 KDA</Text>
+                  </View>
+                </View>
+                <View style={styles.items}>
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                  <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
+                </View>
+              </View>
+
+              <View style={styles.infoGame}>
+                <Text>Flex 5:5 Rank</Text>
+                <Text>Victoire</Text>
+                <Text>Il y a 16 jours</Text>
+                <Text>25 min</Text>
+              </View>
+
+            </View>
+
+            <View style={{height: 1000, backgroundColor: 'red'}}></View>
+          </ScrollView>
         </View>
       </View>
-
-
-      <View style={styles.selectionSearch}>
-        <Text style={styles.textSelection}>Tous</Text>
-        <Text style={styles.textSelection}>Solo/Duo</Text>
-        <Text style={styles.textSelection}>Flex</Text>
-      </View>
-      <View style={styles.panelMatchHistory}>
-        <ScrollView>
-
-             <View style={styles.contentGame}>
-
-               <Image style={styles.pictureChamp} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-
-               <View style={styles.contentInformationsGame}>
-                 <View style={styles.iconsMasteriesKDA}>
-                   <View style={styles.sumMasteriesIcons}>
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                     <Image style={styles.icon} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   </View>
-                   <View style={styles.kda}>
-                     <Text>10/2/5</Text>
-                     <Text>10.0 KDA</Text>
-                   </View>
-                 </View>
-                 <View style={styles.items}>
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                   <Image style={styles.iconItems} source={require('../../../assets/tempEzChamp/tempInvocScreen/Champ.png')} />
-                 </View>
-               </View>
-
-                 <View style={styles.infoGame}>
-                   <Text>Flex 5:5 Rank</Text>
-                   <Text>Victoire</Text>
-                   <Text>Il y a 16 jours</Text>
-                   <Text>25 min</Text>
-                 </View>
-
-             </View>
-
-          <View style={{height: 1000, backgroundColor: 'red'}}></View>
-        </ScrollView>
-      </View>
-    </View>
   )
+}
+interface RankImages {
+  iron: any;
+  bronze: any;
+  silver: any;
+  gold: any;
+  platinum: any;
+  diamond: any;
+  master: any;
+  grandmaster: any;
+  challenger: any;
 }
 
 const styles = StyleSheet.create({
@@ -145,8 +181,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rankPicture: {
-    width: 500,
-    height: 500,
+    width: 100,
+    height: 100,
   },
   position: {
     color: 'white',

@@ -1,5 +1,28 @@
 import axios from 'axios';
 import { APIKey } from '../../APIKey';
+import {ImageRequireSource} from "react-native";
+
+interface InvocQuery {
+  InvocName: string;
+}
+export const GetDataInvoc = async ({ InvocName }: InvocQuery) => {
+  console.log(InvocName);
+  const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${InvocName}?api_key=${APIKey}`;
+  console.log(url);
+  try {
+    const response = await axios.get(url);
+    const Invoc = {
+      idInvoc: response.data.id,
+      nom: response.data.name,
+      summonerLevel: response.data.summonerLevel,
+      profileIconId: response.data.profileIconId,
+    };
+    return Invoc;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 interface Summoner {
   accountId: string;
@@ -14,35 +37,12 @@ interface summonerDetail {
   rank: string
   image : string
 }
-const getRankImage = ({tier}: { tier?: string }) => {
-  switch (tier?.toLowerCase()) {
-    case 'CHALLENGER':
-      return "require('../../assets/rank/emblem-challenger.png')";
-    case 'GRANDMASTER':
-      return "require('../../assets/rank/emblem-grandmaster.png')";
-    case 'MASTER':
-      return "require('../../assets/rank/emblem-master.png')";
-    case 'DIAMOND':
-      return "require('../../assets/rank/emblem-diamond.png')";
-    case 'PLATINUM':
-      return "require('../../assets/rank/emblem-platinum.png')";
-    case 'GOLD':
-      return "require('../../assets/rank/emblem-gold.png')";
-    case 'SILVER':
-      return "require('../../assets/rank/emblem-silver.png')";
-    case 'BRONZE':
-      return "require('../../assets/rank/emblem-bronze.png')";
-    case 'IRON':
-      return "require('../../assets/rank/emblem-iron.png')";
-    default:
-      return require('../../assets/rank/emblem-iron.png'); // Default image or any placeholder
-  }
-};
+
 
 
 export const getSummonerData = async (summonerNameWithoutSpace: string) => {
   const url = `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerNameWithoutSpace}?api_key=${APIKey}`;
-  //console.log(url);
+  console.log(url);
   try {
     const response = await axios.get(url);
 
@@ -56,17 +56,45 @@ export const getSummonerData = async (summonerNameWithoutSpace: string) => {
     };
 
     const urlDetail = `https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${summoner.id}?api_key=${APIKey}`;
-    //console.log(urlDetail);
+    console.log(urlDetail);
     const response2 = await axios.get(urlDetail);
+    console.log({
+      data: response2?.data
+    })
     const summonerDetail = {
-      rank: response2.data[1].rank,
-      tier: response2.data[1].tier,
-
+      rank: response2.data?.[1]?.rank,
+      tier: response2.data?.[1]?.tier,
     };
-    console.log(response2.data[1].tier)
-    const imageRank = getRankImage(response2.data[1].tier)
-    console.log(imageRank)
-    return {summoner, summonerDetail, imageRank};
+    type Rank = 'iron' | 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond' | 'master' | 'grandmaster' | 'challenger';
+
+    interface RankImages {
+      iron: any;
+      bronze: any;
+      silver: any;
+      gold: any;
+      platinum: any;
+      diamond: any;
+      master: any;
+      grandmaster: any;
+      challenger: any;
+    }
+    const rankImages: RankImages = {
+      iron : require('../../assets/rank/emblem-iron.png'),
+      bronze: require('../../assets/rank/emblem-bronze.png'),
+      silver: require('../../assets/rank/emblem-silver.png'),
+      gold: require('../../assets/rank/emblem-gold.png'),
+      platinum: require('../../assets/rank/emblem-platinum.png'),
+      diamond: require('../../assets/rank/emblem-diamond.png'),
+      master: require('../../assets/rank/emblem-master.png'),
+      grandmaster: require('../../assets/rank/emblem-grandmaster.png'),
+      challenger: require('../../assets/rank/emblem-challenger.png'),
+    };
+    const elo: Rank = response2.data?.[1]?.tier.toLowerCase() as Rank;
+
+    console.log(elo)
+    const embleme = rankImages[elo]
+
+    return {summoner, summonerDetail, embleme};
   } catch (error) {
     console.error(error);
     throw error;
@@ -89,7 +117,7 @@ interface Invoc {
 
 export const getHistoriqueBySummoner = async (puuid: string) => {
   const url = `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=15&api_key=${APIKey}`;
-
+console.log(url)
   try {
     const response = await axios(url);
     const summonerHistoryIDs = response.data;

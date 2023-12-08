@@ -62,6 +62,7 @@ export function Champion() {
         navigation.navigate('SkinScreen', { nom: `${name}` });
     };
 
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
           <View>
@@ -88,7 +89,8 @@ export function Champion() {
                 {selectedSkill === 'passive' && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
               </TouchableOpacity>
               {championData.spells.map((spell: { id: string | null; image: { full: any; }; }, index: React.Key | null | undefined) => (
-                <TouchableOpacity key={index} onPress={() => selectSkill(spell.id, index)}>
+                  // @ts-ignore
+                  <TouchableOpacity key={index} onPress={() => selectSkill(spell.id, index)}>
                   <Image style={styles.skillsPicture} source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/spell/${spell.image.full}` }} />
                   {selectedSkill === spell.id && <Image style={styles.overlayImage} source={require('../../../assets/champ/spell-selected.png')} />}
                 </TouchableOpacity>
