@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  ActivityIndicator,
+  ActivityIndicator, TouchableOpacity,
 } from "react-native";
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "../../types/screenDim";
 import theme from "../../../theme";
@@ -16,11 +16,13 @@ import {
   getCompleteSummonerData,
 } from "../../logic/logicInvoc";
 import { Error } from "../../components/loader/Error";
-import { GameItem } from "./GameItem";
+import {GameUnit} from "./GameUnit";
 import {
   getAllGamesDetails,
   getlastGamesKeys,
 } from "../../logic/logicLastGames";
+import { Pie } from 'react-native-progress';
+
 type InvocRouteProps = RouteProp<StackParamList, 'Invocateur'>
 
 
@@ -35,10 +37,13 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
   const [isLoading, setIsLoading] = useState(true);
   const [lastGamesID, setLastGamesID] = useState<string[] | null>(null);
   const [lastGamesAll, setLastGamesAll] = useState<any>(null);
+  const [selectedGameMode, setSelectedGameMode] = useState('ALL');
+  const [selectedOption, setSelectedOption] = useState('CLASSIC');
 
   useEffect(() => {
     const fetchSummonerDetail = async () => {
       try {
+        // @ts-ignore
         const { summonerDetail, imageRank } = await getCompleteSummonerData(invocData.id);
         const lastGamesIDList: string[] = await getlastGamesKeys(invocData.puuid);
         const lastGamesAll = await getAllGamesDetails(lastGamesIDList);
@@ -48,17 +53,22 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         setLastGamesAll(lastGamesAll);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
         setIsLoading(false);
       }
     };
     fetchSummonerDetail();
   }, [invocData.id, invocData.puuid]);
 
-  const renderGameItems = () => {
+  const renderGamesList = (selectedGameMode: string) => {
     if (!lastGamesAll) return null;
-    return lastGamesAll.map((game: any, index: number) => (
-      <GameItem key={index} game={game} invocData={invocData} />
+    let filteredGames;
+    if (selectedGameMode === 'ALL') {
+      filteredGames = lastGamesAll;
+    } else {
+      filteredGames = lastGamesAll.filter((game: { detailMatchInfo: { gameMode: string; }; }) => game.detailMatchInfo.gameMode === selectedGameMode);
+    }
+    return filteredGames.map((game: any, index: number) => (
+      <GameUnit key={index} game={game} invocData={invocData} selectedGameMode={selectedGameMode} />
     ));
   };
 
@@ -79,16 +89,59 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <Text style={styles.region}>#EUW</Text>
         </View>
         <View style={styles.rankPosition}></View>
-        {imageRank && (
+        {imageRank ? (
           <Image style={styles.rankPicture} source={imageRank} />
+        ) : (
+          <Pie
+            size={50}
+            indeterminate={true}
+            color={theme.colors.purplePrimary}
+          />
         )}
         <Text style={styles.position}>{summonerDetail?.rank}</Text>
       </View>
-      <View style={styles.selectionSearch}>
-        <Text style={styles.textSelection}>Tous</Text>
-        <Text style={styles.textSelection}>Solo/Duo</Text>
-        <Text style={styles.textSelection}>Flex</Text>
-      </View>
+      <ScrollView
+        style={styles.responsiveButtons}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
+        <TouchableOpacity
+          style={[
+            styles.touchableSelection,
+            selectedOption === 'CLASSIC' ? styles.selectedOption : null,
+          ]}
+          onPress={() => {
+            setSelectedOption('CLASSIC');
+            setSelectedGameMode('CLASSIC');
+          }}
+        >
+          <Text style={styles.textSelection}>Classic</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.touchableSelection,
+            selectedOption === 'ARAM' ? styles.selectedOption : null,
+          ]}
+          onPress={() => {
+            setSelectedOption('ARAM');
+            setSelectedGameMode('ARAM');
+          }}
+        >
+          <Text style={styles.textSelection}>Aram</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.touchableSelection,
+            selectedOption === 'ALL' ? styles.selectedOption : null,
+          ]}
+          onPress={() => {
+            setSelectedOption('ALL');
+            setSelectedGameMode('ALL');
+          }}
+        >
+          <Text style={styles.textSelection}>ALL</Text>
+        </TouchableOpacity>
+      </ScrollView>
       <View style={styles.divider}></View>
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -96,14 +149,37 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         </View>
       ) : (
         <View style={styles.panelMatchHistory}>
-          <ScrollView>{renderGameItems()}</ScrollView>
+          <ScrollView>{renderGamesList(selectedGameMode)}</ScrollView>
         </View>
-      )}
+  )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  touchableSelection: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxHeight: 50,
+    backgroundColor: 'red',
+  },
+  responsiveButtons: {
+    width: SCREEN_WIDTH,
+    maxHeight: 50,
+  },
+  textSelection: {
+    color: theme.colors.white,
+    fontSize: 20,
+    textAlign: 'center',
+    height: 50,
+  },
+  selectedOption: {
+    borderBottomColor: theme.colors.purplePrimary,
+    borderBottomWidth: 2,
+  },
+  marginBot: {
+    height: 100,
+  },
     loadingContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -175,16 +251,6 @@ const styles = StyleSheet.create({
       color: 'white',
       fontSize: 16,
     },
-    selectionSearch: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      height: 50,
-      backgroundColor: 'black',
-    },
-    textSelection: {
-      color: theme.colors.white,
-    },
     divider: {
       height: 2,
       width: SCREEN_WIDTH,
@@ -194,6 +260,7 @@ const styles = StyleSheet.create({
       backgroundColor: theme.colors.blackThree,
       width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT - 250,
+      maxHeight: 'auto',
     },
-
-  });
+  }
+);

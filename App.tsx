@@ -93,6 +93,7 @@ export default function App() {
               <RootStack.Screen name={'Accueil'} component={Accueil} initialParams={{ invocateur: null }} />
               <RootStack.Screen name={'Invocateur'} component={Invocateur} initialParams={{ invocateur: null }} />
               <RootStack.Screen name={'Search'} component={Search} />
+              <RootStack.Screen name={'Champion'} component={Champion} />
               <RootStack.Screen name={'SkinScreen'} component={SkinScreen} />
               <RootStack.Screen name={'Login'} component={Login} />
               <RootStack.Screen name={'Register'} component={Register} />

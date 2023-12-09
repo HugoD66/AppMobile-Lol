@@ -32,7 +32,6 @@ export function Search() {
   };
 
   const handleSearchChange = async (text: string) => {
-    console.log(text);
     setShowLoop(text.length === 0)
     Animated.timing(opacityAnimBefore, {
       toValue: text.length === 0 ? 1 : 0,
@@ -59,7 +58,6 @@ export function Search() {
           setChampionDataList([]);
         }
       } catch (error) {
-        console.error(error);
         setChampionDataList([]);
       }
     }
@@ -74,7 +72,6 @@ export function Search() {
           summonerLevel: response.data.summonerLevel,
         });
       } catch (error) {
-        console.error(error);
       }
     }
   }

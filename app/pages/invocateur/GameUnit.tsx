@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import theme from "../../../theme";
-import {GetChampIcone} from "../../logic/logicChamp";
+import axios from "axios";
+import {InvocDataInterface} from "../../types/InvocDataInterface";
+import {LinearGradient} from "expo-linear-gradient";
+
 //@ts-ignore
-export function GameItem({ game, invocData }) {
+export function GameUnit({ game, invocData , selectedGameMode }) {
   const participantsList = game.detailMatchInfo.participants;
+  const [firstPerk, setFirstPerk] = useState(null);
+  const [secondPerk, setSecondPerk] = useState(null);
 
   if (!participantsList || participantsList.length === 0) {
     return (
@@ -20,15 +25,6 @@ export function GameItem({ game, invocData }) {
     (participant: { puuid: any; }) => participant.puuid === invocData.puuid
   );
 
-  const getChampionIcon = async () => {
-    try {
-      const championIcon = await GetChampIcone({ champ: participant.championName });
-      return championIcon;
-    } catch (error) {
-      console.error("Error fetching champion icon:", error);
-      return null; // Gérer l'erreur de manière appropriée
-    }
-  }
   if (!participant) {
     return (
       <View style={styles.contentGame}>
@@ -44,37 +40,65 @@ export function GameItem({ game, invocData }) {
   const currentTimeStamp = new Date().getTime();
   const timeDifferenceInDays = Math.floor((currentTimeStamp - gameStartTimeStamp) / (1000 * 60 * 60 * 24));
 
-
   const championIcone = `https://ddragon.leagueoflegends.com/cdn/11.16.1/img/champion/${participant.championName}.png`;
+  const item1 = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/fr_FR/item.json`;
+  //URL ITEMS : https://ddragon.leagueoflegends.com/cdn/13.23.1/data/en_US/item.json
+
+
+  useEffect(() => {
+    async function fetchRune() {
+      const stylesArray = participant.perks.styles;
+      if (stylesArray.length > 0) {
+        const firstStyle = stylesArray[0];
+        const selectionsArray = firstStyle.selections;
+        if (selectionsArray.length > 0) {
+          const firstSelection = selectionsArray[0];
+          const perk = firstSelection.perk;
+          const secondeSelection = selectionsArray[1]
+          const secondPerk = secondeSelection.perk;
+          setFirstPerk(perk);
+          setSecondPerk(secondPerk)
+        }
+      }
+    }
+
+    fetchRune();
+  }, []);
   return (
+
     <View
       style={[
         styles.contentGame,
-        { backgroundColor: participant.win ? theme.colors.gameWin : theme.colors.gameLoose },
+        //{ backgroundColor: participant.win ? theme.colors.gameWin : theme.colors.gameLoose },
       ]}
     >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={participant.win ? [theme.colors.gameWin, theme.colors.gameWinGradient] : [theme.colors.gameLoose, theme.colors.gameLooseGradient]}
+        style={styles.linearGradient}
+      />
       <Image
         style={styles.pictureChamp}
-        source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+        source={{ uri: championIcone }}
       />
       <View style={styles.contentInformationsGame}>
         <View style={styles.iconsMasteriesKDA}>
           <View style={styles.sumMasteriesIcons}>
             <Image
               style={styles.icon}
-              source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/spell/SummonerHeal.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
             />
             <Image
               style={styles.icon}
-              source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/perk/${firstPerk}.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
             />
             <Image
               style={styles.icon}
-              source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/spell/SummonerFlash.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
             />
             <Image
               style={styles.icon}
-              source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/perkStyle/${participant.perks.styles[0].style}.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
             />
           </View>
           <View style={styles.kda}>
@@ -83,33 +107,35 @@ export function GameItem({ game, invocData }) {
               {participant.deaths}/
               {participant.assists}
             </Text>
-            <Text style={styles.kdaText}>{parseFloat(participant.challenges.kda).toFixed(2)} KDA</Text>
+            <Text style={styles.kdaText}>{parseFloat(participant.challenges.kda).toFixed(2)}
+              <Text style={styles.kdaTextLight}>KDA</Text>
+            </Text>
           </View>
         </View>
         <View style={styles.items}>
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item0}.png`}}
           />
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item1}.png`}}
           />
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item2}.png`}}
           />
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item3}.png`}}
           />
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item4}.png`}}
           />
           <Image
             style={styles.iconItems}
-            source={require("../../../assets/tempEzChamp/tempInvocScreen/Champ.png")}
+            source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/item/${participant.item5}.png`}}
           />
         </View>
       </View>
@@ -119,7 +145,8 @@ export function GameItem({ game, invocData }) {
         <Text>Il y a {timeDifferenceInDays} jours</Text>
         <Text>{(game.detailMatchInfo.gameDuration / 60).toFixed(1)} min</Text>
       </View>
-    </View>
+      </View>
+
   );
 }
 
@@ -133,6 +160,14 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 16,
     backgroundColor: theme.colors.gameLoose,
+  },
+  linearGradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+    borderRadius: 10
   },
   pictureChamp: {
     height: 115,
@@ -179,8 +214,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight: 30,
   },
+  kdaTextLight: {
+    color: theme.colors.blackFour,
+    fontStyle: 'italic',
+  },
   kdaText: {
     margin: 2,
+    fontSize: 16,
     fontFamily: "DM-Sans",
   },
   objects: {},

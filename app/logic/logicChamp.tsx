@@ -5,7 +5,6 @@ interface ChampionQuery {
 }
 interface ChampionStats {
     hp: number;
-    // ... autres propriétés de stats
 }
 
 interface Champion {
@@ -41,14 +40,8 @@ interface ChampionData {
     version: string;
     data: { [key: string]: Champion };
 }
-interface ChampionSummary {
-    name: string;
-    imageUrl: string;
-    title : string;
-}
 
 export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuery) => {
-    console.log(ChampionNameWithoutSpace);
     const url = `https://ddragon.leagueoflegends.com/cdn/13.22.1/data/fr_FR/champion/${ChampionNameWithoutSpace}.json`;
 
     try {
@@ -70,14 +63,12 @@ export const GetDataChampion = async ({ ChampionNameWithoutSpace }: ChampionQuer
         };
         return Champion;
     } catch (error) {
-        console.error(error);
-        throw error;
     }
 }
 const fetchChampions = async (): Promise<ChampionData> => {
     const response = await fetch('https://ddragon.leagueoflegends.com/cdn/13.23.1/data/fr_FR/champion.json');
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Error while fetching champions');
     }
     return response.json();
 };
@@ -100,20 +91,6 @@ export const GetChampionByName = async (championName: string): Promise<{
             title: champion.title,
         }));
     } catch (error) {
-        console.error('Error fetching champions:', error);
         return [];
     }
 };
-// @ts-ignore
-export const GetChampIcone = async ({ champ }): Promise<HTMLPictureElement> => {
-    const url = `https://ddragon.leagueoflegends.com/cdn/13.23.1/img/champion/${champ}.png`;
-
-    try {
-        const responseChampIcon = await axios.get(url);
-        let championInfo = responseChampIcon.data.data[champ];
-        return championInfo;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}

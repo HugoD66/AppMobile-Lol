@@ -22,8 +22,10 @@ const palette = {
   white: '#F0F2F3',
   subtitleCard: 'rgba(255,255,255, 0.6)',
 
-  gameWin: 'rgba(10,243,60,0.25)',
-  gameLoose: 'rgba(245,13,13,0.43)',
+  gameWin: 'rgba(145,236,167,0.37)',
+  gameWinGradient: 'rgba(3,138,32,0.94)',
+  gameLoose: 'rgba(236,145,145,0.37)',
+  gameLooseGradient: 'rgba(138,3,3,0.94)',
 
 };
 
@@ -46,6 +48,8 @@ const theme = createTheme({
     backForm: palette.backForm,
     gameWin: palette.gameWin,
     gameLoose: palette.gameLoose,
+    gameWinGradient: palette.gameWinGradient,
+    gameLooseGradient: palette.gameLooseGradient,
   },
   spacing: {
     a: 4,

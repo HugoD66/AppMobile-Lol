@@ -17,8 +17,6 @@ export const getSummonerData = async (invocName: string | undefined) => {
     console.log(summoner);
     return summoner
   } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
 export const getCompleteSummonerData = async (invocId: string | undefined) => {
@@ -32,7 +30,6 @@ export const getCompleteSummonerData = async (invocId: string | undefined) => {
    const imageRank = getRankImage({tier: summonerDetail.tier});
    return { summonerDetail, imageRank};
  }catch (error) {
-   throw error;
  }
 }
 const getRankImage = ({tier}: { tier?: string }) => {

@@ -23,6 +23,5 @@ export const getAllGamesDetails = async (idMatch: string[]) => {
     const gamesResult = await Promise.all(promises);
     return gamesResult;
   } catch (error) {
-    console.error(error);
   }
 };
