@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: 130,
-    marginTop: theme.spacing.l,
-    margin: theme.spacing.d,
+    marginTop: 26,
+    margin: 10,
     backgroundColor: theme.colors.black,
     width: SCREEN_WIDTH,
   },
@@ -66,15 +66,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 65,
     height: 65,
-    marginTop: theme.spacing.d,
-    marginLeft: theme.spacing.j,
-    borderRadius: theme.spacing.roundBorder,
+    marginTop: 10,
+    marginLeft: 22,
+    borderRadius: 90,
   },
   sumNavTitleDesc: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginLeft: theme.spacing.g,
+    marginLeft: 16,
   },
   title: {
     fontWeight: 'bold',
@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
   loopSearch: {
     width: 30,
     height: 30,
-    marginLeft: theme.spacing.p,
-    marginRight: theme.spacing.c,
+    marginLeft: 34,
+    marginRight: 8,
   },
   rank: {
     resizeMode: 'contain',
     width: 65,
     height: 65,
-    marginRight: theme.spacing.j,
+    marginRight: 22,
   }
 })

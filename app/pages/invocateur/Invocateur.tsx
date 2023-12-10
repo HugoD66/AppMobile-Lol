@@ -37,8 +37,8 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
   const [isLoading, setIsLoading] = useState(true);
   const [lastGamesID, setLastGamesID] = useState<string[] | null>(null);
   const [lastGamesAll, setLastGamesAll] = useState<any>(null);
-  const [selectedGameMode, setSelectedGameMode] = useState('ALL');
-  const [selectedOption, setSelectedOption] = useState('CLASSIC');
+  const [selectedOption, setSelectedOption] = useState('ALL');
+  const [error429, setError429] = useState(false);
 
   useEffect(() => {
     const fetchSummonerDetail = async () => {
@@ -54,21 +54,27 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
+        // @ts-ignore
+        if (error.response && error.response.status === 429) {
+          setError429(true);
+        } else {
+          setError429(false);
+        }
       }
     };
     fetchSummonerDetail();
   }, [invocData.id, invocData.puuid]);
 
-  const renderGamesList = (selectedGameMode: string) => {
+  const renderGamesList = (selectedOption: string) => {
     if (!lastGamesAll) return null;
     let filteredGames;
-    if (selectedGameMode === 'ALL') {
+    if (selectedOption === 'ALL') {
       filteredGames = lastGamesAll;
     } else {
-      filteredGames = lastGamesAll.filter((game: { detailMatchInfo: { gameMode: string; }; }) => game.detailMatchInfo.gameMode === selectedGameMode);
+      filteredGames = lastGamesAll.filter((game: { detailMatchInfo: { gameMode: string; }; }) => game.detailMatchInfo.gameMode === selectedOption);
     }
     return filteredGames.map((game: any, index: number) => (
-      <GameUnit key={index} game={game} invocData={invocData} selectedGameMode={selectedGameMode} />
+      <GameUnit key={index} game={game} invocData={invocData} selectedGameMode={selectedOption} />
     ));
   };
 
@@ -100,46 +106,49 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         )}
         <Text style={styles.position}>{summonerDetail?.rank}</Text>
       </View>
+
       <ScrollView
-        style={styles.responsiveButtons}
         horizontal
-        showsHorizontalScrollIndicator={false}
+        style={{width: SCREEN_WIDTH}}
       >
         <TouchableOpacity
           style={[
-            styles.touchableSelection,
-            selectedOption === 'CLASSIC' ? styles.selectedOption : null,
+            selectedOption === 'CLASSIC' && lastGamesAll ? styles.selectedOption : null,
           ]}
           onPress={() => {
             setSelectedOption('CLASSIC');
-            setSelectedGameMode('CLASSIC');
           }}
         >
-          <Text style={styles.textSelection}>Classic</Text>
+          <Text style={
+            [styles.selectionSearch,
+              { fontWeight: selectedOption === 'CLASSIC' ? '500' : '200' },]
+          }>Classic</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
-            styles.touchableSelection,
-            selectedOption === 'ARAM' ? styles.selectedOption : null,
+            selectedOption === 'ARAM' && lastGamesAll ? styles.selectedOption : null,
           ]}
           onPress={() => {
             setSelectedOption('ARAM');
-            setSelectedGameMode('ARAM');
           }}
         >
-          <Text style={styles.textSelection}>Aram</Text>
+          <Text style={
+            [styles.selectionSearch,
+              { fontWeight: selectedOption === 'ARAM' ? '500' : '200' },]
+          }>Aram</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
-            styles.touchableSelection,
-            selectedOption === 'ALL' ? styles.selectedOption : null,
+            selectedOption === 'ALL' && lastGamesAll ? styles.selectedOption : null,
           ]}
           onPress={() => {
             setSelectedOption('ALL');
-            setSelectedGameMode('ALL');
           }}
         >
-          <Text style={styles.textSelection}>ALL</Text>
+          <Text style={
+            [styles.selectionSearch,
+              { fontWeight: selectedOption === 'ALL' ? '500' : '200' },]
+          }>ALL</Text>
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.divider}></View>
@@ -147,25 +156,36 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
+      ) : error429 ? (
+        <View style={styles.loadingContainer}>
+          <Text style={styles.errorText}>Trop de requêtes, veuillez attendre.</Text>
+        </View>
       ) : (
         <View style={styles.panelMatchHistory}>
-          <ScrollView>{renderGamesList(selectedGameMode)}</ScrollView>
+          <ScrollView>{renderGamesList(selectedOption)}</ScrollView>
         </View>
-  )}
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: 'red',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  selectionSearch: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+
   touchableSelection: {
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: 50,
     backgroundColor: 'red',
-  },
-  responsiveButtons: {
-    width: SCREEN_WIDTH,
-    maxHeight: 50,
   },
   textSelection: {
     color: theme.colors.white,
@@ -192,14 +212,13 @@ const styles = StyleSheet.create({
     },
     sumNav: {
       width: SCREEN_WIDTH,
-      height: 200,
+      height: 175,
       zIndex: 10,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: theme.spacing.i,
-      //padding:0,
+      padding: 20,
       marginTop : 10,
     },
     sumIconAndLevel: {
@@ -255,6 +274,8 @@ const styles = StyleSheet.create({
       height: 2,
       width: SCREEN_WIDTH,
       backgroundColor: theme.colors.purplePrimary,
+      position: "absolute",
+      top: 245,
     },
     panelMatchHistory: {
       backgroundColor: theme.colors.blackThree,

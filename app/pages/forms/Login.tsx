@@ -47,6 +47,7 @@ export function Login() {
             [invocateurValue, passwordValue],
             async (_, {rows}) => {
               if (rows.length > 0) {
+                // @ts-ignore
                 const summonerData: InvocDataInterface = await getSummonerData(invocateurValue);
                 navigation.navigate('Accueil', {
                   invocateur: summonerData
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   searchLabel: {
     color: theme.colors.white,
     fontFamily: 'DM-Sans',
-    marginBottom: theme.spacing.f,
+    marginBottom: 14,
   },
   searchbar: {
     width: SCREEN_WIDTH * 0.90,

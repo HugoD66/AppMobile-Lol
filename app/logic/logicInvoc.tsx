@@ -28,6 +28,7 @@ export const getCompleteSummonerData = async (invocId: string | undefined) => {
      tier: summonerDetails.data[1].tier,
    };
    const imageRank = getRankImage({tier: summonerDetail.tier});
+   console.log(summonerDetail, imageRank);
    return { summonerDetail, imageRank};
  }catch (error) {
  }

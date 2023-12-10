@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 280,
     top: -25,
-    left: theme.spacing.cent,
+    left: 100,
     zIndex: 2,
   },
   linear: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   contentText: {
-    bottom: theme.spacing.d,
+    bottom: 10,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.subtitleCardRecom,
   },
   button: {
-    width: theme.spacing.cent,
-    height: theme.spacing.cent,
+    width: 100,
+    height: 100,
   },
   pictureButton: {
     width: 60,
     height: 60,
     borderRadius: 15,
-    marginTop: theme.spacing.d,
+    marginTop: 10,
   },
 });

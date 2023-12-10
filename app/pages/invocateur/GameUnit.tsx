@@ -11,16 +11,6 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
   const [firstPerk, setFirstPerk] = useState(null);
   const [secondPerk, setSecondPerk] = useState(null);
 
-  if (!participantsList || participantsList.length === 0) {
-    return (
-      <View style={styles.contentGame}>
-        <View style={styles.infoGame}>
-          <Text>NOP</Text>
-        </View>
-      </View>
-    );
-  }
-
   const participant = participantsList.find(
     (participant: { puuid: any; }) => participant.puuid === invocData.puuid
   );
@@ -44,7 +34,6 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
   const item1 = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/fr_FR/item.json`;
   //URL ITEMS : https://ddragon.leagueoflegends.com/cdn/13.23.1/data/en_US/item.json
 
-
   useEffect(() => {
     async function fetchRune() {
       const stylesArray = participant.perks.styles;
@@ -61,19 +50,16 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
         }
       }
     }
-
     fetchRune();
   }, []);
-  return (
 
+  return (
     <View
       style={[
         styles.contentGame,
-        //{ backgroundColor: participant.win ? theme.colors.gameWin : theme.colors.gameLoose },
       ]}
     >
       <LinearGradient
-        // Background Linear Gradient
         colors={participant.win ? [theme.colors.gameWin, theme.colors.gameWinGradient] : [theme.colors.gameLoose, theme.colors.gameLooseGradient]}
         style={styles.linearGradient}
       />
@@ -183,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: 180,
-    marginBottom: theme.spacing.e,
+    marginBottom: 12,
   },
   sumMasteriesIcons: {
     flexDirection: "row",

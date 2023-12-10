@@ -30,23 +30,23 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * .30,
   },
   card: {
-    marginBottom: theme.spacing.b,
+    marginBottom: 6,
     width: SCREEN_WIDTH * .27,
   },
   titleCard: {
     fontWeight: 'bold',
     fontFamily: 'DM-Sans',
+    marginTop: 6,
     color: theme.colors.white,
     fontSize: theme.fontSize.subTitleCard,
-    marginTop: theme.spacing.b,
   },
   subtitleCard: {
     fontWeight: '300',
     width: '90%',
     fontFamily: 'Inter',
     fontSize: 13,
+    marginTop: 6,
+    marginBottom: 14,
     color: theme.colors.subtitleCard,
-    marginTop: theme.spacing.b,
-    marginBottom: theme.spacing.f,
   },
 });

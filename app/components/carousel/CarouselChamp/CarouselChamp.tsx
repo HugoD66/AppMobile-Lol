@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   cards: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: theme.spacing.i,
-    paddingHorizontal: theme.spacing.i,
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
 });

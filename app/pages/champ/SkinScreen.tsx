@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
       backgroundColor: theme.colors.black,
     },
     pictureGalery: {
-      margin: theme.spacing.d,
+      margin: 10,
       width: SCREEN_HEIGHT,
       height: SCREEN_WIDTH,
     },
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
       zIndex: 30,
       right: -100,
       borderRadius: 90,
-      width: theme.spacing.s,
-      height: theme.spacing.s,
+      width: 40,
+      height: 40,
     },
     arrowBack: {
       width: 35,

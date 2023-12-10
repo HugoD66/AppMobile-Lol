@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
     arrowBackButton: {
         marginTop: 70,
         right: SCREEN_WIDTH * 0.38,
-        margin: theme.spacing.i,
-        width: theme.spacing.i,
+        margin: 20,
+        width: 20,
     },
     arrowBack: {
-        width: theme.spacing.i,
-        height: theme.spacing.i,
+        width: 20,
+        height: 20,
     },
 });

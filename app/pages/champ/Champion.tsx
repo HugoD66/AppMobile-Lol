@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: SCREEN_WIDTH * .92,
-      height: theme.spacing.cent,
+      height: 100,
     },
     titleSubTitle: {
       flexDirection: 'column',
@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
     },
     titleChamp: {
       fontFamily: 'DM-Sans',
-      marginBottom: theme.spacing.c,
+      marginBottom: 8,
       color: theme.colors.white,
       fontSize: theme.fontSize.titleChamp,
     },
     subTitle: {
       fontFamily: 'Inter',
-      marginBottom: theme.spacing.g,
+      marginBottom: 16,
       color: theme.colors.subtitleCard,
       fontSize: theme.fontSize.subTitleCard,
     },
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     },
     skillsContent: {
       width: SCREEN_WIDTH * .92,
-      height: theme.spacing.cent,
+      height: 100,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
@@ -204,25 +204,25 @@ const styles = StyleSheet.create({
     descLetterNameSpell: {
       flexDirection: 'column',
       width: SCREEN_WIDTH * .92,
-      marginTop: theme.spacing.i,
+      marginTop: 20,
     },
     letterSpell: {
       fontWeight: 'bold',
       color: theme.colors.purplePrimary,
       fontSize: theme.fontSize.subtitleCardRecom,
-      marginTop: theme.spacing.i,
+      marginTop: 20,
     },
     nameSpell: {
       fontFamily: 'DM-Sans',
       color: theme.colors.white,
       fontSize: theme.fontSize.titleSum,
-      marginTop: theme.spacing.f,
+      marginTop: 14,
     },
     descSpell: {
       fontFamily: 'Inter',
       fontSize: theme.fontSize.subtitleCardRecom,
       width: SCREEN_WIDTH * .92,
-      marginTop: theme.spacing.f,
+      marginTop: 14,
       color: theme.colors.subtitleCard,
     },
     generalInformations: {
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       width: SCREEN_WIDTH,
-      marginTop: theme.spacing.i,
+      marginTop: 20,
     },
     pictureRole: {
       width: SCREEN_WIDTH * .2,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     },
     role: {
       color: theme.colors.subtitleCard,
-      marginBottom: theme.spacing.c,
+      marginBottom: 8,
       fontSize: theme.fontSize.subtitleCardRecom,
     },
     roleImport: {
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
       color: theme.colors.white,
     },
     difficultInformations: {
-      marginBottom: theme.spacing.n,
+      marginBottom: 30,
     },
     textDifficult: {
       fontFamily: 'Inter',
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     },
     niveauDifficult: {
       color: theme.colors.white,
-      marginBottom: theme.spacing.c,
+      marginBottom: 8,
       fontSize: theme.fontSize.titleSum,
     },
     button: {
@@ -268,15 +268,15 @@ const styles = StyleSheet.create({
       height: 70,
       borderRadius: 10,
       width: SCREEN_WIDTH * 0.92,
-      margin: theme.spacing.i,
-      marginBottom: theme.spacing.i,
+      margin:20,
+      marginBottom: 20,
       backgroundColor: theme.colors.purplePrimaryDark,
     },
     buttonText: {
       textAlign: 'center',
-      color: theme.colors.white,
-      marginBottom: theme.spacing.c,
+      marginBottom: 8,
       fontFamily: 'DM-Sans',
+      color: theme.colors.white,
       fontSize: theme.fontSize.subTitleSum,
     },
     endScreen: {

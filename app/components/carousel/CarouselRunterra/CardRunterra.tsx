@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     width: 110,
-    marginRight: theme.spacing.e,
+    marginRight: 12,
     backgroundColor: theme.colors.blackTwo,
   },
   titleCard: {
     fontFamily: 'DM-Sans',
-    marginTop: theme.spacing.d,
-    marginBottom: theme.spacing.d,
+    marginTop: 10,
+    marginBottom: 10,
     color: theme.colors.white,
     fontSize: theme.fontSize.subTitleSum,
   },

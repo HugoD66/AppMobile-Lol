@@ -1,3 +1,3 @@
-//Expires: Sat, Dec 9th, 2023 @ 3:20pm (PT) in 23 hours and 59 minutes
+//Expires: Mon, Dec 11th, 2023 @ 12:26am (PT) in 23 hours and 59 minutes
 //https://developer.riotgames.com/
-export const APIKey = "RGAPI-a5f79746-96a9-4d35-a896-e608ac7bd38f";
+export const APIKey = "RGAPI-86270ba1-54dd-4ab5-9973-c0adefe0c7b6";

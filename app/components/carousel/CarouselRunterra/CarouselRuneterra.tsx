@@ -57,8 +57,8 @@ export function CarouselRuneterra() {
 }
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: theme.spacing.h,
-    marginBottom: theme.spacing.f,
+    paddingVertical: 18,
+    marginBottom: 14,
 
   },
   cards: {
@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     overflow: 'scroll',
-    paddingHorizontal: theme.spacing.i,
+    paddingHorizontal: 20,
   },
 });

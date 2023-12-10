@@ -94,6 +94,7 @@ export function Register() {
                   style={styles.searchbar}
                 />
                 {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
               </View>
             </View>
             <TouchableOpacity style={styles.button} onPress={() => { onSubmit() }}>
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   searchLabel: {
     color: theme.colors.white,
     fontFamily: 'DM-Sans',
-    marginBottom: theme.spacing.f,
+    marginBottom: 14,
   },
   searchbar: {
     height: 60,

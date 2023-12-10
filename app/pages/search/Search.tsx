@@ -102,30 +102,30 @@ export function Search() {
           )}
           {showLoop && <Image style={styles.loop} source={require('../../../assets/general/loopSumNav.png')} />}
           </View>
-            <ScrollView horizontal >
-            <View style={styles.selectionSearchList}>
-              <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
-                  Champions
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
-                  Pros
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Players')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
-                  Players
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
-                <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
-                  Teams
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+          <ScrollView horizontal >
+          <View style={styles.selectionSearchList}>
+            <TouchableOpacity onPress={() => handleOptionChange('Champions')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Champions' ? '500' : '200' }]}>
+                Champions
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleOptionChange('Pros')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Pros' ? '500' : '200' }]}>
+                Pros
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleOptionChange('Players')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Players' ? '500' : '200' }]}>
+                Players
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleOptionChange('Teams')}>
+              <Text style={[styles.selectionSearch, { fontWeight: activeOption === 'Teams' ? '500' : '200' }]}>
+                Teams
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
           <View style={styles.divider} />
         </View>
         <View style={styles.contentBeforeAfter}>
