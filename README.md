@@ -18,10 +18,21 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
    - Formulaire Login ( Image en haut à gauche sur la page d'accueil);
    - Page de recherche de champion ( Loupe en haut au milieu sur la page d'accueil);
    - Formulaire d'enregistrement;
-   - Recherche de champion et invocateur !!!Seconde part!!!
+   - Recherche de champion et invocateur
+
+## 3éme partie : 
+
+   - Page d'invocateur ( template + récupération );
+   - Récupération des informations de l'invocateur;
+   - Mise en place de l'image ( league ) en fonction du rang de l'invocateur
+   - Récupération des informations des anciennes parties effectuées
+     - Items
+     - KDA
+     - Victoire/Defaite
+     - Durée de la partie ...
+   - Mise en place d'un filtre triant les parties en fonction du mode de jeux
 <br><br>
  - A faire : 
-   - Page d'invocateur ( template + récupération );
+   - Correction BUG Boutons filtre des parties effectuées; 
    - Mise en favoris de champion (optionnel);
-   - Revoir template générale, responsive des blocs;
  
