@@ -10,6 +10,9 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
 
 <b style="color: red;">Accés à l'API </b>: Contact  Hugo DESSAUW ou Dorian Albert pour obtenir la clé d'accès à l'API (valable 24H).
 
+RATE LIMITS
+ - 20 requests every 1 seconds(s)
+ - 100 requests every 2 minutes(s)
 
  ### Guide de l'Utilisateur
 
