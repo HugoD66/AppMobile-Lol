@@ -4,6 +4,7 @@ import theme from "../../../theme";
 import axios from "axios";
 import {InvocDataInterface} from "../../types/InvocDataInterface";
 import {LinearGradient} from "expo-linear-gradient";
+import {spells} from "../../logic/logicSpells";
 
 //@ts-ignore
 export function GameUnit({ game, invocData , selectedGameMode }) {
@@ -25,6 +26,10 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
     );
   }
 
+  const full1 = spells[participant.summoner1Id].full
+  const summoner2Id = participant.summoner2Id;
+  const full2 = spells[summoner2Id] ? spells[summoner2Id].full : "Sort non trouvé";
+
   // CALCUL DIFFERENCE DE TEMPS
   const gameStartTimeStamp = game.detailMatchInfo.gameStartTimestamp;
   const currentTimeStamp = new Date().getTime();
@@ -32,7 +37,6 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
 
   const championIcone = `https://ddragon.leagueoflegends.com/cdn/11.16.1/img/champion/${participant.championName}.png`;
   const item1 = `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/fr_FR/item.json`;
-  //URL ITEMS : https://ddragon.leagueoflegends.com/cdn/13.23.1/data/en_US/item.json
 
   useEffect(() => {
     async function fetchRune() {
@@ -72,7 +76,7 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
           <View style={styles.sumMasteriesIcons}>
             <Image
               style={styles.icon}
-              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/spell/SummonerHeal.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
+              source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/${full1}`}}
             />
             <Image
               style={styles.icon}
@@ -80,7 +84,7 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
             />
             <Image
               style={styles.icon}
-              source={{ uri: `https://opgg-static.akamaized.net/meta/images/lol/spell/SummonerFlash.png?image=q_auto,f_webp,w_64,h_64&v=1700641403304`}}
+              source={{ uri: `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/spell/${full2}`}}
             />
             <Image
               style={styles.icon}
@@ -138,7 +142,7 @@ export function GameUnit({ game, invocData , selectedGameMode }) {
 
 const styles = StyleSheet.create({
   contentGame: {
-    marginTop: 16,
+    marginTop: 8,
     height: 120,
     flexDirection: "row",
     justifyContent: "space-around",

@@ -24,13 +24,3 @@ db.transaction(tx => {
 });
 
 
-/*
-db.transaction(tx => {
-    tx.executeSql(
-        'DELETE * FROM Users'
-    );
-});
- */
-
-
-

@@ -8,8 +8,7 @@ export function SecondSlide() {
 
     const navigation = useNavigation<IntroStackNavigationProps>();
     const navigate = () => {
-            console.log({navigation: navigation.getState()})
-            navigation.navigate('ThirdSlide');
+        navigation.navigate('ThirdSlide');
     };
 
     return (

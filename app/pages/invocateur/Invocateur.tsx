@@ -65,6 +65,10 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
     fetchSummonerDetail();
   }, [invocData.id, invocData.puuid]);
 
+  useEffect(() => {
+    console.log('error429 changed', error429);
+  }, [error429]);
+
   const renderGamesList = (selectedOption: string) => {
     if (!lastGamesAll) return null;
     let filteredGames;
@@ -106,11 +110,7 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
         )}
         <Text style={styles.position}>{summonerDetail?.rank}</Text>
       </View>
-
-      <ScrollView
-        horizontal
-        style={{width: SCREEN_WIDTH}}
-      >
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20}}>
         <TouchableOpacity
           style={[
             selectedOption === 'CLASSIC' && lastGamesAll ? styles.selectedOption : null,
@@ -122,7 +122,8 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <Text style={
             [styles.selectionSearch,
               { fontWeight: selectedOption === 'CLASSIC' ? '500' : '200' },]
-          }>Classic</Text>
+          }>Classic
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -135,7 +136,8 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <Text style={
             [styles.selectionSearch,
               { fontWeight: selectedOption === 'ARAM' ? '500' : '200' },]
-          }>Aram</Text>
+          }>Aram
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -148,9 +150,10 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <Text style={
             [styles.selectionSearch,
               { fontWeight: selectedOption === 'ALL' ? '500' : '200' },]
-          }>ALL</Text>
+          }>ALL
+          </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
       <View style={styles.divider}></View>
       {isLoading ? (
         <View style={styles.loadingContainer}>
@@ -165,6 +168,7 @@ export function Invocateur({ route }: { route: InvocRouteProps }) {
           <ScrollView>{renderGamesList(selectedOption)}</ScrollView>
         </View>
       )}
+      <View style={{marginBottom: 20}}></View>
     </View>
   );
 }
@@ -185,7 +189,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: 50,
-    backgroundColor: 'red',
   },
   textSelection: {
     color: theme.colors.white,
@@ -200,88 +203,86 @@ const styles = StyleSheet.create({
   marginBot: {
     height: 100,
   },
-    loadingContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    container: {
-      width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT,
-      backgroundColor: theme.colors.black,
-    },
-    sumNav: {
-      width: SCREEN_WIDTH,
-      height: 175,
-      zIndex: 10,
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: 20,
-      marginTop : 10,
-    },
-    sumIconAndLevel: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    sumIcon: {
-      width: 100,
-      height: 100,
-      borderRadius: 360,
-      marginRight: 10,
-    },
-    level: {
-      backgroundColor: theme.colors.black,
-      color: theme.colors.white,
-      fontSize: theme.fontSize.subTitleCard,
-      bottom: 10,
-    },
-    nameRegion: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      marginBottom: 30,
-    },
-    name: {
-      color: 'white',
-      fontSize: 26,
-      zIndex: 3,
-      textAlign: 'center',
-    },
-    region: {
-      color: 'white',
-      textAlign: 'center',
-    },
-    rankPosition: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    rankPicture: {
-      width: 400,
-      height: 400,
-      zIndex: 2,
-      right: 110,
-    },
-    position: {
-      color: 'white',
-      fontSize: 16,
-    },
-    divider: {
-      height: 2,
-      width: SCREEN_WIDTH,
-      backgroundColor: theme.colors.purplePrimary,
-      position: "absolute",
-      top: 245,
-    },
-    panelMatchHistory: {
-      backgroundColor: theme.colors.blackThree,
-      width: SCREEN_WIDTH,
-      height: SCREEN_HEIGHT - 250,
-      maxHeight: 'auto',
-    },
-  }
-);
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    backgroundColor: theme.colors.black,
+  },
+  sumNav: {
+    width: SCREEN_WIDTH,
+    height: 175,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    marginTop : 10,
+  },
+  sumIconAndLevel: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sumIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 360,
+    marginRight: 10,
+  },
+  level: {
+    backgroundColor: theme.colors.black,
+    color: theme.colors.white,
+    fontSize: theme.fontSize.subTitleCard,
+    bottom: 10,
+  },
+  nameRegion: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginBottom: 30,
+  },
+  name: {
+    color: 'white',
+    fontSize: 26,
+    zIndex: 3,
+    textAlign: 'center',
+  },
+  region: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  rankPosition: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rankPicture: {
+    width: 400,
+    height: 400,
+    //zIndex: 2,
+    right: 110,
+  },
+  position: {
+    color: 'white',
+    fontSize: 16,
+  },
+  divider: {
+    height: 2,
+    width: SCREEN_WIDTH,
+    backgroundColor: theme.colors.purplePrimary,
+    position: "absolute",
+    top: 245,
+  },
+  panelMatchHistory: {
+    backgroundColor: theme.colors.blackThree,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT - 250,
+    maxHeight: 'auto',
+  },
+});

@@ -14,7 +14,6 @@ export const getSummonerData = async (invocName: string | undefined) => {
       accountId: axiosResponse.data.accountId,
       id: axiosResponse.data.id,
     };
-    console.log(summoner);
     return summoner
   } catch (error) {
   }
@@ -28,7 +27,6 @@ export const getCompleteSummonerData = async (invocId: string | undefined) => {
      tier: summonerDetails.data[1].tier,
    };
    const imageRank = getRankImage({tier: summonerDetail.tier});
-   console.log(summonerDetail, imageRank);
    return { summonerDetail, imageRank};
  }catch (error) {
  }

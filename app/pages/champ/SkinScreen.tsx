@@ -49,9 +49,9 @@ export function SkinScreen() {
       <View style={styles.container}>
           <TouchableOpacity onPress={() => navigate()} style={styles.arrowBackButton}>
             <Svg
-              width={120}
-              height={120}
-              viewBox="0 0 50 50"
+              width={100}
+              height={100}
+              viewBox="0 0 60 60"
             >
               <Path d="M16 17L9 11.5L16 6" fill="#000"
                     stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

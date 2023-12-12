@@ -139,13 +139,15 @@ export function Search() {
                     <ResultSearchChamp championData={championDataList} />
                 )}
                 {invocData && activeOption === 'Players' && (
-                  <ResultSearchInvoc
-                    idInvoc={invocData?.idInvoc}
-                    name={invocData?.name}
-                    summonerLevel={invocData?.summonerLevel}
-                    profileIconId={invocData?.profileIconId}
-                  />
-                )}
+                  <>
+                    <ResultSearchInvoc
+                      idInvoc={invocData?.idInvoc}
+                      name={invocData?.name}
+                      summonerLevel={invocData?.summonerLevel}
+                      profileIconId={invocData?.profileIconId}
+                    />
+                  </>
+          )}
               </Animated.View>
           )}
         </View>
@@ -222,7 +224,6 @@ const styles = StyleSheet.create({
   },
   afterSearchContainer: {
     width: '100%',
-
   },
   beforeSearchContainer: {
     width: '100%',

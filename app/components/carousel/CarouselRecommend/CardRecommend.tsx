@@ -11,7 +11,6 @@ export type StackNavigationProps = NativeStackNavigationProp<StackParamList, 'Ac
 export function CardRecommend({titleCard, subTitleCard, pictureChamp, backPicture}: CardChampProps) {
 
   const navigation = useNavigation<StackNavigationProps>();
-  console.log({titleCard})
   const navigate = () => {
     navigation.navigate('Champion', {
       nom: titleCard,

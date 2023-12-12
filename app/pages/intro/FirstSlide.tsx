@@ -15,7 +15,6 @@ export function FirstSlide() {
             duration: 1000,
             useNativeDriver: true,
         }).start(() => {
-            console.log({navigation: navigation.getState()})
             navigation.navigate('SecondSlide');
         });
     };

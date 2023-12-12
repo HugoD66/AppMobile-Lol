@@ -8,7 +8,6 @@ export default function ThirdSlide() {
 
     const navigation = useNavigation<IntroStackNavigationProps>();
     const navigate = () => {
-        console.log({navigation: navigation.getState()})
         navigation.navigate('FourthSlide');
     };
 

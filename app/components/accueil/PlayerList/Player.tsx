@@ -7,7 +7,6 @@ export function Player() {
 
     const navigation = useNavigation<RootStackNavigationProps>();
     const navigate = () => {
-        console.log({navigation: navigation.getState()})
         navigation.navigate('Accueil');
     };
 

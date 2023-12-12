@@ -11,7 +11,6 @@ export function ResultSearchInvoc({ idInvoc, name, summonerLevel, profileIconId 
 
   const navigateInvoc = async () => {
     const invocateur = await getSummonerData(name);
-    console.log(invocateur);
     // @ts-ignore
     navigation.navigate('Invocateur', {
       invocateur: invocateur
