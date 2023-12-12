@@ -78,7 +78,7 @@ export function Register() {
             <Image style={styles.pictureLogo} source={require('../../../assets/intro/introLogo.png')} />
             <View style={styles.contentForm}>
               <View>
-                <Text style={styles.searchLabel}>Email</Text>
+                <Text style={styles.searchLabel}>Nom d'invocateur</Text>
                 <TextInput
                   style={styles.searchbar}
                   value={email}

@@ -1,4 +1,4 @@
- # Premier rendu Application Mobile
+ # Rendu final de l'Application Mobile League of Legend
  
  ## Présentation de l'application
 
@@ -8,6 +8,28 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
  - API utilisée : Lien [Riot Games](https://developer.riotgames.com/apis)
  - Exemple de fichier JSON traité : [Fichier](https://ddragon.leagueoflegends.com/cdn/13.22.1/data/en_US/champion/Aatrox.json)
 
+<b style="color: red;">Accés à l'API </b>: Contact  Hugo DESSAUW ou Dorian Albert pour obtenir la clé d'accès à l'API (valable 24H).
+
+
+ ### Guide de l'Utilisateur
+
+ #### Démarrage Rapide :
+
+ - Introduction : Parcourez les slides d'introduction.
+ - Inscription : Cliquez sur 'S'enregistrer' situé en haut de l'image.
+   - <b style="color: red;">Astuce</b> : Utilisez un nom d'invocateur existant (ex : Truffman) pour charger automatiquement vos informations.
+ - Connexion : Cliquez sur le logo violet en haut à gauche pour vous connecter. Employez les mêmes identifiants que pour l'inscription.
+
+#### Accéder à la Page d'Invocateur :
+
+ - Option 1 : Utilisez la fonction de recherche, accessible via la loupe à côté du nom d'invocateur.
+ - Option 2 : Après connexion, cliquez sur l'icône d'invocateur.
+
+#### Explorer les Informations sur les Champions :
+
+ - Option 1 : Recherchez via la page dédiée aux champions.
+ - Option 2 : Sélectionnez un champion directement depuis la page d'accueil.
+
  ## Présentation de l'application
 
  - Terminé : 
@@ -15,10 +37,10 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
    - Page d'Acceuil;
    - Page de champion, avec informations; 
    - Liste des Skins(visuels) disponible pour le champion séléctionné;
-   - Formulaire Login ( Image en haut à gauche sur la page d'accueil);
-   - Page de recherche de champion ( Loupe en haut au milieu sur la page d'accueil);
+   - Formulaire Login; 
+   - Page de recherche de champion;
    - Formulaire d'enregistrement;
-   - Recherche de champion et invocateur
+   - Recherche de champion et invocateur;
 
 ## 3éme partie : 
 
@@ -33,6 +55,5 @@ Application de recherche de champion et/ou d'invocateur sur le jeux League of Le
    - Mise en place d'un filtre triant les parties en fonction du mode de jeux
 <br><br>
  - A faire : 
-   - Correction BUG Boutons filtre des parties effectuées; 
    - Mise en favoris de champion (optionnel);
  
